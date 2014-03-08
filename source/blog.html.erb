@@ -1,0 +1,26 @@
+<% page_articles.each_with_index do |article, i| %>
+  <div class="post">
+    <h1 class="post-title"><%= link_to article.title, article %></h1>
+
+    <span class='post-date'><%= article.date.strftime('%b %e') %></span>
+
+    <%= article.body %>
+  </div>
+<% end %>
+
+<% if paginate %>
+  <div class='pagination'>
+    <!-- Page <%= page_number %> of <%= num_pages %>-->
+    <% if next_page %>
+      <%= link_to 'Older', next_page, class: "pagination-item older" %>
+    <% else %>
+      <span class="pagination-item older">Older</span>
+    <% end %>
+
+    <% if prev_page %>
+      <%= link_to 'Newer', prev_page, class: "pagination-item newer" %>
+    <% else %>
+      <span class="pagination-item newer">Newer</span>
+    <% end %>
+  </div>
+<% end %>

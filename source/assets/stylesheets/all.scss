@@ -1,0 +1,39 @@
+@import 'poole';
+@import 'hyde';
+
+.evs-green {
+  .sidebar {
+    background-color: #4FB34F;
+  }
+  .content a, .related-posts li a:hover {
+    color: #4FB34F;
+  }
+}
+
+.avatar {
+  display: block;
+  margin: 2em;
+  border-width: 0.2em;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-radius: 1em;
+  box-shadow: 0px 0px 0.2em 0 #000;
+  position: relative;
+  left: 36px;
+  width: 5.875em;
+  height: 5.875em;
+}
+
+
+/* entypo */
+[class*="entypo-"] {
+  &:before {
+    font-family: 'entypo', sans-serif;
+    font-size: 24px;
+    padding: 8px;
+
+//    &:hover {
+//      text-decoration: none;
+//    }
+  }
+}
