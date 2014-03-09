@@ -37,4 +37,7 @@ task :article do
 
   # then open that file in $EDITOR
   system("#{ENV['EDITOR']} #{latest_post}")
+
+  system("git add #{latest_post}")
+  system("git commit -m 'New Post: #{title_string}'")
 end
