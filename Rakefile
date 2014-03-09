@@ -24,6 +24,11 @@ task :article do
 
   # Now, fill in ARGV so Thor (which Middleman uses) can do it's job
   title_string = ARGV.join(' ')
+  if title_string =~ /^[:space:]*$/
+    puts "ERROR: You need to pass a title!"
+    puts "Usage: rake article TITLE"
+    next
+  end
   ARGV.clear
   ARGV << "article"
   ARGV << title_string
