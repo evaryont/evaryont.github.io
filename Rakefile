@@ -47,7 +47,11 @@ task :article do
   system("git commit -m 'New Post: #{title_string}'")
 end
 
-desc "Upload the website to my server"
-task :deploy => [:build, :publish] do
-  sh "rsync -Cav --delete --delete-excluded --filter=':- .gitignore' build/ colin@delphox.evaryont.me:/home/colin/website"
+task :rsync do
+  sh "rsync -Cav --delete --delete-excluded build/ colin@delphox.evaryont.me:/home/colin/website"
 end
+
+desc "Upload the website to my server"
+task :deploy => [:build, :publish, :rsync]
+
+task :default => :build
