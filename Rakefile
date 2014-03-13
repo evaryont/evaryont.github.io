@@ -48,8 +48,9 @@ task :article do
   system("git commit -m 'New Post: #{title_string}'")
 end
 
-task :rsync do
-  sh "rsync -Cav --delete --delete-excluded build/ colin@delphox.evaryont.me:/home/colin/website"
+task :dirty_git do
+  # Throw an error if we don't have a clean git checkout
+  fail "Directory not clean" unless (`git diff --shortstat 2> /dev/null`.split('\n')[-1].strip == "")
 end
 
 desc "Build the middleman site"
@@ -64,7 +65,7 @@ task :deploy => ["deploy:delphox", "deploy:github"]
 namespace :deploy do
   def deploy(env)
     desc "Deploy the website to #{env}"
-    task env => :build do
+    task env => [:dirty_git, :build] do
       cd @project_root
       puts "Deploying to #{env}"
       sh "TARGET=#{env} bundle exec middleman deploy"
