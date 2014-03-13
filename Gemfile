@@ -9,4 +9,4 @@ gem "middleman-blog", "~> 3.5.2"
 gem "builder", "~> 3.0"
 
 gem 'middleman-livereload'
-gem "middleman-gh-pages"
+gem 'middleman-deploy'
