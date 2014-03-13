@@ -1,8 +1,9 @@
 require 'bundler/setup'
-require 'middleman-gh-pages'
 
 require "middleman-core/load_paths"
 Middleman.setup_load_paths
+
+@project_root = File.expand_path('..', __FILE__)
 
 desc "Create a new blog post"
 # Sorta black magic for this task. But makes it easy to write an article title!
@@ -51,7 +52,27 @@ task :rsync do
   sh "rsync -Cav --delete --delete-excluded build/ colin@delphox.evaryont.me:/home/colin/website"
 end
 
+desc "Build the middleman site"
+task :build do
+  cd File.expand_path('..', __FILE__)
+  sh "bundle exec middleman build --clean"
+end
+
 desc "Upload the website to my server"
 task :deploy => [:build, :publish, :rsync]
 
 task :default => :build
+
+namespace :tvgh do
+  def deploy(env)
+    desc "Deploy the website to #{env}"
+    task env => :build do
+      cd @project_root
+      puts "Deploying to #{env}"
+      sh "TARGET=#{env} bundle exec middleman deploy"
+    end
+  end
+
+  deploy :delphox
+  deploy :github
+end
