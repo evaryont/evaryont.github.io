@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- OpenID delegation, using MyOpenID -->
+<link rel="openid.server" href="https://www.myopenid.com/server" />
+<link rel="openid.delegate" href="https://evaryont.myopenid.com/" />
+<link rel="openid2.local_id" href="https://evaryont.myopenid.com" />
+<link rel="openid2.provider" href="https://www.myopenid.com/server" />
+<meta http-equiv="X-XRDS-Location" content="https://evaryont.myopenid.com/xrds" />
+
+<!-- RSS/Atom feeds for my blog, better than nothing I guess -->
+<link rel="alternate" type="application/rss+xml" title="Blog feed" href="https://evaryont.wordpress.com/feed/" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
+<style type="text/css">
+
+html { height: 100%; margin: 0; }
+body {
+  background-color: #4FB34F;
+  background-image: radial-gradient(circle closest-corner at center, #4FB34F 0%, #497049 100%);
+  height: 100%;
+  font-size: 32px;
+  margin: 0;
+}
+
+/* The .block & .centered copied from
+http://css-tricks.com/centering-in-the-unknown/, thanks Chris! */
+
+/* This parent can be any width and height */
+.block {
+  text-align: center;
+  height: 100%;
+}
+
+/* The ghost, nudged to maintain perfect centering */
+.block:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  //margin-right: -0.25em; /* Adjusts for spacing */
+}
+
+/* The element to be centered, can
+   also be of any width and height */
+.centered {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  top: -1em;
+}
+
+.avatar {
+  display: block;
+  margin: 2em;
+  border-width: 0.2em;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-radius: 1em;
+  box-shadow: 0px 0px 0.2em 0 #000;
+  position: relative;
+  left: 36px;
+  width: 5.875em;
+  height: 5.875em;
+}
+
+a {
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
+
+a:link, a:visited, a:active, a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  vertical-align: middle;
+}
+
+.inactive {
+  opacity: 0.6;
+}
+a.inactive:hover {
+  text-decoration: none !important;
+}
+
+/* entypo */
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+  font-size: 24px;
+  padding: 8px;
+}
+
+[class*="entypo-"]:hover:before {
+  text-decoration: none;
+}
+
+.entypo-github:hover:before {
+  text-decoration: none;
+}
+
+.nav {
+  display: block;
+  position: relative;
+  left: -36px;
+}
+
+/*
+  Most American smart phones fall within this range, while avoiding desktops &
+  tablets
+*/
+@media screen
+       and ( min-width: 320px )
+       and ( max-width: 640px )
+       and ( orientation: portrait )
+{
+  body {
+    height: 0;
+    max-height: 0;
+  }
+
+  /* Put each navigation link onto it's own line, then nudge it around a bit so
+  that it's better centered. Sizes developed on a Galaxy Nexus. */
+  .nav a {
+    display: block;
+    position: relative;
+    right: -0.8em;
+  }
+
+  .nav a:first-child {
+    padding-bottom: 0.5em;
+    padding-top: 0;
+  }
+
+  .nav a {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+  }
+
+  .nav a:last-child {
+    padding-top: 0.5em;
+    padding-bottom: 0;
+  }
+
+  .avatar {
+    /* Move it a little closer to the top-left */
+    margin-left: -0.1em;
+    margin-top: 1em;
+    /* Reduce the size of the image somewhat */
+    width: 5em;
+    height: 5em;
+  }
+
+}
+
+/*
+  Smart phones in landscape orientation don't need much work, just budge the
+  avatar up a bit and everything is dandy
+*/
+@media screen
+       and ( min-width: 320px )
+       and ( max-width: 640px )
+       and ( orientation: landscape )
+{
+
+  .avatar {
+    /* Move it closer to the top, pulling up the navigation links */
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    /* Reduce the size of the image somewhat */
+    width: 5em;
+    height: 5em;
+    padding: 0;
+  }
+
+  /* Is it just me, or does anyone else hate it when browsers scroll when there
+  is no further content? It's always due to some box or another being a bit
+  taller than it should be. */
+  html {
+    /* This approach to fixing the issue, however, is a bit heavy-handed so I
+    don't really recommend it unless your site is incredibly basic, like
+    mine. */
+    height: 85%;
+  }
+}
+
+</style>
+<title>Evaryont.me</title>
+</head>
+<body>
+<div class='block'>
+  <p class='centered'>
+    <img class='avatar' alt='My avatar' title='My avatar' src="https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256" />
+    <span class='nav'>
+      <a class='entypo-github' href="https://github.com/evaryont">Github</a>
+      <a class='entypo-book' href="/blog.html">Blog</a>
+      <a class='entypo-twitter' href="https://twitter.com/evaryont">Twitter</a>
+    </span>
+  </p>
+</div>
+</body>
+</html>
