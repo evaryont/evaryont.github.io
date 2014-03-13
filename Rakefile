@@ -49,5 +49,5 @@ end
 
 desc "Upload the website to my server"
 task :deploy => [:build, :publish] do
-  sh "rsync -av --delete build/ colin@delphox.evaryont.me:/home/colin/website"
+  sh "rsync -Cav --delete --delete-excluded --filter=':- .gitignore' build/ colin@delphox.evaryont.me:/home/colin/website"
 end
