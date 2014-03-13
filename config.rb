@@ -43,3 +43,22 @@ configure :build do
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
 end
+
+case ENV['TARGET'].to_s.downcase
+when 'delphox'
+  activate :deploy do |deploy|
+    deploy.method = :rsync
+    deploy.host   = "delphox.evaryont.me"
+    deploy.user   = 'colin'
+    #deploy.port  = 22
+    deploy.path   = "/home/colin/website"
+    deploy.flags  = "-Cav --delete --delete-excluded"
+    deploy.clean  = true
+  end
+else
+  activate :deploy do |deploy|
+    deploy.method = :git
+    deploy.remote = "origin"
+    deploy.branch = "master"
+  end
+end
