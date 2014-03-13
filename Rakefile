@@ -58,12 +58,10 @@ task :build do
   sh "bundle exec middleman build --clean"
 end
 
-desc "Upload the website to my server"
-task :deploy => [:build, :publish, :rsync]
+desc "Build and upload my website to everywhere"
+task :deploy => ["deploy:delphox", "deploy:github"]
 
-task :default => :build
-
-namespace :tvgh do
+namespace :deploy do
   def deploy(env)
     desc "Deploy the website to #{env}"
     task env => :build do
@@ -75,4 +73,8 @@ namespace :tvgh do
 
   deploy :delphox
   deploy :github
+end
+
+task :default do
+  sh "bundle exec middleman server"
 end
