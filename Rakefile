@@ -46,3 +46,8 @@ task :article do
   system("git add #{latest_post}")
   system("git commit -m 'New Post: #{title_string}'")
 end
+
+desc "Upload the website to my server"
+task :deploy => [:build, :publish] do
+  sh "rsync -av --delete build/ colin@delphox.evaryont.me:/home/colin/website"
+end
