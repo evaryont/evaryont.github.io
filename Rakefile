@@ -50,7 +50,7 @@ end
 
 task :dirty_git do
   # Throw an error if we don't have a clean git checkout
-  fail "Directory not clean" unless (`git diff --shortstat 2> /dev/null`.split('\n')[-1].strip == "")
+  fail "Directory not clean" unless (`git diff --shortstat 2> /dev/null`.split('\n')[-1].nil?)
 end
 
 desc "Build the middleman site"
