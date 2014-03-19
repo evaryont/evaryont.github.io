@@ -14,6 +14,8 @@ activate :blog do |blog|
   blog.page_link = "page/{num}"
 
   blog.layout = "default"
+  
+  blog.new_article_template = "article.tt"
 end
 
 page "/feed.xml",   layout: false
