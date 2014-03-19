@@ -13,7 +13,7 @@ activate :blog do |blog|
   blog.per_page = 12
   blog.page_link = "page/{num}"
 
-  blog.layout = "default"
+  blog.layout = "blog_post"
   
   blog.new_article_template = "article.tt"
 end
