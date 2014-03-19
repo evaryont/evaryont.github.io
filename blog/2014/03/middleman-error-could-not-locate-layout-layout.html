@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <title>Evaryont's Blog - Hello World!</title>
+    <title>Evaryont's Blog - Middleman: Error: Could not locate layout: layout</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/assets/stylesheets/all-92ca5d05.css" media="screen" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
@@ -35,7 +35,11 @@
           Recent Posts:
           
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <a href="/2014/03/hello-world.html">Hello World!</a>
+              <a href="/blog/2014/03/middleman-error-could-not-locate-layout-layout.html">Middleman: Error: Could not locate layout: layout</a>
+            </li>
+          
+            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
+              <a href="/blog/2014/03/hello-world.html">Hello World!</a>
             </li>
           
 
@@ -54,8 +58,27 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-      <p>This is the first post of what I hope to be 'many'. What does that actually
-mean? Dunno. Current goal is at least once a month, anyways.</p>
+      <p>Just a quick note. If you're getting the above as an error in your middleman
+site, however it's only on articles from the blogging extension for Middleman,
+you may need to update your <code>config.rb</code>.</p>
+
+<p>If you specify a new name for the default layout in your config:</p>
+
+<p><code>ruby
+set :layout, 'default'
+</code></p>
+
+<p>Middleman will look for the layout called 'default' for each of your pages.
+However, the blogging extension has it's own override in that you'll have to
+specify in the activate block:</p>
+
+<p><code>ruby
+activate :blog do |blog|
+  blog.layout = "default"
+end
+</code></p>
+
+<p>That way the blogging extension doesn't use it's default layout name.</p>
 
     </div>
     
