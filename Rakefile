@@ -56,7 +56,13 @@ end
 desc "Build the middleman site"
 task :build do
   cd File.expand_path('..', __FILE__)
-  sh "bundle exec middleman build --clean"
+  sh "bundle exec middleman build --clean --verbose"
+end
+
+desc "Run the middleman preview server"
+task :server do
+  cd File.expand_path('..', __FILE__)
+  sh "bundle exec middleman server"
 end
 
 desc "Build and upload my website to everywhere"
