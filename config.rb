@@ -39,6 +39,13 @@ activate :asset_hash
 set :layout, 'default'
 #page "/blog/*", layout: 'post'
 
+activate :syntax#, :line_numbers => true
+
+# Use Kramdown for parsing Markdown. Midleman-Syntax includes support!
+#set :markdown_engine, :kramdown
+set :markdown_engine, :redcarpet
+set :markdown, :fenced_code_blocks => true, :smartypants => true
+
 # Build-specific configuration
 configure :build do
   if ENV['TARGET'] # Building when we are deploying...

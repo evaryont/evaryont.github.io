@@ -1,0 +1,23 @@
+<%# Have Rouge dump a style to CSS %>
+<%= Rouge::Themes::Github.render(:scope => '.highlight') %>
+
+.highlight table pre {
+  padding: 0px;
+}
+
+pre.highlight, .highlight table pre {
+  word-break: none;
+  word-wrap: pre;
+  white-space: pre;
+  overflow: auto;
+}
+
+/* I want to expand the code blocks when they're hovered, but the layout
+   doesn't work with that. Investigate later?
+
+pre.highlight:hover, .highlight table pre:hover {
+  width: 150%;
+  transition: width .5s ease;
+  -webkit-transition: width .5s ease;
+}
+*/

@@ -6,6 +6,7 @@
     <title>Evaryont's Blog<%= ' - ' + current_article.title unless current_article.nil? %></title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
     <%= stylesheet_link_tag "all" %>
+    <%= stylesheet_link_tag "syntax" %>
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
   </head>
 
