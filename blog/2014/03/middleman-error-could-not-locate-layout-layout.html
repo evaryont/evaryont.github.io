@@ -6,6 +6,7 @@
     <title>Evaryont's Blog - Middleman: Error: Could not locate layout: layout</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/assets/stylesheets/all-92ca5d05.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/assets/stylesheets/syntax-f604afaa.css" media="screen" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
   </head>
 
@@ -33,6 +34,10 @@
 
           <p></p>
           Recent Posts:
+          
+            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
+              <a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a>
+            </li>
           
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/03/middleman-error-could-not-locate-layout-layout.html">Middleman: Error: Could not locate layout: layout</a>
@@ -64,27 +69,23 @@
 
   <span class='post-date'>Mar 18</span>
 
-  <p>Just a quick note. If you're getting the above as an error in your middleman
-site, however it's only on articles from the blogging extension for Middleman,
+  <p>Just a quick note. If you&rsquo;re getting the above as an error in your middleman
+site, however it&rsquo;s only on articles from the blogging extension for Middleman,
 you may need to update your <code>config.rb</code>.</p>
 
 <p>If you specify a new name for the default layout in your config:</p>
+<pre class="highlight ruby"><span class="n">set</span> <span class="ss">:layout</span><span class="p">,</span> <span class="s1">'default'</span>
+</pre>
 
-<p><code>ruby
-set :layout, 'default'
-</code></p>
-
-<p>Middleman will look for the layout called 'default' for each of your pages.
-However, the blogging extension has it's own override in that you'll have to
+<p>Middleman will look for the layout called &lsquo;default&rsquo; for each of your pages.
+However, the blogging extension has it&rsquo;s own override in that you&rsquo;ll have to
 specify in the activate block:</p>
+<pre class="highlight ruby"><span class="n">activate</span> <span class="ss">:blog</span> <span class="k">do</span> <span class="o">|</span><span class="n">blog</span><span class="o">|</span>
+  <span class="n">blog</span><span class="p">.</span><span class="nf">layout</span> <span class="o">=</span> <span class="s2">"default"</span>
+<span class="k">end</span>
+</pre>
 
-<p><code>ruby
-activate :blog do |blog|
-  blog.layout = "default"
-end
-</code></p>
-
-<p>That way the blogging extension doesn't use it's default layout name.</p>
+<p>That way the blogging extension doesn&rsquo;t use it&rsquo;s default layout name.</p>
 
 </div>
 

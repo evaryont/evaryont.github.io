@@ -5,10 +5,51 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2014-03-19T01:39:00Z</updated>
+  <updated>2014-04-12T06:55:00Z</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Fixing Fakeweb &amp; Coveralls conflict</title>
+    <link rel="alternate" href="http://blog.url.com/blog/2014/04/fixing-fakeweb-coveralls-conflict.html"/>
+    <id>http://blog.url.com/blog/2014/04/fixing-fakeweb-coveralls-conflict.html</id>
+    <published>2014-04-12T06:55:00Z</published>
+    <updated>2014-04-12T00:01:22-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;Simple post. If you&amp;rsquo;ve started using Fakeweb to mock HTTP requests but at the
+same time you have stopped getting coverage reports from Coveralls, you may have
+inadvertently blocked the coveralls client from reporting.&lt;/p&gt;
+
+&lt;p&gt;If you look at the results from your CI, like Travis, you&amp;rsquo;ll probably see the
+following:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;[Coveralls] Submitting to https://coveralls.io/api/v1
+Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
+Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:176:in `block in transmit'
+/home/travis/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/net/http.rb:852:in `start'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:172:in `transmit'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:64:in `execute'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:33:in `execute'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient.rb:72:in `post'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/api.rb:18:in `post_json'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/simplecov.rb:72:in `format'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/result.rb:46:in `format!'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
+/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &amp;lt;top (required)&amp;gt;''`
+&lt;/pre&gt;
+
+&lt;p&gt;The fix is really simple. You need to tell Fakeweb to allow requests to
+coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
+connections:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;span class="c1"&gt;# in your spec_helper.rb&lt;/span&gt;
+&lt;span class="no"&gt;FakeWeb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;allow_net_connect&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sr"&gt;%r[^https?://coveralls.io]&lt;/span&gt;
+&lt;/pre&gt;
+</content>
+  </entry>
   <entry>
     <title>Middleman: Error: Could not locate layout: layout</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/03/middleman-error-could-not-locate-layout-layout.html"/>
@@ -18,27 +59,23 @@
     <author>
       <name>Article Author</name>
     </author>
-    <content type="html">&lt;p&gt;Just a quick note. If you're getting the above as an error in your middleman
-site, however it's only on articles from the blogging extension for Middleman,
+    <content type="html">&lt;p&gt;Just a quick note. If you&amp;rsquo;re getting the above as an error in your middleman
+site, however it&amp;rsquo;s only on articles from the blogging extension for Middleman,
 you may need to update your &lt;code&gt;config.rb&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you specify a new name for the default layout in your config:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="ss"&gt;:layout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'default'&lt;/span&gt;
+&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;ruby
-set :layout, 'default'
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Middleman will look for the layout called 'default' for each of your pages.
-However, the blogging extension has it's own override in that you'll have to
+&lt;p&gt;Middleman will look for the layout called &amp;lsquo;default&amp;rsquo; for each of your pages.
+However, the blogging extension has it&amp;rsquo;s own override in that you&amp;rsquo;ll have to
 specify in the activate block:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;activate&lt;/span&gt; &lt;span class="ss"&gt;:blog&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+  &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;layout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"default"&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/pre&gt;
 
-&lt;p&gt;&lt;code&gt;ruby
-activate :blog do |blog|
-  blog.layout = "default"
-end
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;That way the blogging extension doesn't use it's default layout name.&lt;/p&gt;
+&lt;p&gt;That way the blogging extension doesn&amp;rsquo;t use it&amp;rsquo;s default layout name.&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -50,7 +87,7 @@ end
     <author>
       <name>Article Author</name>
     </author>
-    <content type="html">&lt;p&gt;This is the first post of what I hope to be 'many'. What does that actually
+    <content type="html">&lt;p&gt;This is the first post of what I hope to be &amp;lsquo;many&amp;rsquo;. What does that actually
 mean? Dunno. Current goal is at least once a month, anyways.&lt;/p&gt;
 </content>
   </entry>
