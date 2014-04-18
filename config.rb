@@ -7,10 +7,13 @@ activate :blog do |blog|
   blog.sources = "posts/:title"
 
   blog.permalink = "blog/{year}/{month}/{title}"
+  blog.day_link = "blog/{year}/{month}/{day}.html"
+  blog.month_link = "blog/{year}/{month}.html"
+  blog.year_link = "blog/{year}.html"
 
   # Enable pagination
   blog.paginate = true
-  blog.per_page = 12
+  blog.per_page = 10
   blog.page_link = "page/{num}"
 
   blog.layout = "blog_post"
