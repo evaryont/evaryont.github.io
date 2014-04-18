@@ -36,6 +36,10 @@
           Recent Posts:
           
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
+              <a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a>
+            </li>
+          
+            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a>
             </li>
           
@@ -63,7 +67,37 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-        <!-- this is a blog post for Fixing Fakeweb & Coveralls conflict -->
+        <!-- this is a blog post for More about EC2 and NTP -->
+<div class="post">
+  <h1 class="post-title"><a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a></h1>
+
+  <span class='post-date'>Apr 18</span>
+
+  <p>There is a lot of back and forth about using NTP on Amazon&rsquo;s EC2 servers. Here
+are some links:</p>
+
+<ul>
+<li>http://serverfault.com/questions/100978/do-i-need-to-run-ntpd-in-my-ec2-instance</li>
+<li>http://www.metamul.com/blog/ntp-isnt-required-under-ec2-or-is-it/</li>
+<li>http://stackoverflow.com/questions/14623650/how-to-deal-with-the-amazon-ec2s-clock-drift</li>
+<li>http://james.lab6.com/2011/03/19/clock-drift-on-amazon-ec2/</li>
+<li>http://docs.basho.com/riak/latest/ops/tuning/aws/#Operating-System</li>
+<li>https://forums.aws.amazon.com/thread.jspa?messageID=364758</li>
+<li>http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html</li>
+</ul>
+
+<p>A summary then:</p>
+
+<p>Yeah, run NTP. It&rsquo;ll work 80% of the time. It won&rsquo;t work on some other EC2
+servers (based on the instance size) but won&rsquo;t error out, a harmless no-op.
+There is has been reported cases of NTP failing &amp; erroring out when attempting
+to set the time, but that also seems like a case of outdated kernels (either in
+the Xen domU or on the guest) so update your VM and terminate/cycle it to
+hopefully move it do a newer host server.</p>
+
+</div>
+
+  <!-- this is a blog post for Fixing Fakeweb & Coveralls conflict -->
 <div class="post">
   <h1 class="post-title"><a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a></h1>
 

@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <title>Evaryont's Blog - Fixing Fakeweb & Coveralls conflict</title>
+    <title>Evaryont's Blog - More about EC2 and NTP</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/assets/stylesheets/all-92ca5d05.css" media="screen" rel="stylesheet" type="text/css" />
     <link href="/assets/stylesheets/syntax-f604afaa.css" media="screen" rel="stylesheet" type="text/css" />
@@ -67,42 +67,33 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-        <!-- this is a blog post for Fixing Fakeweb & Coveralls conflict -->
+        <!-- this is a blog post for More about EC2 and NTP -->
 <div class="post">
-  <h1 class="post-title"><a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a></h1>
+  <h1 class="post-title"><a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a></h1>
 
-  <span class='post-date'>Apr 11</span>
+  <span class='post-date'>Apr 18</span>
 
-  <p>Simple post. If you&rsquo;ve started using Fakeweb to mock HTTP requests but at the
-same time you have stopped getting coverage reports from Coveralls, you may have
-inadvertently blocked the coveralls client from reporting.</p>
+  <p>There is a lot of back and forth about using NTP on Amazon&rsquo;s EC2 servers. Here
+are some links:</p>
 
-<p>If you look at the results from your CI, like Travis, you&rsquo;ll probably see the
-following:</p>
-<pre class="highlight plaintext">[Coveralls] Submitting to https://coveralls.io/api/v1
-Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
-Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:176:in `block in transmit'
-/home/travis/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/net/http.rb:852:in `start'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:172:in `transmit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:64:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:33:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient.rb:72:in `post'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/api.rb:18:in `post_json'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/simplecov.rb:72:in `format'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/result.rb:46:in `format!'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &lt;top (required)&gt;''`
-</pre>
+<ul>
+<li>http://serverfault.com/questions/100978/do-i-need-to-run-ntpd-in-my-ec2-instance</li>
+<li>http://www.metamul.com/blog/ntp-isnt-required-under-ec2-or-is-it/</li>
+<li>http://stackoverflow.com/questions/14623650/how-to-deal-with-the-amazon-ec2s-clock-drift</li>
+<li>http://james.lab6.com/2011/03/19/clock-drift-on-amazon-ec2/</li>
+<li>http://docs.basho.com/riak/latest/ops/tuning/aws/#Operating-System</li>
+<li>https://forums.aws.amazon.com/thread.jspa?messageID=364758</li>
+<li>http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html</li>
+</ul>
 
-<p>The fix is really simple. You need to tell Fakeweb to allow requests to
-coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
-connections:</p>
-<pre class="highlight ruby"><span class="c1"># in your spec_helper.rb</span>
-<span class="no">FakeWeb</span><span class="p">.</span><span class="nf">allow_net_connect</span> <span class="o">=</span> <span class="sr">%r[^https?://coveralls.io]</span>
-</pre>
+<p>A summary then:</p>
+
+<p>Yeah, run NTP. It&rsquo;ll work 80% of the time. It won&rsquo;t work on some other EC2
+servers (based on the instance size) but won&rsquo;t error out, a harmless no-op.
+There is has been reported cases of NTP failing &amp; erroring out when attempting
+to set the time, but that also seems like a case of outdated kernels (either in
+the Xen domU or on the guest) so update your VM and terminate/cycle it to
+hopefully move it do a newer host server.</p>
 
 </div>
 
