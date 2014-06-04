@@ -36,6 +36,10 @@
           Recent Posts:
           
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
+              <a href="/blog/2014/06/reset-erchef-admin-password.html">Reset erchef admin password</a>
+            </li>
+          
+            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a>
             </li>
           
@@ -45,10 +49,6 @@
           
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/03/middleman-error-could-not-locate-layout-layout.html">Middleman: Error: Could not locate layout: layout</a>
-            </li>
-          
-            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <a href="/blog/2014/03/hello-world.html">Hello World!</a>
             </li>
           
 
@@ -67,7 +67,26 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-        <!-- this is a blog post for More about EC2 and NTP -->
+        <!-- this is a blog post for Reset erchef admin password -->
+<div class="post">
+  <h1 class="post-title"><a href="/blog/2014/06/reset-erchef-admin-password.html">Reset erchef admin password</a></h1>
+
+  <span class='post-date'>Jun  4</span>
+
+  <p>A quick note:</p>
+<pre class="highlight plaintext">sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
+</pre>
+
+<p>Where <code>reset.sql</code> contains the following:</p>
+<pre class="highlight plaintext">update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
+</pre>
+
+<p>Now you can log in to the chef server admin page with the user name &lsquo;admin&rsquo; and
+password &lsquo;password&rsquo;.</p>
+
+</div>
+
+  <!-- this is a blog post for More about EC2 and NTP -->
 <div class="post">
   <h1 class="post-title"><a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a></h1>
 

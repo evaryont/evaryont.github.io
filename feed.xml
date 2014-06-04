@@ -5,10 +5,31 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2014-04-18T20:43:00Z</updated>
+  <updated>2014-06-04T22:08:00Z</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Reset erchef admin password</title>
+    <link rel="alternate" href="http://blog.url.com/blog/2014/06/reset-erchef-admin-password.html"/>
+    <id>http://blog.url.com/blog/2014/06/reset-erchef-admin-password.html</id>
+    <published>2014-06-04T22:08:00Z</published>
+    <updated>2014-06-04T15:09:51-07:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;A quick note:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
+&lt;/pre&gt;
+
+&lt;p&gt;Where &lt;code&gt;reset.sql&lt;/code&gt; contains the following:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
+&lt;/pre&gt;
+
+&lt;p&gt;Now you can log in to the chef server admin page with the user name &amp;lsquo;admin&amp;rsquo; and
+password &amp;lsquo;password&amp;rsquo;.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>More about EC2 and NTP</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/04/more-about-ec2-and-ntp.html"/>
