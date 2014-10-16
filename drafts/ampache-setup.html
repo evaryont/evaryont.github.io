@@ -67,20 +67,33 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-      <h1>Archive for
-  
-    Apr 11 2014
-  
-</h1>
-
+      <p>So I&rsquo;m setting up <a href="http://ampache.org/">ampache 3.7.0</a> on a local server, and
+here are some tips I&rsquo;ve found useful:</p>
 
 <ul>
-  
-    <li><a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a> <span>Apr 11</span></li>
-  
+<li>There are a bunch of useful <a href="https://github.com/ampache/ampache/wiki/CLI">CLI tools</a>
+shipped with the source. Use them! Like <code>bin/install/add_user.inc</code>.</li>
+<li><p>The debugging log is very handy, and details a lot if internal information.
+Wondering why that flac doesn&rsquo;t play? Look there. Here are my settings: (from
+config/ampache.cfg.php)</p>
+
+<p>debug = true
+  debug<em>level = 5
+  log</em>path = &ldquo;/srv/ampache/logs&rdquo;
+  log_filename = &ldquo;%name.%Y%m%d.log&rdquo;</p></li>
 </ul>
 
-  
+<p>Though granted, it doesn&rsquo;t do the best log rotation. You&rsquo;ll need to clean out
+  old log files.</p>
+
+<p>Speaking of FLAC playing, the HTML5 player that Ampache ships with is
+<a href="http://jplayer.org/">jPlayer</a>. Which doesn&rsquo;t support FLAC. So let&rsquo;s enable
+transcoding it to OGG:</p>
+<pre class="highlight plaintext">transcode_flac = required
+encode_target_flac = ogg
+transcode_cmd = "ffmpg -i %FILE%"
+encode_args_ogg = "-vn -b:a %SAMPLE%K -c:a libvorbis -f ogg pipe:1"
+</pre>
 
     </div>
     
