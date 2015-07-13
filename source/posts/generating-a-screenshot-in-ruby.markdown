@@ -82,3 +82,9 @@ browser.goto("https://google.com")
 
 browser.screenshot.save 'google.com.png'
 ```
+
+Thanks to these other blogs:
+
+- http://blog.vbalazs.me/2014/08/my-adventures-with-tracking-down-a-database-leak.html
+- http://stackoverflow.com/a/17687452
+- http://yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/#phantomjs
