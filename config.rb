@@ -68,6 +68,16 @@ when 'delphox'
     deploy.flags  = "-Cav --delete --delete-excluded"
     deploy.clean  = true
   end
+when 'jupiter'
+  activate :deploy do |deploy|
+    deploy.method = :rsync
+    deploy.host   = "jupiter.evaryont.me"
+    deploy.user   = 'colin'
+    #deploy.port  = 22
+    deploy.path   = "/home/colin/website"
+    deploy.flags  = "-Cav --delete --delete-excluded"
+    deploy.clean  = true
+  end
 else
   activate :deploy do |deploy|
     deploy.method = :git

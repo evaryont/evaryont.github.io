@@ -66,7 +66,7 @@ task :server do
 end
 
 desc "Build and upload my website to everywhere"
-task :deploy => ["deploy:delphox", "deploy:github", "deploy:git_push"]
+task :deploy => ["deploy:jupiter", "deploy:github", "deploy:git_push"]
 
 namespace :deploy do
   def deploy(env)
@@ -79,6 +79,7 @@ namespace :deploy do
   end
 
   deploy :delphox
+  deploy :jupiter
   deploy :github
 
   task :git_push => [:dirty_git] do
