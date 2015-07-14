@@ -5,7 +5,7 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2014-10-16T00:17:00Z</updated>
+  <updated>2014-10-16T00:17:00+00:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
@@ -13,8 +13,8 @@
     <title>Generating a webpage screenshot in ruby</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/10/generating-a-screenshot-in-ruby.html"/>
     <id>http://blog.url.com/blog/2014/10/generating-a-screenshot-in-ruby.html</id>
-    <published>2014-10-16T00:17:00Z</published>
-    <updated>2014-10-15T17:34:42-07:00</updated>
+    <published>2014-10-16T00:17:00+00:00</published>
+    <updated>2015-07-08T20:28:38+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -27,23 +27,23 @@ headless, so we&amp;rsquo;ll go with PhantomJS. Make sure it&amp;rsquo;s install
 &lt;p&gt;Then, we need a way to control PhantomJS, and I&amp;rsquo;m a fan of Watir so we&amp;rsquo;ll use
 that. To connect to PhantomJS, you also need the selenium webdriver gem. So your
 gemfile would look like:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;'watir'&lt;/span&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;'watir'&lt;/span&gt;
 &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;'watir-webdriver'&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Then let&amp;rsquo;s write the code to actually take the screenshot:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;goto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://google.com"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt; &lt;span class="s1"&gt;'google.com.png'&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;However, if you try to run it, the result isn&amp;rsquo;t what you&amp;rsquo;d expect from Google.
 It has the old black navigation bar at the top. As it turns out, Google does UA
 sniffing, so let&amp;rsquo;s pretend to be Firefox instead:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:desired_capabilities&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;capabilities&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;So that should work for everything and every body now, right? Nope!&lt;/p&gt;
 
@@ -53,27 +53,27 @@ transparent image as the screenshot. (Cause hey, &lt;code&gt;about:blank&lt;/cod
 blank!) You can set the command line parameter &lt;code&gt;--ignore-ssl-errors=true&lt;/code&gt; to
 fix that. You can pass CLI parameters in via a capability. So modifying the
 previous code&amp;hellip;&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                                                                   &lt;span class="s1"&gt;'phantomjs.cli.args'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'--ignore-ssl-errors=true'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                                                   &lt;span class="s1"&gt;'phantomjs.cli.args'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'--ignore-ssl-errors=true'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now personally, I think the default resolution (400x300) of PhantomJS is a
 little small. I personally like the screenshot to be a bit bigger, so let&amp;rsquo;s
 expand it:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;dimensions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Dimension&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;dimensions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Dimension&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dimensions&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;There you go! A side note, the dimensions just set the size of the viewport, the
 website can of course scroll beyond that size. Taking a screenshot will capture
 the entire page, not just what is visible in the viewport.&lt;/p&gt;
 
 &lt;p&gt;The complete code:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'watir'&lt;/span&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'watir'&lt;/span&gt;
 &lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'watir-webdriver'&lt;/span&gt;
 
 &lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                                                                   &lt;span class="s1"&gt;'phantomjs.cli.args'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'--ignore-ssl-errors=true'&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                                                                   &lt;span class="s1"&gt;'phantomjs.cli.args'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'--ignore-ssl-errors=true'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 
 &lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:desired_capabilities&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;capabilities&lt;/span&gt;
 
@@ -83,36 +83,44 @@ the entire page, not just what is visible in the viewport.&lt;/p&gt;
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;goto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://google.com"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt; &lt;span class="s1"&gt;'google.com.png'&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Thanks to these other blogs:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://blog.vbalazs.me/2014/08/my-adventures-with-tracking-down-a-database-leak.html&lt;/li&gt;
+&lt;li&gt;http://stackoverflow.com/a/17687452&lt;/li&gt;
+&lt;li&gt;http://yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/#phantomjs&lt;/li&gt;
+&lt;/ul&gt;
 </content>
   </entry>
   <entry>
     <title>Reset erchef admin password</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/06/reset-erchef-admin-password.html"/>
     <id>http://blog.url.com/blog/2014/06/reset-erchef-admin-password.html</id>
-    <published>2014-06-04T22:08:00Z</published>
-    <updated>2014-06-04T15:09:51-07:00</updated>
+    <published>2014-06-04T22:08:00+00:00</published>
+    <updated>2015-07-08T20:28:38+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
     <content type="html">&lt;p&gt;A quick note:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
-&lt;/pre&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Where &lt;code&gt;reset.sql&lt;/code&gt; contains the following:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
-&lt;/pre&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Now you can log in to the chef server admin page with the user name &amp;lsquo;admin&amp;rsquo; and
-password &amp;lsquo;password&amp;rsquo;.&lt;/p&gt;
+password &amp;#39;password&amp;rsquo;.&lt;/p&gt;
 </content>
   </entry>
   <entry>
     <title>More about EC2 and NTP</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/04/more-about-ec2-and-ntp.html"/>
     <id>http://blog.url.com/blog/2014/04/more-about-ec2-and-ntp.html</id>
-    <published>2014-04-18T20:43:00Z</published>
-    <updated>2014-04-18T13:49:34-07:00</updated>
+    <published>2014-04-18T20:43:00+00:00</published>
+    <updated>2015-07-08T20:28:38+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -143,8 +151,8 @@ hopefully move it do a newer host server.&lt;/p&gt;
     <title>Fixing Fakeweb &amp; Coveralls conflict</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/04/fixing-fakeweb-coveralls-conflict.html"/>
     <id>http://blog.url.com/blog/2014/04/fixing-fakeweb-coveralls-conflict.html</id>
-    <published>2014-04-12T06:55:00Z</published>
-    <updated>2014-04-12T00:01:22-07:00</updated>
+    <published>2014-04-12T06:55:00+00:00</published>
+    <updated>2015-07-08T20:28:38+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -154,7 +162,7 @@ inadvertently blocked the coveralls client from reporting.&lt;/p&gt;
 
 &lt;p&gt;If you look at the results from your CI, like Travis, you&amp;rsquo;ll probably see the
 following:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;[Coveralls] Submitting to https://coveralls.io/api/v1
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;[Coveralls] Submitting to https://coveralls.io/api/v1
 Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
 Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
@@ -170,22 +178,22 @@ Real HTTP connections are disabled. Unregistered request: POST https://coveralls
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &amp;lt;top (required)&amp;gt;''`
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The fix is really simple. You need to tell Fakeweb to allow requests to
 coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
 connections:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="c1"&gt;# in your spec_helper.rb&lt;/span&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# in your spec_helper.rb&lt;/span&gt;
 &lt;span class="no"&gt;FakeWeb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;allow_net_connect&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sr"&gt;%r[^https?://coveralls.io]&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 </content>
   </entry>
   <entry>
     <title>Middleman: Error: Could not locate layout: layout</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/03/middleman-error-could-not-locate-layout-layout.html"/>
     <id>http://blog.url.com/blog/2014/03/middleman-error-could-not-locate-layout-layout.html</id>
-    <published>2014-03-19T01:39:00Z</published>
-    <updated>2014-03-18T18:42:57-07:00</updated>
+    <published>2014-03-19T01:39:00+00:00</published>
+    <updated>2015-07-08T20:28:38+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -194,16 +202,16 @@ site, however it&amp;rsquo;s only on articles from the blogging extension for Mi
 you may need to update your &lt;code&gt;config.rb&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;If you specify a new name for the default layout in your config:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="ss"&gt;:layout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'default'&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="ss"&gt;:layout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'default'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Middleman will look for the layout called &amp;lsquo;default&amp;rsquo; for each of your pages.
 However, the blogging extension has it&amp;rsquo;s own override in that you&amp;rsquo;ll have to
 specify in the activate block:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;span class="n"&gt;activate&lt;/span&gt; &lt;span class="ss"&gt;:blog&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;activate&lt;/span&gt; &lt;span class="ss"&gt;:blog&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
   &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;layout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"default"&lt;/span&gt;
 &lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;That way the blogging extension doesn&amp;rsquo;t use it&amp;rsquo;s default layout name.&lt;/p&gt;
 </content>
@@ -212,8 +220,8 @@ specify in the activate block:&lt;/p&gt;
     <title>Hello World!</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/03/hello-world.html"/>
     <id>http://blog.url.com/blog/2014/03/hello-world.html</id>
-    <published>2014-03-09T01:07:00Z</published>
-    <updated>2014-03-18T18:38:27-07:00</updated>
+    <published>2014-03-09T01:07:00+00:00</published>
+    <updated>2015-07-08T20:28:38+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>

@@ -5,8 +5,8 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <title>Evaryont's Blog - Fixing Fakeweb & Coveralls conflict</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
-    <link href="/assets/stylesheets/all-92ca5d05.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/assets/stylesheets/syntax-f604afaa.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/assets/stylesheets/all-92ca5d05.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/stylesheets/syntax-f604afaa.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
   </head>
 
@@ -34,23 +34,18 @@
 
           <p></p>
           Recent Posts:
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a>
             </li>
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/06/reset-erchef-admin-password.html">Reset erchef admin password</a>
             </li>
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a>
             </li>
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a>
             </li>
-          
 
           <!--
           <li class="sidebar-nav-item"><a href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a></li>
@@ -79,7 +74,7 @@ inadvertently blocked the coveralls client from reporting.</p>
 
 <p>If you look at the results from your CI, like Travis, you&rsquo;ll probably see the
 following:</p>
-<pre class="highlight plaintext">[Coveralls] Submitting to https://coveralls.io/api/v1
+<pre class="highlight plaintext"><code>[Coveralls] Submitting to https://coveralls.io/api/v1
 Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
 Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
@@ -95,14 +90,14 @@ Real HTTP connections are disabled. Unregistered request: POST https://coveralls
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &lt;top (required)&gt;''`
-</pre>
+</code></pre>
 
 <p>The fix is really simple. You need to tell Fakeweb to allow requests to
 coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
 connections:</p>
-<pre class="highlight ruby"><span class="c1"># in your spec_helper.rb</span>
+<pre class="highlight ruby"><code><span class="c1"># in your spec_helper.rb</span>
 <span class="no">FakeWeb</span><span class="p">.</span><span class="nf">allow_net_connect</span> <span class="o">=</span> <span class="sr">%r[^https?://coveralls.io]</span>
-</pre>
+</code></pre>
 
 </div>
 

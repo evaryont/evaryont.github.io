@@ -5,8 +5,8 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <title>Evaryont's Blog</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
-    <link href="/assets/stylesheets/all-92ca5d05.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="/assets/stylesheets/syntax-f604afaa.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/assets/stylesheets/all-92ca5d05.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/stylesheets/syntax-f604afaa.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
   </head>
 
@@ -34,23 +34,18 @@
 
           <p></p>
           Recent Posts:
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a>
             </li>
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/06/reset-erchef-admin-password.html">Reset erchef admin password</a>
             </li>
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a>
             </li>
-          
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a>
             </li>
-          
 
           <!--
           <li class="sidebar-nav-item"><a href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a></li>
@@ -82,23 +77,23 @@ headless, so we&rsquo;ll go with PhantomJS. Make sure it&rsquo;s installed.</p>
 <p>Then, we need a way to control PhantomJS, and I&rsquo;m a fan of Watir so we&rsquo;ll use
 that. To connect to PhantomJS, you also need the selenium webdriver gem. So your
 gemfile would look like:</p>
-<pre class="highlight ruby"><span class="n">gem</span> <span class="s1">'watir'</span>
+<pre class="highlight ruby"><code><span class="n">gem</span> <span class="s1">'watir'</span>
 <span class="n">gem</span> <span class="s1">'watir-webdriver'</span>
-</pre>
+</code></pre>
 
 <p>Then let&rsquo;s write the code to actually take the screenshot:</p>
-<pre class="highlight ruby"><span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span>
+<pre class="highlight ruby"><code><span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span>
 <span class="n">browser</span><span class="p">.</span><span class="nf">goto</span><span class="p">(</span><span class="s2">"https://google.com"</span><span class="p">)</span>
 <span class="n">browser</span><span class="p">.</span><span class="nf">screenshot</span><span class="p">.</span><span class="nf">save</span> <span class="s1">'google.com.png'</span>
-</pre>
+</code></pre>
 
 <p>However, if you try to run it, the result isn&rsquo;t what you&rsquo;d expect from Google.
 It has the old black navigation bar at the top. As it turns out, Google does UA
 sniffing, so let&rsquo;s pretend to be Firefox instead:</p>
-<pre class="highlight ruby"><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">)</span>
+<pre class="highlight ruby"><code><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">)</span>
 
 <span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span><span class="p">,</span> <span class="ss">:desired_capabilities</span> <span class="o">=&gt;</span> <span class="n">capabilities</span>
-</pre>
+</code></pre>
 
 <p>So that should work for everything and every body now, right? Nope!</p>
 
@@ -108,27 +103,27 @@ transparent image as the screenshot. (Cause hey, <code>about:blank</code> is act
 blank!) You can set the command line parameter <code>--ignore-ssl-errors=true</code> to
 fix that. You can pass CLI parameters in via a capability. So modifying the
 previous code&hellip;</p>
-<pre class="highlight ruby"><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">,</span>
-                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="o">]</span><span class="p">)</span>
-</pre>
+<pre class="highlight ruby"><code><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">,</span>
+                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="p">])</span>
+</code></pre>
 
 <p>Now personally, I think the default resolution (400x300) of PhantomJS is a
 little small. I personally like the screenshot to be a bit bigger, so let&rsquo;s
 expand it:</p>
-<pre class="highlight ruby"><span class="n">dimensions</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Dimension</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
+<pre class="highlight ruby"><code><span class="n">dimensions</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Dimension</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
 <span class="n">browser</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">manage</span><span class="p">.</span><span class="nf">window</span><span class="p">.</span><span class="nf">size</span> <span class="o">=</span> <span class="n">dimensions</span>
-</pre>
+</code></pre>
 
 <p>There you go! A side note, the dimensions just set the size of the viewport, the
 website can of course scroll beyond that size. Taking a screenshot will capture
 the entire page, not just what is visible in the viewport.</p>
 
 <p>The complete code:</p>
-<pre class="highlight ruby"><span class="nb">require</span> <span class="s1">'watir'</span>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'watir'</span>
 <span class="nb">require</span> <span class="s1">'watir-webdriver'</span>
 
 <span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">,</span>
-                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="o">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="o">]</span><span class="p">)</span>
+                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="p">])</span>
 
 <span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span><span class="p">,</span> <span class="ss">:desired_capabilities</span> <span class="o">=&gt;</span> <span class="n">capabilities</span>
 
@@ -138,7 +133,15 @@ the entire page, not just what is visible in the viewport.</p>
 <span class="n">browser</span><span class="p">.</span><span class="nf">goto</span><span class="p">(</span><span class="s2">"https://google.com"</span><span class="p">)</span>
 
 <span class="n">browser</span><span class="p">.</span><span class="nf">screenshot</span><span class="p">.</span><span class="nf">save</span> <span class="s1">'google.com.png'</span>
-</pre>
+</code></pre>
+
+<p>Thanks to these other blogs:</p>
+
+<ul>
+<li>http://blog.vbalazs.me/2014/08/my-adventures-with-tracking-down-a-database-leak.html</li>
+<li>http://stackoverflow.com/a/17687452</li>
+<li>http://yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/#phantomjs</li>
+</ul>
 
 </div>
 
@@ -149,15 +152,15 @@ the entire page, not just what is visible in the viewport.</p>
   <span class='post-date'>Jun  4</span>
 
   <p>A quick note:</p>
-<pre class="highlight plaintext">sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
-</pre>
+<pre class="highlight plaintext"><code>sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
+</code></pre>
 
 <p>Where <code>reset.sql</code> contains the following:</p>
-<pre class="highlight plaintext">update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
-</pre>
+<pre class="highlight plaintext"><code>update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
+</code></pre>
 
 <p>Now you can log in to the chef server admin page with the user name &lsquo;admin&rsquo; and
-password &lsquo;password&rsquo;.</p>
+password &#39;password&rsquo;.</p>
 
 </div>
 
@@ -203,7 +206,7 @@ inadvertently blocked the coveralls client from reporting.</p>
 
 <p>If you look at the results from your CI, like Travis, you&rsquo;ll probably see the
 following:</p>
-<pre class="highlight plaintext">[Coveralls] Submitting to https://coveralls.io/api/v1
+<pre class="highlight plaintext"><code>[Coveralls] Submitting to https://coveralls.io/api/v1
 Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
 Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
@@ -219,14 +222,14 @@ Real HTTP connections are disabled. Unregistered request: POST https://coveralls
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
 /home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &lt;top (required)&gt;''`
-</pre>
+</code></pre>
 
 <p>The fix is really simple. You need to tell Fakeweb to allow requests to
 coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
 connections:</p>
-<pre class="highlight ruby"><span class="c1"># in your spec_helper.rb</span>
+<pre class="highlight ruby"><code><span class="c1"># in your spec_helper.rb</span>
 <span class="no">FakeWeb</span><span class="p">.</span><span class="nf">allow_net_connect</span> <span class="o">=</span> <span class="sr">%r[^https?://coveralls.io]</span>
-</pre>
+</code></pre>
 
 </div>
 
@@ -241,16 +244,16 @@ site, however it&rsquo;s only on articles from the blogging extension for Middle
 you may need to update your <code>config.rb</code>.</p>
 
 <p>If you specify a new name for the default layout in your config:</p>
-<pre class="highlight ruby"><span class="n">set</span> <span class="ss">:layout</span><span class="p">,</span> <span class="s1">'default'</span>
-</pre>
+<pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:layout</span><span class="p">,</span> <span class="s1">'default'</span>
+</code></pre>
 
 <p>Middleman will look for the layout called &lsquo;default&rsquo; for each of your pages.
 However, the blogging extension has it&rsquo;s own override in that you&rsquo;ll have to
 specify in the activate block:</p>
-<pre class="highlight ruby"><span class="n">activate</span> <span class="ss">:blog</span> <span class="k">do</span> <span class="o">|</span><span class="n">blog</span><span class="o">|</span>
+<pre class="highlight ruby"><code><span class="n">activate</span> <span class="ss">:blog</span> <span class="k">do</span> <span class="o">|</span><span class="n">blog</span><span class="o">|</span>
   <span class="n">blog</span><span class="p">.</span><span class="nf">layout</span> <span class="o">=</span> <span class="s2">"default"</span>
 <span class="k">end</span>
-</pre>
+</code></pre>
 
 <p>That way the blogging extension doesn&rsquo;t use it&rsquo;s default layout name.</p>
 
