@@ -6,7 +6,8 @@ tags:
 
 ![https://www.thinkgeek.com/images/products/additional/large/11C3_ITCROWD_TURNOFFON.jpg]
 
-Per the nginx documentation (emphasis mine):
+Per the [nginx documentation](http://wiki.nginx.org/CommandLine)
+(emphasis mine):
 
 > What happens is that when nginx receives the HUP signal, it tries to parse the
 > configuration file (the specified one, if present, otherwise the default), and
