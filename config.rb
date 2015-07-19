@@ -1,5 +1,30 @@
 Time.zone = "America/Phoenix"
 
+require 'pp'
+
+helpers do
+    def display_date(date)
+      if date.is_a?(Date)
+        date.strftime("%e %B %Y")
+      else
+        date
+      end
+    end
+
+    def display_age(birthday)
+      pp birthday
+      #bday = Date.parse(birthday)
+      bday = birthday
+      now = Date.today
+      now.year - bday.year - (Date.new(now.year, bday.month, bday.day) > now ? 1 : 0)
+    end
+
+    def markdown_parser
+      require 'redcarpet'
+      @instance ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
+    end
+end
+
 activate :blog do |blog|
   blog.tag_template = "tag.html"
   blog.calendar_template = "calendar.html"
