@@ -110,6 +110,7 @@ projects:
     url: https://github.com/evaryont/cattle-ranch
     dates:
       start: 2014-06-15
+      end: Present
   - name: mousehole
     url: https://github.com/evaryont/mousehole
     desc: |
