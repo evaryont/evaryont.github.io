@@ -13,7 +13,7 @@ headers:
 info:
     name: Colin Shea
     dob: 1992-08-17
-    shortdesc: New Age Admin
+    shortdesc: Dev & Ops Expert
     email: colin@shea.at
     phone: (301)-337-7181
     homepage: http://evaryont.me/
@@ -24,15 +24,15 @@ info:
         postal_code: 85260
         country: USA
     desc: |
-        Progressively evolve cross-platform ideas before impactful infomediaries. Energistically visualize tactical initiatives before cross-media catalysts for change.
+        Throughly research ideas and solutions before implementations. Leave room for changes in the future; things will not go as planned.
 
 skills:
     - name: System Administration
-      desc: Assertively exploit wireless initiatives rather than synergistic core competencies.
-    - name: Interface Design
-      desc: Credibly streamline mission-critical value with multifunctional functionalities.
-    - name: Project Direction
-      desc: Proven ability to lead and manage a wide variety of design and development projects in team and independent situations.
+      desc: Effectively administers core and ancillary systems. Pro-actively identifies and troubleshoots problems.
+    - name: Web Development
+      desc: Build great tools and websites, whether internal or public. Modular architecture for later changes and improvements.
+    - name: Network Security
+      desc: Create policies that withstand and quickly recover from network attacks. Stay abreast of the state of the art in security.
 
 languages:
     - name: Gibberish
@@ -52,6 +52,10 @@ alphabetsoup:
     - Ubuntu
     - Debian
     - CentOS
+
+    - Python
+    - Java
+    - C/C++
 
 links:
     - name: Website
@@ -99,16 +103,24 @@ education:
       title: Triple Major, Open Source Technologies, Network Security & Network Engineering
       grade: false
 
-projects: # this section is not mandatory
-    - name: cattle-ranch
-      desc: |
-          Resume Man is an HTML and PDF resume builder made in Ruby with Middleman.
-      url: https://github.com/reefab/ResumeMan # not mandatory
-      dates: # not mandatory
-        start: 2013-02-18
-        end: 2014-04-05 # not mandatory
-      location: # not mandatory
-        city: Florence
-        region: Tuscany
-        country: Italy # not mandatory
-
+projects:
+  - name: cattle-ranch
+    desc: |
+      Wrapper cookbooks and recipes to automate building & managing my network
+    url: https://github.com/evaryont/cattle-ranch
+    dates:
+      start: 2014-06-15
+  - name: mousehole
+    url: https://github.com/evaryont/mousehole
+    desc: |
+      An HTTP proxy written in Ruby to allow users to change the web to their preferences
+    dates:
+      start: 2005-09-02
+      end: 2009-08-28
+  - name: arson
+    desc: |
+      A download-only tool to help Arch users install packages from the AUR
+    url: https://github.com/evaryont/cattle-ranch
+    dates:
+      start: 2008-04-04
+      end: 2009-08-12
