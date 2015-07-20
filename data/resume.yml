@@ -66,6 +66,7 @@ links:
 jobs:
   - title: System Administrator 
     company: The Evogi Group 
+    url: http://www.evogi.com/
     dates:
       start: 2013-09
       end: 2014-06
