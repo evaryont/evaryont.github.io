@@ -104,8 +104,8 @@ jobs:
   - title: Computer repair technician
     company: Montgomery County Students Information Technology Foundation
     dates:
-      start: 2008
-      end: 2010
+      start: 2008-09
+      end: 2010-05
 
 education:
     - name: University of Advancing Technology
