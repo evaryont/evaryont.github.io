@@ -23,6 +23,14 @@ helpers do
       require 'redcarpet'
       @instance ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
     end
+
+    def job_date(raw_date_string)
+      # We assume that every date in my job history is of the form "year-month",
+      # and that's it.
+      raise ArgumentError, "Unsupported date format. Make sure it's YYYY-MM only" unless raw_date_string =~ /\d{4}-\d{1,2}/
+      year, month = raw_date_string.split('-').map(&:to_i)
+      return Time.utc(year, month)
+    end
 end
 
 activate :blog do |blog|

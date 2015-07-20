@@ -125,8 +125,8 @@ layout: false
                                         <% end %>
                                         <h3 class="summary"><%= job.title %></h3>
                                         <%
-                                          start_date = Date.parse(job.dates.start)
-                                          end_date = Date.parse(job.dates.end)
+                                          start_date = job_date(job.dates.start)
+                                          end_date = job_date(job.dates.end)
                                         %>
                                         <h4>
                                             <abbr class="dtstart" title="<%= job.dates.start %>"><%= display_date(start_date) %></abbr> -
