@@ -124,9 +124,13 @@ layout: false
                                           <h2 class="location"><%= job.company %></h2>
                                         <% end %>
                                         <h3 class="summary"><%= job.title %></h3>
+                                        <%
+                                          start_date = Date.parse(job.dates.start)
+                                          end_date = Date.parse(job.dates.end)
+                                        %>
                                         <h4>
-                                            <abbr class="dtstart" title="<%= job.dates.start %>"><%= display_date(job.dates.start) %></abbr> -
-                                            <abbr class="dtend" title="<%= job.dates.end %>"><%= display_date(job.dates.end) %></abbr>
+                                            <abbr class="dtstart" title="<%= job.dates.start %>"><%= display_date(start_date) %></abbr> -
+                                            <abbr class="dtend" title="<%= job.dates.end %>"><%= display_date(end_date) %></abbr>
                                         </h4>
                                         <p><%= markdown_parser.render(job.desc) %></p>
                                     </div>
