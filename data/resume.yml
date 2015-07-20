@@ -66,20 +66,18 @@ links:
 jobs:
   - title: System Administrator 
     company: The Evogi Group 
-    url:
     dates:
       start: 2013-09
       end: 2014-06
     desc: |
-      Managing the fleet of 1,000+ servers while upgrading from legacy configuration management platforms to Chef 12. Designing and developing security software to audit users connecting to the network.
+        Managing the fleet of 1,000+ servers while upgrading from legacy configuration management platforms to Chef 12. Designing and developing security software to audit users connecting to the network.
   - title: Linux Geek 
     company: Cummings Engineering Consultants
-    url:
     dates:
       start: 2012-01
       end: 2013-04
     desc: |
-      Expanding the configuration management tools to cover previously manual processes. Developing modules for puppet for NSA security guidelines.
+        Expanding the configuration management tools to cover previously manual processes. Developing modules for puppet for NSA security guidelines.
   - title: Intern 
     company: University of Advancing Technology
     url: https://www.uat.edu/
@@ -87,15 +85,14 @@ jobs:
       start: 2011-08
       end: 2011-12
     desc: |
-      Helped out with networking and Linux related tasks in the IT department.
+        Helped out with networking and Linux related tasks in the IT department.
   - title: Chairman of the Root The Box Committee 
-    company: [Buffer]Overflow
-    url:
+    company: "[Buffer]Overflow"
     dates:
       start: 2011-01
       end: 2011-10
     desc: |
-      As a chairman, it was my responsibility to help the [Buffer]Overflow Officer managing the entire committee in any way. Primarily, it was outside communication with the head chiefs of each division. There were weekly status reports, but that was not enough, especially in the couple of weeks before the event. Also, if the officer did not show up to a meeting, the chairman assumes his responsibility until the officer returns.
+        As a chairman, it was my responsibility to help the [Buffer]Overflow Officer managing the entire committee in any way. Primarily, it was outside communication with the head chiefs of each division. There were weekly status reports, but that was not enough, especially in the couple of weeks before the event. Also, if the officer did not show up to a meeting, the chairman assumes his responsibility until the officer returns.
   - title: Programming Intern
     company: Econify 
     url: http://www.econify.com/
@@ -103,7 +100,7 @@ jobs:
       start: 2010-06
       end: 2010-08
     desc: |
-       Develop new features clients requested as well as help structure and plan out new projects for the company
+        Develop new features clients requested as well as help structure and plan out new projects for the company
   - title: Computer repair technician
     company: Montgomery County Students Information Technology Foundation
     dates:
@@ -125,7 +122,7 @@ education:
 projects:
   - name: cattle-ranch
     desc: |
-      Wrapper cookbooks and recipes to automate building & managing my network
+        Wrapper cookbooks and recipes to automate building & managing my network
     url: https://github.com/evaryont/cattle-ranch
     dates:
       start: 2014-06-15
@@ -133,13 +130,13 @@ projects:
   - name: mousehole
     url: https://github.com/evaryont/mousehole
     desc: |
-      An HTTP proxy written in Ruby to allow users to change the web to their preferences
+        An HTTP proxy written in Ruby to allow users to change the web to their preferences
     dates:
       start: 2005-09-02
       end: 2009-08-28
   - name: arson
     desc: |
-      A download-only tool to help Arch users install packages from the AUR
+        A download-only tool to help Arch users install packages from the AUR
     url: https://github.com/evaryont/cattle-ranch
     dates:
       start: 2008-04-04
