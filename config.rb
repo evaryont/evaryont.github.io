@@ -2,6 +2,13 @@ Time.zone = "America/Phoenix"
 
 require 'pp'
 
+# add lib/ to the load path
+File.join(File.expand_path(File.dirname(__FILE__)), 'lib').tap do |pwd|
+  $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
+end
+
+require 'pdfresume'
+
 helpers do
     def display_date(date)
       if date.is_a?(Date)
@@ -82,6 +89,10 @@ activate :syntax#, :line_numbers => true
 #set :markdown_engine, :kramdown
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true, :smartypants => true
+
+# custom plugin to convert my resume (rendered via middleman to HTML) into a PDF
+# using PDFKit & wkhtmltopdf
+activate :pdfresume
 
 # Build-specific configuration
 configure :build do

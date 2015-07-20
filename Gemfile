@@ -13,3 +13,5 @@ gem 'middleman-deploy'
 gem 'middleman-syntax'
 
 gem 'redcarpet'
+
+gem 'pdfkit'
