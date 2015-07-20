@@ -128,7 +128,7 @@ layout: false
                                             <abbr class="dtstart" title="<%= job.dates.start %>"><%= job_date(job.dates.start).strftime('%B %Y') %></abbr> -
                                             <abbr class="dtend" title="<%= job.dates.end %>"><%= job_date(job.dates.end).strftime('%B %Y') %></abbr>
                                         </h4>
-                                        <p><%= markdown_parser.render(job.desc) %></p>
+                                        <p><%= markdown_parser.render(job.desc || "") %></p>
                                     </div>
                                     <% end %>
                                 </div><!--// .yui-u -->
