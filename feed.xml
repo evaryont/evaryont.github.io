@@ -5,10 +5,41 @@
   <id>http://blog.url.com/</id>
   <link href="http://blog.url.com/"/>
   <link href="http://blog.url.com/feed.xml" rel="self"/>
-  <updated>2014-10-16T00:17:00+00:00</updated>
+  <updated>2015-07-12T16:03:00+00:00</updated>
   <author>
     <name>Blog Author</name>
   </author>
+  <entry>
+    <title>Nginx may not reload config</title>
+    <link rel="alternate" href="http://blog.url.com/blog/2015/07/nginx-may-not-reload-config.html"/>
+    <id>http://blog.url.com/blog/2015/07/nginx-may-not-reload-config.html</id>
+    <published>2015-07-12T16:03:00+00:00</published>
+    <updated>2015-07-14T16:14:54+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;![https://www.thinkgeek.com/images/products/additional/large/11C3&lt;em&gt;ITCROWD&lt;/em&gt;TURNOFFON.jpg]&lt;/p&gt;
+
+&lt;p&gt;Per the &lt;a href="http://wiki.nginx.org/CommandLine"&gt;nginx documentation&lt;/a&gt;
+(emphasis mine):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;What happens is that when nginx receives the HUP signal, it tries to parse the
+configuration file (the specified one, if present, otherwise the default), and
+if successful, tries to apply a new configuration (i.e. re-open the log files
+and listen sockets). If successful, nginx runs new worker processes and
+signals graceful shutdown to old workers. Notified workers close listen
+sockets but continue to serve current clients. After serving all clients old
+workers shutdown. &lt;strong&gt;If nginx couldn&amp;rsquo;t successfully apply the new configuration,
+it continues to work with an old configuration.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Thus, if you have a properly set up nginx configuration and yet you are still
+getting the default &amp;ldquo;Welcome to nginx!&amp;rdquo; page over and over, try restarting nginx
+itself. I wished I&amp;rsquo;d have realized this aspect of nginx before spending hours
+scratching my head.&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Generating a webpage screenshot in ruby</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/10/generating-a-screenshot-in-ruby.html"/>
@@ -214,19 +245,6 @@ specify in the activate block:&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;That way the blogging extension doesn&amp;rsquo;t use it&amp;rsquo;s default layout name.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Hello World!</title>
-    <link rel="alternate" href="http://blog.url.com/blog/2014/03/hello-world.html"/>
-    <id>http://blog.url.com/blog/2014/03/hello-world.html</id>
-    <published>2014-03-09T01:07:00+00:00</published>
-    <updated>2015-07-08T20:28:38+00:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;This is the first post of what I hope to be &amp;lsquo;many&amp;rsquo;. What does that actually
-mean? Dunno. Current goal is at least once a month, anyways.&lt;/p&gt;
 </content>
   </entry>
 </feed>

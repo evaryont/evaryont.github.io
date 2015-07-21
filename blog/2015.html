@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <title>Evaryont's Blog - Fixing Fakeweb & Coveralls conflict</title>
+    <title>Evaryont's Blog</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/assets/stylesheets/all-92ca5d05.css" rel="stylesheet" type="text/css" />
     <link href="/assets/stylesheets/syntax-f604afaa.css" rel="stylesheet" type="text/css" />
@@ -22,7 +22,7 @@
         </div>
 
         <ul class="sidebar-nav">
-          <li class="sidebar-nav-item">
+          <li class="sidebar-nav-item active">
             <a class="entypo-book" href="/blog.html">Blog</a>
           </li>
           <li class="sidebar-nav-item">
@@ -62,46 +62,15 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-        <!-- this is a blog post for Fixing Fakeweb & Coveralls conflict -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a></h1>
+      <h1>Archive for
+    2015
+</h1>
 
-  <span class='post-date'>Apr 11</span>
 
-  <p>Simple post. If you&rsquo;ve started using Fakeweb to mock HTTP requests but at the
-same time you have stopped getting coverage reports from Coveralls, you may have
-inadvertently blocked the coveralls client from reporting.</p>
+<ul>
+    <li><a href="/blog/2015/07/nginx-may-not-reload-config.html">Nginx may not reload config</a> <span>Jul 12</span></li>
+</ul>
 
-<p>If you look at the results from your CI, like Travis, you&rsquo;ll probably see the
-following:</p>
-<pre class="highlight plaintext"><code>[Coveralls] Submitting to https://coveralls.io/api/v1
-Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
-Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:176:in `block in transmit'
-/home/travis/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/net/http.rb:852:in `start'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:172:in `transmit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:64:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:33:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient.rb:72:in `post'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/api.rb:18:in `post_json'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/simplecov.rb:72:in `format'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/result.rb:46:in `format!'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &lt;top (required)&gt;''`
-</code></pre>
-
-<p>The fix is really simple. You need to tell Fakeweb to allow requests to
-coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
-connections:</p>
-<pre class="highlight ruby"><code><span class="c1"># in your spec_helper.rb</span>
-<span class="no">FakeWeb</span><span class="p">.</span><span class="nf">allow_net_connect</span> <span class="o">=</span> <span class="sr">%r[^https?://coveralls.io]</span>
-</code></pre>
-
-</div>
-
-  <!-- and missing comments :-( -->
 
     </div>
     

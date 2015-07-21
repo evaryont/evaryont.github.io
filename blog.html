@@ -35,6 +35,9 @@
           <p></p>
           Recent Posts:
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
+              <a href="/blog/2015/07/nginx-may-not-reload-config.html">Nginx may not reload config</a>
+            </li>
+            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a>
             </li>
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
@@ -42,9 +45,6 @@
             </li>
             <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
               <a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a>
-            </li>
-            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a>
             </li>
 
           <!--
@@ -62,7 +62,36 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-        <!-- this is a blog post for Generating a webpage screenshot in ruby -->
+        <!-- this is a blog post for Nginx may not reload config -->
+<div class="post">
+  <h1 class="post-title"><a href="/blog/2015/07/nginx-may-not-reload-config.html">Nginx may not reload config</a></h1>
+
+  <span class='post-date'>Jul 12</span>
+
+  <p>![https://www.thinkgeek.com/images/products/additional/large/11C3<em>ITCROWD</em>TURNOFFON.jpg]</p>
+
+<p>Per the <a href="http://wiki.nginx.org/CommandLine">nginx documentation</a>
+(emphasis mine):</p>
+
+<blockquote>
+<p>What happens is that when nginx receives the HUP signal, it tries to parse the
+configuration file (the specified one, if present, otherwise the default), and
+if successful, tries to apply a new configuration (i.e. re-open the log files
+and listen sockets). If successful, nginx runs new worker processes and
+signals graceful shutdown to old workers. Notified workers close listen
+sockets but continue to serve current clients. After serving all clients old
+workers shutdown. <strong>If nginx couldn&rsquo;t successfully apply the new configuration,
+it continues to work with an old configuration.</strong></p>
+</blockquote>
+
+<p>Thus, if you have a properly set up nginx configuration and yet you are still
+getting the default &ldquo;Welcome to nginx!&rdquo; page over and over, try restarting nginx
+itself. I wished I&rsquo;d have realized this aspect of nginx before spending hours
+scratching my head.</p>
+
+</div>
+
+  <!-- this is a blog post for Generating a webpage screenshot in ruby -->
 <div class="post">
   <h1 class="post-title"><a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a></h1>
 
