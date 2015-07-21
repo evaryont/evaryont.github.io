@@ -1,7 +1,7 @@
 headers:
     profile: Profile
     skills: Skills
-    languages: false
+    languages: Languages
     techs: Technical
     jobs: Experiences
     education: Education
@@ -12,7 +12,6 @@ headers:
 
 info:
     name: Colin Shea
-    dob: 1992-08-17
     shortdesc: Dev & Ops Expert
     email: colin@shea.at
     phone: (301)-337-7181
@@ -31,12 +30,6 @@ skills:
       desc: Build great tools and websites, whether internal or public. Modular architecture for later changes and improvements.
     - name: Network Security
       desc: Create policies that withstand and quickly recover from network attacks. Stay abreast of the state of the art in security.
-
-languages:
-    - name: Gibberish
-      level: Native language
-    - name: Manager Speak
-      level: Fluent
 
 alphabetsoup:
     - HTML
@@ -104,6 +97,7 @@ jobs:
         Develop new features clients requested as well as help structure and plan out new projects for the company
   - title: Computer repair technician
     company: Montgomery County Students Information Technology Foundation
+    url: http://itfcareers.org/
     dates:
       start: 2008-09
       end: 2010-05
