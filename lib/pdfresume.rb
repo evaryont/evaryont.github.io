@@ -12,6 +12,10 @@ class PDFResume < Middleman::Extension
     app.after_build do |builder|
       begin
         kit = PDFKit.new(File.new(input_file),
+                         :margin_top => 10,
+                         :margin_bottom => 0,
+                         :margin_left => 0,
+                         :margin_right => 0,
                          print_media_type: true,
                          enable_local_file_access: true,
                          images: true,
