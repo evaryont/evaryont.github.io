@@ -66,19 +66,28 @@ task :server do
 end
 
 desc "Build and upload my website to everywhere"
-task :deploy => ["deploy:jupiter", "deploy:github", "deploy:git_push"]
+# So the order here is important:
+# - Ensure the repository is clean & ready
+# - Build the full website
+# - rsync everything to jupiter, the ssh server
+# - Then convert the resume to PDF, now that updated assets are on the server
+# - Then run rsync again so the PDF is uploaded
+# - Push generated web pages to github
+# - Push source repo to github
+#
+# Whew!
+task :deploy => ["dirty_git", "build", "deploy:jupiter", "resume", "deploy:jupiter", "deploy:github", "deploy:git_push"]
 
 namespace :deploy do
   def deploy(env)
     desc "Deploy the website to #{env}"
-    task env => [:dirty_git, :build] do
+    task env do
       cd @project_root
       puts "Deploying to #{env}"
       sh "TARGET=#{env} bundle exec middleman deploy"
     end
   end
 
-  deploy :delphox
   deploy :jupiter
   deploy :github
 
@@ -89,4 +98,27 @@ end
 
 task :default do
   sh "bundle exec middleman server"
+end
+
+task :resume do
+  require 'pdfkit'
+  input_file = 'build/resume.html'
+  output_file = 'build/resume.pdf'
+
+  begin
+    kit = PDFKit.new(File.new(input_file),
+                     :margin_top => 10,
+                     :margin_bottom => 0,
+                     :margin_left => 0,
+                     :margin_right => 0,
+                     print_media_type: true,
+                     enable_local_file_access: true,
+                     images: true,
+                     enable_javascript: true,
+                     dpi: 96)
+    file = kit.to_file(output_file)
+  rescue Exception => e
+    puts "Error in PDFKit: #{e.message}"
+    raise
+  end
 end

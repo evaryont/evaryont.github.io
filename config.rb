@@ -7,8 +7,6 @@ File.join(File.expand_path(File.dirname(__FILE__)), 'lib').tap do |pwd|
   $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
 end
 
-require 'pdfresume'
-
 helpers do
     def display_date(date)
       if date.is_a?(Date)
@@ -90,10 +88,6 @@ activate :syntax#, :line_numbers => true
 set :markdown_engine, :redcarpet
 set :markdown, :fenced_code_blocks => true, :smartypants => true
 
-# custom plugin to convert my resume (rendered via middleman to HTML) into a PDF
-# using PDFKit & wkhtmltopdf
-activate :pdfresume
-
 # Build-specific configuration
 configure :build do
   if ENV['TARGET'] # Building when we are deploying...
@@ -103,16 +97,6 @@ configure :build do
 end
 
 case ENV['TARGET'].to_s.downcase
-when 'delphox'
-  activate :deploy do |deploy|
-    deploy.method = :rsync
-    deploy.host   = "delphox.evaryont.me"
-    deploy.user   = 'colin'
-    #deploy.port  = 22
-    deploy.path   = "/home/colin/website"
-    deploy.flags  = "-Cav --delete --delete-excluded"
-    deploy.clean  = true
-  end
 when 'jupiter'
   activate :deploy do |deploy|
     deploy.method = :rsync
@@ -123,7 +107,7 @@ when 'jupiter'
     deploy.flags  = "-Cav --delete --delete-excluded"
     deploy.clean  = true
   end
-else
+when 'github'
   activate :deploy do |deploy|
     deploy.method = :git
     deploy.remote = "origin"
