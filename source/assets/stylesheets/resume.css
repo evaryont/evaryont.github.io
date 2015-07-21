@@ -81,3 +81,10 @@ a#pdf:hover { background: #222; }
 .yui-gf .yui-u{width:80.2%;}
 .yui-gf div.first{width:12.3%;}
 
+
+/* Override normalize.css's abbr styling */
+abbr[title] {
+  border-bottom: none; /* remove the false underline */
+  text-decoration-style: dotted; /* add a dotted style instead */
+  text-decoration-line: underline;
+}
