@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <title>Evaryont's Blog</title>
+    <title>Evaryont's Blog - What systemd actually brings to the table: Interfaces</title>
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/assets/stylesheets/all-92ca5d05.css" rel="stylesheet" type="text/css" />
     <link href="/assets/stylesheets/syntax-f604afaa.css" rel="stylesheet" type="text/css" />
@@ -40,7 +40,7 @@
         </div>
 
         <ul class="sidebar-nav">
-          <li class="sidebar-nav-item">
+          <li class="sidebar-nav-item active">
             <a class="entypo-book" href="/blog.html">Blog</a>
           </li>
           <li class="sidebar-nav-item">
@@ -59,19 +59,53 @@
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-      <h1>Archive for
-    2015
-</h1>
+        <!-- this is a blog post for What systemd actually brings to the table: Interfaces -->
+<div class="post">
+  <h1 class="post-title"><a href="/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html">What systemd actually brings to the table: Interfaces</a></h1>
 
+  <span class='post-date'>Feb 14</span>
 
-<ul>
-    <li><a href="/blog/2015/08/generate-a-modern-csr-with-openssl.html">Generate a modern CSR with OpenSSL</a> <span>Aug  5</span></li>
-    <li><a href="/blog/2015/07/nginx-may-not-reload-config.html">Nginx may not reload config</a> <span>Jul 12</span></li>
-    <li><a href="/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html">From Amazon, Intui-Shop and Recommendation Engines</a> <span>Apr  3</span></li>
-    <li><a href="/blog/2015/03/cox-home-network-facts.html">Cox home network facts</a> <span>Mar  2</span></li>
-    <li><a href="/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html">What systemd actually brings to the table: Interfaces</a> <span>Feb 14</span></li>
-</ul>
+  <p>One thing I’d like point out is that while systemd is coupling many of those
+sort of things together into one cohesive package (but not one program, natch),
+it’s not trying to be the primary thing for all of those. So you can rule out
+hostname, httpd, dbus, LUKS, date, and iptables from that list. (It won’t be
+the primary webserver, it just has one. It isn’t hosting the DBus daemon as
+part of it, it just uses it extensively, etc.)</p>
 
+<p>The other aspect of some of the extraneous projects that systemd is introducing
+(datetimed, hostnamed, etc) are just APIs and an implementation for something
+that has badly needed one but nothing had arisen yet. Convention over
+configuration is a powerful default, one that Linux has sorely lacked.</p>
+
+<p>And there is a lot of configuration the system needs to do during boot-up to
+get a basic functioning system, regardless of purpose. You want your hard
+drives mounted, in the correct locations. You want your network stack
+initialized, at least basically. You want your firewall rules applied. You want
+all of this done in the correct order, but parallelized when possible. Which
+means you’d need a defined interface to interrogate the state of each of those.
+And perhaps a defined interface for each of those to notify the init process.
+(An alternative architecture can be developed, I’m sure.)</p>
+
+<p>All that being said, I think systemd would’ve been easier to swallow if
+hostnamed, datetimed, etc were introduced earlier and used before pushing
+systemd itself. However, I don’t think a lot of people would have used them
+individually if they were. It’d be like looking at trying to replace a cron
+implementation. A dedicated camp or two would use it, but the rest of the
+community would ignore it. (Pick any example, I’m certain I could find examples
+of alternatives coming but never reaching critical mind share. Even if they
+would’ve improved the status quo in some way.)</p>
+
+<p>I see systemd as pushing many different changes that needed to happen at some
+point all at once. Risky, noisy, and quite painful. Ripping the bandages off
+all the hacks from the 80’s &amp; 90’s at once.</p>
+
+<p>It could’ve been done better.</p>
+
+<p>(In response to <a href="https://lobste.rs/s/ewi8gu/fed_up_with_systemd_and_linux_why_not_try_pc-bsd/comments/7x7p9b#c_7x7p9b">this comment on Lobste.rs</a>)</p>
+
+</div>
+
+  <!-- and missing comments :-( -->
 
     </div>
     

@@ -77,6 +77,125 @@ scratching my head.&lt;/p&gt;
 </content>
   </entry>
   <entry>
+    <title>From Amazon, Intui-Shop and Recommendation Engines</title>
+    <link rel="alternate" href="http://blog.url.com/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html"/>
+    <id>http://blog.url.com/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html</id>
+    <published>2015-04-03T20:14:00+00:00</published>
+    <updated>2015-08-05T21:19:46+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;The benefits of “Intui-Shop” go beyond not having to think about anything ever
+again. They include discovering, and buying, exciting new products that you
+haven’t even heard of yet, and catching up on old Amazon Wish List items that
+you haven’t thought about in years.&lt;/p&gt;
+
+&lt;p&gt;Let’s put it this way: You know how, when you order something on Amazon, you
+lose track of when it’s supposed to arrive? So that, when you find it at your
+door, it feels like your birthday? Now every day can—and will—be like that.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href="http://www.newyorker.com/humor/daily-shouts/an-important-notice-from-amazon"&gt;A humour piece from the New Yorker&lt;/a&gt;.
+I doubt we’ll actually see this – there are too many risque and truely crap
+products on Amazon to full automate it entirely, and real AI is too damn hard.
+But the future of recommendation engines definetly can do down this path.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Cox home network facts</title>
+    <link rel="alternate" href="http://blog.url.com/blog/2015/03/cox-home-network-facts.html"/>
+    <id>http://blog.url.com/blog/2015/03/cox-home-network-facts.html</id>
+    <published>2015-03-02T23:29:00+00:00</published>
+    <updated>2015-08-05T21:21:03+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;Just called Tier 2 tech support for Cox looking to unblock some ports. Namely,
+port 80, for web servers. Turns out that’s not going to happen.&lt;/p&gt;
+
+&lt;p&gt;The following ports are blocked for inbound traffic:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;80&lt;/li&gt;
+&lt;li&gt;25&lt;/li&gt;
+&lt;li&gt;135-139&lt;/li&gt;
+&lt;li&gt;143&lt;/li&gt;
+&lt;li&gt;445&lt;/li&gt;
+&lt;li&gt;1433-1434&lt;/li&gt;
+&lt;li&gt;1900&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(For a total of 13 ports that will never respond.)&lt;/p&gt;
+
+&lt;p&gt;The tech support on call seemed to imply that outbound traffic on port 25 is
+blocked as well.&lt;/p&gt;
+
+&lt;p&gt;Also, static IPs for residental networks are never, ever going to happen.&lt;/p&gt;
+
+&lt;p&gt;Unblocking those ports? Nope, never. No if, ands, or buts about it. This is
+entirely due to malware using those ports to either open an outgoing RAT/C&amp;amp;C
+connection, or breach the network via exploits on software commonly run on
+those ports (looking at you, intrepid Microsoft Server user who doesn’t know
+how to secure it).&lt;/p&gt;
+
+&lt;p&gt;But notably, the default port for HTTPS (443) isn’t blocked, and I specifically
+asked about it. Totally go for it, it’s fine. Of course, if you start hosting
+malware and generally causing trouble for the neighboorhood, that’s no bueno
+and is grounds for account termination. “No internet for you!” (The whole
+neighboorhood can be affected because your bandwidth is shared up to the cable
+node.)&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>What systemd actually brings to the table: Interfaces</title>
+    <link rel="alternate" href="http://blog.url.com/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html"/>
+    <id>http://blog.url.com/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html</id>
+    <published>2015-02-14T23:13:00+00:00</published>
+    <updated>2015-08-05T21:22:32+00:00</updated>
+    <author>
+      <name>Article Author</name>
+    </author>
+    <content type="html">&lt;p&gt;One thing I’d like point out is that while systemd is coupling many of those
+sort of things together into one cohesive package (but not one program, natch),
+it’s not trying to be the primary thing for all of those. So you can rule out
+hostname, httpd, dbus, LUKS, date, and iptables from that list. (It won’t be
+the primary webserver, it just has one. It isn’t hosting the DBus daemon as
+part of it, it just uses it extensively, etc.)&lt;/p&gt;
+
+&lt;p&gt;The other aspect of some of the extraneous projects that systemd is introducing
+(datetimed, hostnamed, etc) are just APIs and an implementation for something
+that has badly needed one but nothing had arisen yet. Convention over
+configuration is a powerful default, one that Linux has sorely lacked.&lt;/p&gt;
+
+&lt;p&gt;And there is a lot of configuration the system needs to do during boot-up to
+get a basic functioning system, regardless of purpose. You want your hard
+drives mounted, in the correct locations. You want your network stack
+initialized, at least basically. You want your firewall rules applied. You want
+all of this done in the correct order, but parallelized when possible. Which
+means you’d need a defined interface to interrogate the state of each of those.
+And perhaps a defined interface for each of those to notify the init process.
+(An alternative architecture can be developed, I’m sure.)&lt;/p&gt;
+
+&lt;p&gt;All that being said, I think systemd would’ve been easier to swallow if
+hostnamed, datetimed, etc were introduced earlier and used before pushing
+systemd itself. However, I don’t think a lot of people would have used them
+individually if they were. It’d be like looking at trying to replace a cron
+implementation. A dedicated camp or two would use it, but the rest of the
+community would ignore it. (Pick any example, I’m certain I could find examples
+of alternatives coming but never reaching critical mind share. Even if they
+would’ve improved the status quo in some way.)&lt;/p&gt;
+
+&lt;p&gt;I see systemd as pushing many different changes that needed to happen at some
+point all at once. Risky, noisy, and quite painful. Ripping the bandages off
+all the hacks from the 80’s &amp;amp; 90’s at once.&lt;/p&gt;
+
+&lt;p&gt;It could’ve been done better.&lt;/p&gt;
+
+&lt;p&gt;(In response to &lt;a href="https://lobste.rs/s/ewi8gu/fed_up_with_systemd_and_linux_why_not_try_pc-bsd/comments/7x7p9b#c_7x7p9b"&gt;this comment on Lobste.rs&lt;/a&gt;)&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
     <title>Generating a webpage screenshot in ruby</title>
     <link rel="alternate" href="http://blog.url.com/blog/2014/10/generating-a-screenshot-in-ruby.html"/>
     <id>http://blog.url.com/blog/2014/10/generating-a-screenshot-in-ruby.html</id>
@@ -159,100 +278,6 @@ the entire page, not just what is visible in the viewport.&lt;/p&gt;
 &lt;li&gt;http://stackoverflow.com/a/17687452&lt;/li&gt;
 &lt;li&gt;http://yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/#phantomjs&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Reset erchef admin password</title>
-    <link rel="alternate" href="http://blog.url.com/blog/2014/06/reset-erchef-admin-password.html"/>
-    <id>http://blog.url.com/blog/2014/06/reset-erchef-admin-password.html</id>
-    <published>2014-06-04T22:08:00+00:00</published>
-    <updated>2015-07-08T20:28:38+00:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;A quick note:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Where &lt;code&gt;reset.sql&lt;/code&gt; contains the following:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now you can log in to the chef server admin page with the user name &amp;lsquo;admin&amp;rsquo; and
-password &amp;#39;password&amp;rsquo;.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>More about EC2 and NTP</title>
-    <link rel="alternate" href="http://blog.url.com/blog/2014/04/more-about-ec2-and-ntp.html"/>
-    <id>http://blog.url.com/blog/2014/04/more-about-ec2-and-ntp.html</id>
-    <published>2014-04-18T20:43:00+00:00</published>
-    <updated>2015-07-08T20:28:38+00:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;There is a lot of back and forth about using NTP on Amazon&amp;rsquo;s EC2 servers. Here
-are some links:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;http://serverfault.com/questions/100978/do-i-need-to-run-ntpd-in-my-ec2-instance&lt;/li&gt;
-&lt;li&gt;http://www.metamul.com/blog/ntp-isnt-required-under-ec2-or-is-it/&lt;/li&gt;
-&lt;li&gt;http://stackoverflow.com/questions/14623650/how-to-deal-with-the-amazon-ec2s-clock-drift&lt;/li&gt;
-&lt;li&gt;http://james.lab6.com/2011/03/19/clock-drift-on-amazon-ec2/&lt;/li&gt;
-&lt;li&gt;http://docs.basho.com/riak/latest/ops/tuning/aws/#Operating-System&lt;/li&gt;
-&lt;li&gt;https://forums.aws.amazon.com/thread.jspa?messageID=364758&lt;/li&gt;
-&lt;li&gt;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;A summary then:&lt;/p&gt;
-
-&lt;p&gt;Yeah, run NTP. It&amp;rsquo;ll work 80% of the time. It won&amp;rsquo;t work on some other EC2
-servers (based on the instance size) but won&amp;rsquo;t error out, a harmless no-op.
-There is has been reported cases of NTP failing &amp;amp; erroring out when attempting
-to set the time, but that also seems like a case of outdated kernels (either in
-the Xen domU or on the guest) so update your VM and terminate/cycle it to
-hopefully move it do a newer host server.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Fixing Fakeweb &amp; Coveralls conflict</title>
-    <link rel="alternate" href="http://blog.url.com/blog/2014/04/fixing-fakeweb-coveralls-conflict.html"/>
-    <id>http://blog.url.com/blog/2014/04/fixing-fakeweb-coveralls-conflict.html</id>
-    <published>2014-04-12T06:55:00+00:00</published>
-    <updated>2015-07-08T20:28:38+00:00</updated>
-    <author>
-      <name>Article Author</name>
-    </author>
-    <content type="html">&lt;p&gt;Simple post. If you&amp;rsquo;ve started using Fakeweb to mock HTTP requests but at the
-same time you have stopped getting coverage reports from Coveralls, you may have
-inadvertently blocked the coveralls client from reporting.&lt;/p&gt;
-
-&lt;p&gt;If you look at the results from your CI, like Travis, you&amp;rsquo;ll probably see the
-following:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;[Coveralls] Submitting to https://coveralls.io/api/v1
-Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
-Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:176:in `block in transmit'
-/home/travis/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/net/http.rb:852:in `start'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:172:in `transmit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:64:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:33:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient.rb:72:in `post'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/api.rb:18:in `post_json'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/simplecov.rb:72:in `format'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/result.rb:46:in `format!'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &amp;lt;top (required)&amp;gt;''`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The fix is really simple. You need to tell Fakeweb to allow requests to
-coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
-connections:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# in your spec_helper.rb&lt;/span&gt;
-&lt;span class="no"&gt;FakeWeb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;allow_net_connect&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sr"&gt;%r[^https?://coveralls.io]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
 </content>
   </entry>
 </feed>
