@@ -86,6 +86,7 @@ jobs:
         Helped out with networking and Linux related tasks in the IT department.
   - title: Chairman of the Root The Box Committee 
     company: "[Buffer]Overflow"
+    url: http://root-the-box.com/
     dates:
       start: 2011-01
       end: 2011-10
