@@ -1,18 +1,3 @@
-<!--
-<ul>
-  <% blog.articles.group_by {|y| y.date.year }.each do |year, articles| %>
-    <li> 
-      <%= year %>
-      <ul>
-        <% articles.group_by {|a| a.date.month}.each do |month, month_articles| %>
-          <li><%= link_to article.title, article %></li>
-        <% end %>
-      </ul>
-    <% end %>
-    </li>
-</ul>
--->
-
 <% page_articles.each do |article| %>
   <article class='archive-article'>
     <header>
@@ -23,22 +8,3 @@
     </header>
   </article>
 <% end %>
-
-<!--
-<% if paginate %>
-  <div class='pagination'>
-    <!-- Page <%= page_number %> of <%= num_pages %>-->
-    <% if next_page %>
-      <%= link_to 'Older', next_page, class: "pagination-item older" %>
-    <% else %>
-      <span class="pagination-item older">Older</span>
-    <% end %>
-
-    <% if prev_page %>
-      <%= link_to 'Newer', prev_page, class: "pagination-item newer" %>
-    <% else %>
-      <span class="pagination-item newer">Newer</span>
-    <% end %>
-  </div>
-<% end %>
--->
