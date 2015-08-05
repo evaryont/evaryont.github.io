@@ -76,7 +76,7 @@ desc "Build and upload my website to everywhere"
 # - Push source repo to github
 #
 # Whew!
-task :deploy => ["dirty_git", "build", "deploy:jupiter", "resume", "deploy:jupiter", "deploy:github", "deploy:git_push"]
+task :deploy => ["dirty_git", "build", "resume", "deploy:jupiter", "deploy:github", "deploy:git_push"]
 
 namespace :deploy do
   def deploy(env)
@@ -103,6 +103,9 @@ end
 
 desc 'Convert my resume from HTML to PDF'
 task :resume do
+  Rake::Task["deploy:jupiter"].reenable
+  Rake::Task["deploy:jupiter"].invoke
+
   require 'pdfkit'
   input_file = 'build/resume.html'
   output_file = 'build/resume.pdf'
