@@ -31,309 +31,80 @@
           <li class="sidebar-nav-item">
             <a class="entypo-twitter" href="https://twitter.com/evaryont">Twitter</a>
           </li>
-
-          <p></p>
-          Recent Posts:
-            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <a href="/blog/2015/08/generate-a-modern-csr-with-openssl.html">Generate a modern CSR with OpenSSL</a>
-            </li>
-            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <a href="/blog/2015/07/nginx-may-not-reload-config.html">Nginx may not reload config</a>
-            </li>
-            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a>
-            </li>
-            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <a href="/blog/2014/06/reset-erchef-admin-password.html">Reset erchef admin password</a>
-            </li>
-
-          <!--
-          <li class="sidebar-nav-item"><a href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a></li>
-          <li class="sidebar-nav-item"><a href="{{ site.github.repo }}">GitHub project</a></li>
-          <li class="sidebar-nav-item">Currently v{{ site.version }}</li>
-          -->
         </ul>
 
         <p><a class="entypo-rss" href="/feed.xml">Subscribe via RSS</a><br />
-           &copy; 2014. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+           &copy; 2015. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
          
       </div>
     </div>
     <!-- /sidebar -->
     
     <div role="main" class="content container">
-        <!-- this is a blog post for Generate a modern CSR with OpenSSL -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2015/08/generate-a-modern-csr-with-openssl.html">Generate a modern CSR with OpenSSL</a></h1>
-
-  <span class='post-date'>Aug  5</span>
-
-  <p>To get an SSL certificate, you need to first generate a CSR. However, some
-early settings for the CSR can cripple your deployment before you even choose
-any ciphers. The normal command, <code>openssl req</code>, will use old and now insecure
-defaults.</p>
-
-<p>Not that it&rsquo;s particularly hard, you just need to pass in some parameters to the
-command to opt into the newer crypto:</p>
-<pre class="highlight plaintext"><code>openssl req -nodes -new -newkey rsa:4096 -sha256 -keyout private.key -out cert.csr
-</code></pre>
-
-<p>The particular updates to the command are 2 part:</p>
-
-<ul>
-<li>The new certificate request will generate a 4096 bit RSA key. This is
-currently more than the base 2048 that&rsquo;s considered secure, but I have heard
-rumors about 2048 becoming factorizable&hellip; Better safe than sorry.</li>
-<li>Use SHA256 for the hash in the CSR.
-<a href="https://shaaaaaaaaaaaaa.com/">Shaaaaaaaaaaaaa</a> has a good summary</li>
-</ul>
-
-<p>For personal sites, not EVs, you can also pass another parameter to openssl to
-avoid it asking questions. All you need for those sites is just the common name
-of the certificate, or the domain name to be used for the site:</p>
-<pre class="highlight plaintext"><code>openssl req -subj '/CN=evaryont.me/'
-</code></pre>
-
-</div>
-
-  <!-- this is a blog post for Nginx may not reload config -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2015/07/nginx-may-not-reload-config.html">Nginx may not reload config</a></h1>
-
-  <span class='post-date'>Jul 12</span>
-
-  <p><img alt="Have you tried turning it off and on again?" src="https://www.thinkgeek.com/images/products/additional/large/11C3_ITCROWD_TURNOFFON.jpg" /></p>
-
-<p>Per the <a href="http://wiki.nginx.org/CommandLine">nginx documentation</a>
-(emphasis mine):</p>
-
-<blockquote>
-<p>What happens is that when nginx receives the HUP signal, it tries to parse the
-configuration file (the specified one, if present, otherwise the default), and
-if successful, tries to apply a new configuration (i.e. re-open the log files
-and listen sockets). If successful, nginx runs new worker processes and
-signals graceful shutdown to old workers. Notified workers close listen
-sockets but continue to serve current clients. After serving all clients old
-workers shutdown. <strong>If nginx couldn&rsquo;t successfully apply the new configuration,
-it continues to work with an old configuration.</strong></p>
-</blockquote>
-
-<p>Thus, if you have a properly set up nginx configuration and yet you are still
-getting the default &ldquo;Welcome to nginx!&rdquo; page over and over, try restarting nginx
-itself. I wished I&rsquo;d have realized this aspect of nginx before spending hours
-scratching my head.</p>
-
-</div>
-
-  <!-- this is a blog post for Generating a webpage screenshot in ruby -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a></h1>
-
-  <span class='post-date'>Oct 15</span>
-
-  <p>As I have spent the last hour and a half figuring out, generating a screenshot
-of a website in Ruby is harder than it seems.</p>
-
-<p>So first off, we&rsquo;ll need a browser&rsquo;s rendering engine. Preferably one that is
-headless, so we&rsquo;ll go with PhantomJS. Make sure it&rsquo;s installed.</p>
-
-<p>Then, we need a way to control PhantomJS, and I&rsquo;m a fan of Watir so we&rsquo;ll use
-that. To connect to PhantomJS, you also need the selenium webdriver gem. So your
-gemfile would look like:</p>
-<pre class="highlight ruby"><code><span class="n">gem</span> <span class="s1">'watir'</span>
-<span class="n">gem</span> <span class="s1">'watir-webdriver'</span>
-</code></pre>
-
-<p>Then let&rsquo;s write the code to actually take the screenshot:</p>
-<pre class="highlight ruby"><code><span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span>
-<span class="n">browser</span><span class="p">.</span><span class="nf">goto</span><span class="p">(</span><span class="s2">"https://google.com"</span><span class="p">)</span>
-<span class="n">browser</span><span class="p">.</span><span class="nf">screenshot</span><span class="p">.</span><span class="nf">save</span> <span class="s1">'google.com.png'</span>
-</code></pre>
-
-<p>However, if you try to run it, the result isn&rsquo;t what you&rsquo;d expect from Google.
-It has the old black navigation bar at the top. As it turns out, Google does UA
-sniffing, so let&rsquo;s pretend to be Firefox instead:</p>
-<pre class="highlight ruby"><code><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">)</span>
-
-<span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span><span class="p">,</span> <span class="ss">:desired_capabilities</span> <span class="o">=&gt;</span> <span class="n">capabilities</span>
-</code></pre>
-
-<p>So that should work for everything and every body now, right? Nope!</p>
-
-<p>As it also turns out, PhantomJS includes it&rsquo;s own certificate store, and if it
-doesn&rsquo;t recognize a site&rsquo;s SSL certificate, it&rsquo;ll error out, returning a
-transparent image as the screenshot. (Cause hey, <code>about:blank</code> is actually
-blank!) You can set the command line parameter <code>--ignore-ssl-errors=true</code> to
-fix that. You can pass CLI parameters in via a capability. So modifying the
-previous code&hellip;</p>
-<pre class="highlight ruby"><code><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">,</span>
-                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="p">])</span>
-</code></pre>
-
-<p>Now personally, I think the default resolution (400x300) of PhantomJS is a
-little small. I personally like the screenshot to be a bit bigger, so let&rsquo;s
-expand it:</p>
-<pre class="highlight ruby"><code><span class="n">dimensions</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Dimension</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
-<span class="n">browser</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">manage</span><span class="p">.</span><span class="nf">window</span><span class="p">.</span><span class="nf">size</span> <span class="o">=</span> <span class="n">dimensions</span>
-</code></pre>
-
-<p>There you go! A side note, the dimensions just set the size of the viewport, the
-website can of course scroll beyond that size. Taking a screenshot will capture
-the entire page, not just what is visible in the viewport.</p>
-
-<p>The complete code:</p>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'watir'</span>
-<span class="nb">require</span> <span class="s1">'watir-webdriver'</span>
-
-<span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">,</span>
-                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="p">])</span>
-
-<span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span><span class="p">,</span> <span class="ss">:desired_capabilities</span> <span class="o">=&gt;</span> <span class="n">capabilities</span>
-
-<span class="n">dimensions</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Dimension</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
-<span class="n">browser</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">manage</span><span class="p">.</span><span class="nf">window</span><span class="p">.</span><span class="nf">size</span> <span class="o">=</span> <span class="n">dimensions</span>
-
-<span class="n">browser</span><span class="p">.</span><span class="nf">goto</span><span class="p">(</span><span class="s2">"https://google.com"</span><span class="p">)</span>
-
-<span class="n">browser</span><span class="p">.</span><span class="nf">screenshot</span><span class="p">.</span><span class="nf">save</span> <span class="s1">'google.com.png'</span>
-</code></pre>
-
-<p>Thanks to these other blogs:</p>
-
-<ul>
-<li>http://blog.vbalazs.me/2014/08/my-adventures-with-tracking-down-a-database-leak.html</li>
-<li>http://stackoverflow.com/a/17687452</li>
-<li>http://yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/#phantomjs</li>
-</ul>
-
-</div>
-
-  <!-- this is a blog post for Reset erchef admin password -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2014/06/reset-erchef-admin-password.html">Reset erchef admin password</a></h1>
-
-  <span class='post-date'>Jun  4</span>
-
-  <p>A quick note:</p>
-<pre class="highlight plaintext"><code>sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
-</code></pre>
-
-<p>Where <code>reset.sql</code> contains the following:</p>
-<pre class="highlight plaintext"><code>update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
-</code></pre>
-
-<p>Now you can log in to the chef server admin page with the user name &lsquo;admin&rsquo; and
-password &#39;password&rsquo;.</p>
-
-</div>
-
-  <!-- this is a blog post for More about EC2 and NTP -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a></h1>
-
-  <span class='post-date'>Apr 18</span>
-
-  <p>There is a lot of back and forth about using NTP on Amazon&rsquo;s EC2 servers. Here
-are some links:</p>
-
-<ul>
-<li>http://serverfault.com/questions/100978/do-i-need-to-run-ntpd-in-my-ec2-instance</li>
-<li>http://www.metamul.com/blog/ntp-isnt-required-under-ec2-or-is-it/</li>
-<li>http://stackoverflow.com/questions/14623650/how-to-deal-with-the-amazon-ec2s-clock-drift</li>
-<li>http://james.lab6.com/2011/03/19/clock-drift-on-amazon-ec2/</li>
-<li>http://docs.basho.com/riak/latest/ops/tuning/aws/#Operating-System</li>
-<li>https://forums.aws.amazon.com/thread.jspa?messageID=364758</li>
-<li>http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html</li>
-</ul>
-
-<p>A summary then:</p>
-
-<p>Yeah, run NTP. It&rsquo;ll work 80% of the time. It won&rsquo;t work on some other EC2
-servers (based on the instance size) but won&rsquo;t error out, a harmless no-op.
-There is has been reported cases of NTP failing &amp; erroring out when attempting
-to set the time, but that also seems like a case of outdated kernels (either in
-the Xen domU or on the guest) so update your VM and terminate/cycle it to
-hopefully move it do a newer host server.</p>
-
-</div>
-
-  <!-- this is a blog post for Fixing Fakeweb & Coveralls conflict -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a></h1>
-
-  <span class='post-date'>Apr 11</span>
-
-  <p>Simple post. If you&rsquo;ve started using Fakeweb to mock HTTP requests but at the
-same time you have stopped getting coverage reports from Coveralls, you may have
-inadvertently blocked the coveralls client from reporting.</p>
-
-<p>If you look at the results from your CI, like Travis, you&rsquo;ll probably see the
-following:</p>
-<pre class="highlight plaintext"><code>[Coveralls] Submitting to https://coveralls.io/api/v1
-Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
-Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:176:in `block in transmit'
-/home/travis/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/net/http.rb:852:in `start'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:172:in `transmit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:64:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:33:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient.rb:72:in `post'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/api.rb:18:in `post_json'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/simplecov.rb:72:in `format'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/result.rb:46:in `format!'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &lt;top (required)&gt;''`
-</code></pre>
-
-<p>The fix is really simple. You need to tell Fakeweb to allow requests to
-coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
-connections:</p>
-<pre class="highlight ruby"><code><span class="c1"># in your spec_helper.rb</span>
-<span class="no">FakeWeb</span><span class="p">.</span><span class="nf">allow_net_connect</span> <span class="o">=</span> <span class="sr">%r[^https?://coveralls.io]</span>
-</code></pre>
-
-</div>
-
-  <!-- this is a blog post for Middleman: Error: Could not locate layout: layout -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2014/03/middleman-error-could-not-locate-layout-layout.html">Middleman: Error: Could not locate layout: layout</a></h1>
-
-  <span class='post-date'>Mar 18</span>
-
-  <p>Just a quick note. If you&rsquo;re getting the above as an error in your middleman
-site, however it&rsquo;s only on articles from the blogging extension for Middleman,
-you may need to update your <code>config.rb</code>.</p>
-
-<p>If you specify a new name for the default layout in your config:</p>
-<pre class="highlight ruby"><code><span class="n">set</span> <span class="ss">:layout</span><span class="p">,</span> <span class="s1">'default'</span>
-</code></pre>
-
-<p>Middleman will look for the layout called &lsquo;default&rsquo; for each of your pages.
-However, the blogging extension has it&rsquo;s own override in that you&rsquo;ll have to
-specify in the activate block:</p>
-<pre class="highlight ruby"><code><span class="n">activate</span> <span class="ss">:blog</span> <span class="k">do</span> <span class="o">|</span><span class="n">blog</span><span class="o">|</span>
-  <span class="n">blog</span><span class="p">.</span><span class="nf">layout</span> <span class="o">=</span> <span class="s2">"default"</span>
-<span class="k">end</span>
-</code></pre>
-
-<p>That way the blogging extension doesn&rsquo;t use it&rsquo;s default layout name.</p>
-
-</div>
-
-  <!-- this is a blog post for Hello World! -->
-<div class="post">
-  <h1 class="post-title"><a href="/blog/2014/03/hello-world.html">Hello World!</a></h1>
-
-  <span class='post-date'>Mar  8</span>
-
-  <p>This is the first post of what I hope to be &lsquo;many&rsquo;. What does that actually
-mean? Dunno. Current goal is at least once a month, anyways.</p>
-
-</div>
-
-
+        <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2015/08/generate-a-modern-csr-with-openssl.html">Generate a modern CSR with OpenSSL</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2015-08-05 12:44:00 -0700'>Aug  5, 2015</time>
+      </p>
+    </header>
+  </article>
+  <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2015/07/nginx-may-not-reload-config.html">Nginx may not reload config</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2015-07-12 09:03:00 -0700'>Jul 12, 2015</time>
+      </p>
+    </header>
+  </article>
+  <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2014-10-15 17:17:00 -0700'>Oct 15, 2014</time>
+      </p>
+    </header>
+  </article>
+  <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2014/06/reset-erchef-admin-password.html">Reset erchef admin password</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2014-06-04 15:08:00 -0700'>Jun  4, 2014</time>
+      </p>
+    </header>
+  </article>
+  <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2014/04/more-about-ec2-and-ntp.html">More about EC2 and NTP</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2014-04-18 13:43:00 -0700'>Apr 18, 2014</time>
+      </p>
+    </header>
+  </article>
+  <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2014/04/fixing-fakeweb-coveralls-conflict.html">Fixing Fakeweb & Coveralls conflict</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2014-04-11 23:55:00 -0700'>Apr 11, 2014</time>
+      </p>
+    </header>
+  </article>
+  <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2014/03/middleman-error-could-not-locate-layout-layout.html">Middleman: Error: Could not locate layout: layout</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2014-03-18 18:39:00 -0700'>Mar 18, 2014</time>
+      </p>
+    </header>
+  </article>
+  <article class='archive-article'>
+    <header>
+      <h3><a href="/blog/2014/03/hello-world.html">Hello World!</a></h3>
+      <p class='blog-stamp'>
+        <time datetime='2014-03-08 18:07:00 -0700'>Mar  8, 2014</time>
+      </p>
+    </header>
+  </article>
 
     </div>
     
