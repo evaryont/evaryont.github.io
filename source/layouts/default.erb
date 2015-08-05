@@ -31,24 +31,10 @@
           <li class="sidebar-nav-item">
             <a class="entypo-twitter" href="https://twitter.com/evaryont">Twitter</a>
           </li>
-
-          <p></p>
-          Recent Posts:
-          <% blog.articles[0..3].each do |article| %>
-            <li class="sidebar-nav-item"> <!-- TODO: 'active' class if this is it's page -->
-              <%= link_to article.title, article %>
-            </li>
-          <% end %>
-
-          <!--
-          <li class="sidebar-nav-item"><a href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a></li>
-          <li class="sidebar-nav-item"><a href="{{ site.github.repo }}">GitHub project</a></li>
-          <li class="sidebar-nav-item">Currently v{{ site.version }}</li>
-          -->
         </ul>
 
         <p><%= link_to "Subscribe via RSS", "#{blog.options.prefix.to_s}/feed.xml", class: "entypo-rss" %><br />
-           &copy; 2014. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+           &copy; <%= Date.today.year %>. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
          
       </div>
     </div>
