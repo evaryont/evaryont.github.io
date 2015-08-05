@@ -101,6 +101,7 @@ task :default do
   sh "bundle exec middleman server"
 end
 
+desc 'Convert my resume from HTML to PDF'
 task :resume do
   require 'pdfkit'
   input_file = 'build/resume.html'
