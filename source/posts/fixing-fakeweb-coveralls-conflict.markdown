@@ -4,9 +4,9 @@ date: 2014-04-11 23:55 MST
 tags:
 ---
 
-Simple post. If you've started using Fakeweb to mock HTTP requests but at the
-same time you have stopped getting coverage reports from Coveralls, you may have
-inadvertently blocked the coveralls client from reporting.
+If you've started using Fakeweb to mock HTTP requests but at the same time you
+have stopped getting coverage reports from Coveralls, you may have inadvertently
+blocked the coveralls client from reporting.
 
 If you look at the results from your CI, like Travis, you'll probably see the
 following:

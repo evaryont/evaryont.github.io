@@ -4,9 +4,9 @@ date: 2014-03-18 18:39 MST
 tags:
 ---
 
-Just a quick note. If you're getting the above as an error in your middleman
-site, however it's only on articles from the blogging extension for Middleman,
-you may need to update your `config.rb`.
+If you're getting the above as an error in your middleman site, however it's
+only on articles from the blogging extension for Middleman, you may need to
+update your `config.rb`.
 
 If you specify a new name for the default layout in your config:
 
