@@ -68,7 +68,7 @@ jobs:
       start: 2013-09
       end: 2014-06
     desc: |
-        Managing the fleet of 1,000+ servers while upgrading from legacy configuration management platforms to Chef 12. Designing and developing security software to audit users connecting to the network.
+        Managing the fleet of 1,000+ servers in AWS while upgrading from legacy Chef 11 and shell scripts to Chef 12. Designing and developing security software to audit users connecting to the network.
   - title: Linux Geek 
     company: Cummings Engineering Consultants
     dates:
