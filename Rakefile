@@ -85,6 +85,7 @@ namespace :deploy do
       cd @project_root
       puts "Deploying to #{env}"
       sh "TARGET=#{env} bundle exec middleman deploy"
+      Rake::Task["deploy:#{env}"].reenable
     end
   end
 
