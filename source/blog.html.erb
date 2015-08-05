@@ -1,7 +1,30 @@
+<!--
+<ul>
+  <% blog.articles.group_by {|y| y.date.year }.each do |year, articles| %>
+    <li> 
+      <%= year %>
+      <ul>
+        <% articles.group_by {|a| a.date.month}.each do |month, month_articles| %>
+          <li><%= link_to article.title, article %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    </li>
+</ul>
+-->
+
 <% page_articles.each do |article| %>
-  <%= partial "article", locals: {article: article} %>
+  <article class='archive-article'>
+    <header>
+      <h3><%= link_to article.title, article %></h3>
+      <p class='blog-stamp'>
+        <time datetime='<%= article.date %>'><%= article.date.strftime('%b %e, %Y') %></time>
+      </p>
+    </header>
+  </article>
 <% end %>
 
+<!--
 <% if paginate %>
   <div class='pagination'>
     <!-- Page <%= page_number %> of <%= num_pages %>-->
@@ -18,3 +41,4 @@
     <% end %>
   </div>
 <% end %>
+-->
