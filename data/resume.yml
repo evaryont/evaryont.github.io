@@ -48,6 +48,10 @@ alphabetsoup:
     - Java
     - XMPP/Jabber
 
+    - KVM
+    - AWS
+    - VMware
+
 links:
     - name: Website
       url: http://evaryont.me
