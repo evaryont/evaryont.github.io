@@ -4,7 +4,7 @@ date: 2015-07-12 09:03 MST
 tags:
 ---
 
-![https://www.thinkgeek.com/images/products/additional/large/11C3_ITCROWD_TURNOFFON.jpg]
+![Have you tried turning it off and on again?](https://www.thinkgeek.com/images/products/additional/large/11C3_ITCROWD_TURNOFFON.jpg)
 
 Per the [nginx documentation](http://wiki.nginx.org/CommandLine)
 (emphasis mine):
