@@ -1,7 +1,7 @@
 ---
 title: "More about EC2 and NTP"
 date: 2014-04-18 13:43 MST
-tags:
+tags: networking, time, sysadmin
 ---
 
 There is a lot of back and forth about using NTP on Amazon's EC2 servers. Here

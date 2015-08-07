@@ -1,7 +1,7 @@
 ---
 title: "Fixing Fakeweb & Coveralls conflict"
 date: 2014-04-11 23:55 MST
-tags:
+tags: ruby, testing
 ---
 
 If you've started using Fakeweb to mock HTTP requests but at the same time you

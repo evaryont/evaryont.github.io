@@ -1,7 +1,7 @@
 ---
 title: "Generate a modern CSR with OpenSSL"
 date: 2015-08-05 12:44 MST
-tags:
+tags: security
 ---
 
 To get an SSL certificate, you need to first generate a CSR. However, some

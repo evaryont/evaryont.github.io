@@ -1,7 +1,7 @@
 ---
 title: "Cox home network facts"
 date: 2015-03-02 16:29 MST
-tags:
+tags: networking
 ---
 
 Just called Tier 2 tech support for Cox looking to unblock some ports. Namely,

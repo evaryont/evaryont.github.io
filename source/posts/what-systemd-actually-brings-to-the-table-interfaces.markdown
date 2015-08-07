@@ -1,7 +1,7 @@
 ---
 title: "What systemd actually brings to the table: Interfaces"
 date: 2015-02-14 16:13 MST
-tags:
+tags: sysadmin
 ---
 
 One thing I’d like point out is that while systemd is coupling many of those

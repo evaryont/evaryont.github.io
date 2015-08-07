@@ -1,7 +1,7 @@
 ---
 title: "Reset erchef admin password"
 date: 2014-06-04 15:08 MST
-tags:
+tags: ruby, chef, sysadmin
 ---
 
 ![Chef Inc, logo](https://www.chef.io/images/logo.svg)
