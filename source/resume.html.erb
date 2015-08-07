@@ -179,8 +179,7 @@ layout: false
                                 <div class="yui-u" class="vcalendar">
                                     <div class="no-page-breaker">
                                     <% data.resume.certifications.each do |cert| %>
-                                        <span class="certification vevent summary vcard">
-                                            <h2 class="url"><a href="<%= cert.url %>"><%= cert.name %></a></h2>
+                                        <div class="certification vevent summary vcard">
                                             <% if cert.url? %>
                                               <h2 class="url"><a href="<%= cert.url %>"><%= cert.name %></a>
                                             <% else %>
@@ -192,7 +191,7 @@ layout: false
                                                 <%= display_end_date(cert.dates.end) %>
                                             </h4>
                                             <h3 class="fn org"><%= cert.authority %></h3>
-                                        </span>
+                                        </div>
                                     <% end %>
                                     </div>
                                 </div>
