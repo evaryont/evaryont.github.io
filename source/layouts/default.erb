@@ -40,15 +40,11 @@
         </div>
 
         <ul class="sidebar-nav">
-          <li class="sidebar-nav-item<%= " active" unless current_article.nil? %>">
-            <a class="entypo-book" href="/blog.html">Blog</a>
-          </li>
+          <% data.elsewhere.sites.each do |site| %>
           <li class="sidebar-nav-item">
-            <a class="entypo-github" href="https://github.com/evaryont">Code</a>
+            <a class='<%= site.icon %>' href="<%= site.url %>"><%= site.name %></a>
           </li>
-          <li class="sidebar-nav-item">
-            <a class="entypo-twitter" href="https://twitter.com/evaryont">Twitter</a>
-          </li>
+          <% end %>
         </ul>
 
         <p><%= link_to "Subscribe via RSS", "#{blog.options.prefix.to_s}/feed.xml", class: "entypo-rss" %><br />

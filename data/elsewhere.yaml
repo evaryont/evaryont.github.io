@@ -1,0 +1,12 @@
+# A list of sites that I'm also at, that I'm me on. Used to fill in the front
+# page & sidebar
+sites:
+  - name: Github
+    icon: entypo-github
+    url: https://github.com/evaryont
+  - name: Blog
+    icon: entypo-book
+    url: /blog.html
+  - name: Twitter
+    icon: entypo-twitter
+    url: https://twitter.com/evaryont
