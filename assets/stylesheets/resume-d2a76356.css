@@ -92,3 +92,8 @@ abbr[title] {
   text-decoration-style: dotted; /* add a dotted style instead */
   text-decoration-line: underline;
 }
+
+ul.links li { border-bottom: none; font-size: 122%; }
+ul.links li { list-style: none; display: inline; }
+ul.links li:after { content: " \00b7"; }
+ul.links li:last-child:after { content: none; }

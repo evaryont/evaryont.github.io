@@ -18,7 +18,11 @@ a:not(.donotexpand):link:after, a:not(.donotexpand):visited:after {
   content: " - " attr(href) " ";
 }
 
-/*
 div.no-page-breaker {
     page-break-inside: avoid;
-} */
+}
+
+/* reset some of the list styling, to show a vertical list again */
+ul.links li { border-bottom: 1px solid #ccc; font-size: 115%; }
+ul.links li { list-style: square outside; display: list-item; }
+ul.links li:after { content: none; }
