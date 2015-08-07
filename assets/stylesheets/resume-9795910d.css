@@ -75,13 +75,15 @@ a#pdf:hover { background: #222; }
 
 .project { position: relative; margin-bottom: 1em; padding-bottom: 1em; border-bottom: 1px solid #ccc; }
 
+.certification { position: relative; margin-bottom: 1em; padding-bottom: 1em; border-bottom: 1px solid #ccc; }
+.certification h4 { position: absolute; top: 0.35em; right: 0 }
+
 #srt-ttab { margin-bottom: 100px; text-align: center;  }
 #srt-ttab img.last { margin-top: 20px }
 
 /* --// override to force 1/8th width grids -- */
 .yui-gf .yui-u{width:80.2%;}
 .yui-gf div.first{width:12.3%;}
-
 
 /* Override normalize.css's abbr styling */
 abbr[title] {
