@@ -14,7 +14,7 @@
     <link rel="alternate" href="http://blog.url.com/blog/2015/08/generate-a-modern-csr-with-openssl.html"/>
     <id>http://blog.url.com/blog/2015/08/generate-a-modern-csr-with-openssl.html</id>
     <published>2015-08-05T19:44:00+00:00</published>
-    <updated>2015-08-05T19:55:32+00:00</updated>
+    <updated>2015-08-07T04:43:36+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -50,7 +50,7 @@ of the certificate, or the domain name to be used for the site:&lt;/p&gt;
     <link rel="alternate" href="http://blog.url.com/blog/2015/07/nginx-may-not-reload-config.html"/>
     <id>http://blog.url.com/blog/2015/07/nginx-may-not-reload-config.html</id>
     <published>2015-07-12T16:03:00+00:00</published>
-    <updated>2015-08-05T19:59:33+00:00</updated>
+    <updated>2015-08-07T04:44:28+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -81,15 +81,15 @@ scratching my head.&lt;/p&gt;
     <link rel="alternate" href="http://blog.url.com/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html"/>
     <id>http://blog.url.com/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html</id>
     <published>2015-04-03T20:14:00+00:00</published>
-    <updated>2015-08-05T21:19:46+00:00</updated>
+    <updated>2015-08-07T04:43:20+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;The benefits of “Intui-Shop” go beyond not having to think about anything ever
 again. They include discovering, and buying, exciting new products that you
-haven’t even heard of yet, and catching up on old Amazon Wish List items that
-you haven’t thought about in years.&lt;/p&gt;
+haven&amp;rsquo;t even heard of yet, and catching up on old Amazon Wish List items that
+you haven&amp;rsquo;t thought about in years.&lt;/p&gt;
 
 &lt;p&gt;Let’s put it this way: You know how, when you order something on Amazon, you
 lose track of when it’s supposed to arrive? So that, when you find it at your
@@ -97,9 +97,9 @@ door, it feels like your birthday? Now every day can—and will—be like that.&
 &lt;/blockquote&gt;
 
 &lt;p&gt;&lt;a href="http://www.newyorker.com/humor/daily-shouts/an-important-notice-from-amazon"&gt;A humour piece from the New Yorker&lt;/a&gt;.
-I doubt we’ll actually see this – there are too many risque and truely crap
+I doubt we’ll actually see this – there are too many risqué and truly crap
 products on Amazon to full automate it entirely, and real AI is too damn hard.
-But the future of recommendation engines definetly can do down this path.&lt;/p&gt;
+But the future of recommendation engines definitely can do down this path.&lt;/p&gt;
 </content>
   </entry>
   <entry>
@@ -107,7 +107,7 @@ But the future of recommendation engines definetly can do down this path.&lt;/p&
     <link rel="alternate" href="http://blog.url.com/blog/2015/03/cox-home-network-facts.html"/>
     <id>http://blog.url.com/blog/2015/03/cox-home-network-facts.html</id>
     <published>2015-03-02T23:29:00+00:00</published>
-    <updated>2015-08-05T21:21:03+00:00</updated>
+    <updated>2015-08-07T04:40:55+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
@@ -152,7 +152,7 @@ node.)&lt;/p&gt;
     <link rel="alternate" href="http://blog.url.com/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html"/>
     <id>http://blog.url.com/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html</id>
     <published>2015-02-14T23:13:00+00:00</published>
-    <updated>2015-08-05T21:22:32+00:00</updated>
+    <updated>2015-08-07T04:44:40+00:00</updated>
     <author>
       <name>Article Author</name>
     </author>
