@@ -46,18 +46,19 @@ activate :blog do |blog|
   blog.sources = "posts/:title"
 
   blog.permalink = "blog/{year}/{month}/{title}"
-  blog.day_link = "blog/{year}/{month}/{day}.html"
-  blog.month_link = "blog/{year}/{month}.html"
-  blog.year_link = "blog/{year}.html"
 
   # Enable pagination
-  blog.paginate = true
-  blog.per_page = 10
-  blog.page_link = "page/{num}"
+  blog.paginate = false
 
   blog.layout = "blog_post"
   
   blog.new_article_template = "article.tt"
+
+  # Don't generate any date-specific pages, just the blog post pages.
+  blog.calendar_template = false
+  blog.year_template = false
+  blog.month_template = false
+  blog.day_template = false
 end
 
 page "/feed.xml",   layout: false
