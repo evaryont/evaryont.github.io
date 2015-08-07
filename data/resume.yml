@@ -11,6 +11,18 @@ headers:
     projects: Projects
     certifications: Certifications
 
+# font awesome icons to show next to each header, adds a bit of flavor to the
+# resume
+icons:
+    profile: user
+    skills: comment
+    techs: cog
+    jobs: calendar-check-o
+    education: graduation-cap
+    links: link
+    projects: code
+    certifications: certificate
+
 info:
     name: Colin Shea
     shortdesc: Dev & Ops Expert

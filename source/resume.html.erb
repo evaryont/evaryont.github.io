@@ -15,11 +15,12 @@ layout: false
 
     <title><%= data.resume.info.name || "Resume" %></title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
     <%= stylesheet_link_tag "yui-reset-fonts-grids.css", :media => "all" %>
     <%= stylesheet_link_tag "resume" , :media => "all" %>
     <%= stylesheet_link_tag "resume.print" , :media => "print"%>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
   </head>
 
   <body class="<%= page_classes %> hresume">
@@ -71,7 +72,11 @@ layout: false
 
                             <div class="yui-gf">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.profile %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.profile? %>
+                                        <i class="fa fa-<%= data.resume.icons.profile %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.profile %></h2>
                                 </div>
                                 <div class="yui-u">
                                     <p class="summary"><%= markdown_parser.render(data.resume.info.desc) %></p>
@@ -80,7 +85,11 @@ layout: false
 
                             <div class="yui-gf">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.skills %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.skills? %>
+                                        <i class="fa fa-<%= data.resume.icons.skills %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.skills %></h2>
                                 </div>
                                 <div class="yui-u">
                                     <% data.resume.skills.each do |skill| %>
@@ -94,7 +103,11 @@ layout: false
 
                             <div class="yui-gf no-page-breaker">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.techs %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.techs? %>
+                                        <i class="fa fa-<%= data.resume.icons.techs %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.techs %></h2>
                                 </div>
                                 <div class="yui-u">
                                     <% data.resume.alphabetsoup.each.with_index do |skill, index| %>
@@ -113,7 +126,11 @@ layout: false
 
                             <div class="yui-gf no-page-breaker">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.jobs %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.jobs? %>
+                                        <i class="fa fa-<%= data.resume.icons.jobs %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.jobs %></h2>
                                 </div><!--// .yui-u -->
 
                                 <div class="yui-u vcalendar">
@@ -138,7 +155,11 @@ layout: false
                             <% if data.resume.projects? %>
                             <div class="yui-gf no-page-breaker">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.projects %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.projects? %>
+                                        <i class="fa fa-<%= data.resume.icons.projects %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.projects %></h2>
                                 </div>
                                 <div class="yui-u" class="vcalendar">
                                     <div class="no-page-breaker">
@@ -174,7 +195,11 @@ layout: false
                             <% if data.resume.certifications? %>
                             <div class="yui-gf no-page-breaker">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.certifications %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.certifications? %>
+                                        <i class="fa fa-<%= data.resume.icons.certifications %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.certifications %></h2>
                                 </div>
                                 <div class="yui-u" class="vcalendar">
                                     <div class="no-page-breaker">
@@ -201,7 +226,11 @@ layout: false
                             <% if data.resume.education? %>
                             <div class="yui-gf no-page-breaker">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.education %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.education? %>
+                                        <i class="fa fa-<%= data.resume.icons.education %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.education %></h2>
                                 </div>
                                 <div class="yui-u" class="vcalendar">
                                     <div class="no-page-breaker">
@@ -234,7 +263,11 @@ layout: false
                             <% if data.resume.languages? %>
                             <div class="yui-gf no-page-breaker">
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.languages %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.languages? %>
+                                        <i class="fa fa-<%= data.resume.icons.languages %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.languages %></h2>
                                 </div><!--// .yui-u -->
 
                                 <div class="yui-u">
@@ -251,7 +284,11 @@ layout: false
                             <div class="yui-gf last no-page-breaker">
 
                                 <div class="yui-u first">
-                                    <h2><%= data.resume.headers.links %></h2>
+                                    <h2>
+                                    <% if data.resume.icons.links? %>
+                                        <i class="fa fa-<%= data.resume.icons.links %>"></i>
+                                    <% end %>
+                                    <%= data.resume.headers.links %></h2>
                                 </div><!--// .yui-u -->
 
                                 <div class="yui-u">
