@@ -43,7 +43,7 @@ helpers do
       else
         # end date was not set in the resume data, so assume it lasts until
         # today
-        template % [end_date, display_date("Present")]
+        template % [date_parse("Present"), "Present"]
       end
     end
 end
