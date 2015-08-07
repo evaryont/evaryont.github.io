@@ -126,8 +126,8 @@ layout: false
                                         <% end %>
                                         <h3 class="summary"><%= job.title %></h3>
                                         <h4>
-                                            <abbr class="dtstart" title="<%= job.dates.start %>"><%= job_date(job.dates.start).strftime('%B %Y') %></abbr> -
-                                            <abbr class="dtend" title="<%= job.dates.end %>"><%= job_date(job.dates.end).strftime('%B %Y') %></abbr>
+                                            <abbr class="dtstart" title="<%= job.dates.start %>"><%= display_date(job.dates.start) %></abbr>
+                                            <%= display_end_date(job.dates.end) %>
                                         </h4>
                                         <p><%= markdown_parser.render(job.desc || "") %></p>
                                     </div>
@@ -152,9 +152,7 @@ layout: false
                                             <% if project.dates? %>
                                             <h4>
                                                 <abbr class="dtstart" title="<%= project.dates.start %>"><%= display_date(project.dates.start) %></abbr>
-                                                <% if project.dates.end? %>
-                                                    - <abbr class="dtend" title="<%= project.dates.end %>"><%= display_date(project.dates.end) %></abbr>
-                                                <% end %>
+                                                <%= display_end_date(project.dates.end) %>
                                             </h4>
                                             <% end %>
                                             <% if project.location? %>
@@ -167,6 +165,34 @@ layout: false
                                             <% end %>
                                             <p><%= markdown_parser.render(project.desc) %></p>
                                         </div>
+                                    <% end %>
+                                    </div>
+                                </div>
+                            </div><!--// .yui-gf -->
+                            <% end %>
+
+                            <% if data.resume.certifications? %>
+                            <div class="yui-gf no-page-breaker">
+                                <div class="yui-u first">
+                                    <h2><%= data.resume.headers.certifications %></h2>
+                                </div>
+                                <div class="yui-u" class="vcalendar">
+                                    <div class="no-page-breaker">
+                                    <% data.resume.certifications.each do |cert| %>
+                                        <span class="certification vevent summary vcard">
+                                            <h2 class="url"><a href="<%= cert.url %>"><%= cert.name %></a></h2>
+                                            <% if cert.url? %>
+                                              <h2 class="url"><a href="<%= cert.url %>"><%= cert.name %></a>
+                                            <% else %>
+                                              <h2><%= cert.name %>
+                                            <% end %>
+                                            </h2>
+                                            <h4>
+                                                <abbr class="dtstart" title="<%= cert.dates.start %>"><%= display_date(cert.dates.start) %></abbr>
+                                                <%= display_end_date(cert.dates.end) %>
+                                            </h4>
+                                            <h3 class="fn org"><%= cert.authority %></h3>
+                                        </span>
                                     <% end %>
                                     </div>
                                 </div>
@@ -195,10 +221,8 @@ layout: false
                                                 </span>
                                             </h2>
                                             <h4>
-                                                <abbr class="dtstart" title="<%= edu.dates.start %>"><%= display_date(edu.dates.start) %></abbr>
-                                                <% if edu.dates.end? %>
-                                                    - <abbr class="dtend" title="<%= edu.dates.end %>"><%= display_date(edu.dates.end) %></abbr>
-                                                <% end %>
+                                                <abbr class="dtstart" title="<%= edu.dates.start %>"><%= edu.dates.start %></abbr> -
+                                                <abbr class="dtend" title="<%= edu.dates.end %>"><%= edu.dates.end %></abbr>
                                             </h4>
                                             <h3><%= edu.title %> &nbsp; <strong><%= edu.grade if edu.grade? %></strong> </h3>
                                         </span>

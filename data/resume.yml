@@ -9,6 +9,7 @@ headers:
     download: Download PDF
     age: y/o
     projects: Projects
+    certifications: Certifications
 
 info:
     name: Colin Shea
@@ -125,19 +126,45 @@ projects:
         Wrapper cookbooks and recipes to automate building & managing my network
     url: https://github.com/evaryont/cattle-ranch
     dates:
-      start: 2014-06-15
+      start: 2014-06
       end: Present
   - name: mousehole
     url: https://github.com/evaryont/mousehole
     desc: |
         An HTTP proxy written in Ruby to allow users to change the web to their preferences
     dates:
-      start: 2005-09-02
-      end: 2009-08-28
+      start: 2005-09
+      end: 2009-08
   - name: arson
     desc: |
         A download-only tool to help Arch users install packages from the AUR
     url: https://github.com/evaryont/cattle-ranch
     dates:
-      start: 2008-04-04
-      end: 2009-08-12
+      start: 2008-04
+      end: 2009-08
+
+certifications:
+  - name: Linux+
+    authority: CompTIA
+    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1902705
+    dates:
+      start: 2010-04
+      end: Present
+  - name: A+ (IT Technician)
+    authority: CompTIA
+    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1430280
+    dates:
+      start: 2009-06
+      end: Present
+  - name: Network+
+    authority: CompTIA
+    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1792532
+    dates:
+      start: 2009-10
+      end: Present
+  - name: Security+
+    authority: CompTIA
+    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1900980
+    dates:
+      start: 2010-04
+      end: Present

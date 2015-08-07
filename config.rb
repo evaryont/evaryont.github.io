@@ -9,19 +9,13 @@ end
 
 helpers do
     def display_date(date)
-      if date.is_a?(Date)
-        date.strftime("%e %B %Y")
+      if date.is_a?(Time)
+        date.strftime('%B %Y')
+      elsif date.is_a?(String)
+        display_date(date_parse(date))
       else
-        date
+        raise ArgumentError, "Unsupported date object '#{date}' to format. Make sure it's a Time or 'Present'"
       end
-    end
-
-    def display_age(birthday)
-      pp birthday
-      #bday = Date.parse(birthday)
-      bday = birthday
-      now = Date.today
-      now.year - bday.year - (Date.new(now.year, bday.month, bday.day) > now ? 1 : 0)
     end
 
     def markdown_parser
@@ -29,13 +23,28 @@ helpers do
       @instance ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML.new)
     end
 
-    def job_date(raw_date_string)
-      # We assume that every date in my job history is of the form "year-month",
-      # and that's it.
+    def date_parse(raw_date_string)
+      # We assume that every date is of the form "year-month" or the magic word
+      # "Present", and that's it.
       raw_date_string.strip!
-      raise ArgumentError, "Unsupported date format '#{raw_date_string}'. Make sure it's YYYY-MM only" unless raw_date_string =~ /\d{4}-\d{1,2}/
+      if raw_date_string == "Present"
+        now = Time.now
+        return Time.utc(now.year, now.month)
+      end
+      raise ArgumentError, "Unsupported date format '#{raw_date_string}'. Make sure it's YYYY-MM or 'Present' only" unless raw_date_string =~ /\d{4}-\d{1,2}/
       year, month = raw_date_string.split('-').map(&:to_i)
       return Time.utc(year, month)
+    end
+
+    def display_end_date(end_date)
+      template = "- <abbr class='dtend' title='%s'>%s</abbr>"
+      if !!end_date # an end date was set
+        template % [end_date, display_date(end_date)]
+      else
+        # end date was not set in the resume data, so assume it lasts until
+        # today
+        template % [end_date, display_date("Present")]
+      end
     end
 end
 
