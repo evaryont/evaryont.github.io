@@ -161,22 +161,18 @@ certifications:
     url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1902705
     dates:
       start: 2010-04
-      end: Present
   - name: A+ (IT Technician)
     authority: CompTIA
     url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1430280
     dates:
       start: 2009-06
-      end: Present
   - name: Network+
     authority: CompTIA
     url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1792532
     dates:
       start: 2009-10
-      end: Present
   - name: Security+
     authority: CompTIA
     url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1900980
     dates:
       start: 2010-04
-      end: Present
