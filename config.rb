@@ -27,7 +27,7 @@ helpers do
       # We assume that every date is of the form "year-month" or the magic word
       # "Present", and that's it.
       raw_date_string.strip!
-      if raw_date_string == "Present"
+      if raw_date_string.downcase == 'present'
         now = Time.now
         return Time.utc(now.year, now.month)
       end
@@ -37,14 +37,12 @@ helpers do
     end
 
     def display_end_date(end_date)
-      template = "- <abbr class='dtend' title='%s'>%s</abbr>"
-      if !!end_date # an end date was set
-        template % [end_date, display_date(end_date)]
-      else
-        # end date was not set in the resume data, so assume it lasts until
-        # today
-        template % [date_parse("Present"), "Present"]
+      unless !!end_date
+        # if there wasn't an end date set in the source data, assume that means
+        # it lasts until the present moment
+        end_date = 'Present'
       end
+      "- <abbr class='dtend' title='%s'>%s</abbr>" % [date_parse(end_date), end_date]
     end
 end
 
