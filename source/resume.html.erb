@@ -143,7 +143,7 @@ layout: false
                                         <% end %>
                                         <h3 class="summary"><%= job.title %></h3>
                                         <h4>
-                                            <abbr class="dtstart" title="<%= job.dates.start %>"><%= display_date(job.dates.start) %></abbr>
+                                            <%= display_start_date(job.dates.start) %>
                                             <%= display_end_date(job.dates.end) %>
                                         </h4>
                                         <p><%= markdown_parser.render(job.desc || "") %></p>
@@ -172,7 +172,7 @@ layout: false
                                             <% end %>
                                             <% if project.dates? %>
                                             <h4>
-                                                <abbr class="dtstart" title="<%= project.dates.start %>"><%= display_date(project.dates.start) %></abbr>
+                                                <%= display_start_date(project.dates.start) %>
                                                 <%= display_end_date(project.dates.end) %>
                                             </h4>
                                             <% end %>
@@ -212,7 +212,7 @@ layout: false
                                             <% end %>
                                             </h2>
                                             <h4>
-                                                <abbr class="dtstart" title="<%= cert.dates.start %>"><%= display_date(cert.dates.start) %></abbr>
+                                                <%= display_start_date(cert.dates.start) %>
                                                 <%= display_end_date(cert.dates.end) %>
                                             </h4>
                                             <h3 class="fn org"><%= cert.authority %></h3>

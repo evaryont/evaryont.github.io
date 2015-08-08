@@ -11,10 +11,8 @@ helpers do
     def display_date(date)
       if date.is_a?(Time)
         date.strftime('%B %Y')
-      elsif date.is_a?(String)
-        display_date(date_parse(date))
       else
-        raise ArgumentError, "Unsupported date object '#{date}' to format. Make sure it's a Time or 'Present'"
+        raise ArgumentError, "Unsupported date object '#{date}' to format. Make sure it's a Time."
       end
     end
 
@@ -36,13 +34,36 @@ helpers do
       return Time.utc(year, month)
     end
 
+    def display_start_date(start_date)
+      unless start_date
+        raise ArgumentError, "Nope! Need a beginning of time, not '#{start_date}'."
+      end
+
+      parsed_datetime = date_parse(start_date)
+      "<abbr class='dtstart' title='%s'>%s</abbr>" % [date_title(parsed_datetime), display_date(parsed_datetime)]
+    end
     def display_end_date(end_date)
       unless !!end_date
         # if there wasn't an end date set in the source data, assume that means
         # it lasts until the present moment
         end_date = 'Present'
       end
-      "- <abbr class='dtend' title='%s'>%s</abbr>" % [date_parse(end_date), end_date]
+
+      parsed_datetime = date_parse(end_date)
+      if end_date.downcase == 'present'
+        show_date = 'Present'
+      else
+        show_date = display_date(parsed_datetime)
+      end
+      "- <abbr class='dtend' title='%s'>%s</abbr>" % [date_title(parsed_datetime), show_date]
+    end
+
+    def date_title(date)
+      if date.is_a?(Time)
+        date.strftime('%Y-%m')
+      else
+        raise ArgumentError, "WTF? Unsupported time object '#{date}' to format for datetime title. Make sure it's a Time."
+      end
     end
 end
 
