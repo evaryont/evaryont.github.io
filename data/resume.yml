@@ -2,7 +2,7 @@ headers:
     profile: Profile
     skills: Skills
     languages: Languages
-    techs: Technical
+    techs: Technical Skills
     jobs: Experiences
     education: Education
     links: Links
