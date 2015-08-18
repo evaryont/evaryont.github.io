@@ -99,6 +99,11 @@ jobs:
       end: 2011-12
     desc: |
         Helped out with networking and Linux related tasks in the IT department.
+
+        - Answered staff's and student's questions
+        - Deployment of new Cisco routers and switches
+        - Managmenet of Fedora machines, integrating with Active Directory, to let non-technical students experience Linux for the first time
+        - Upgraded the network security lab, isolating it from the rest of the network to ensure regular client machines wouldn't be affected
   - title: Chairman of the Root The Box Committee 
     company: "[Buffer]Overflow"
     url: http://root-the-box.com/
