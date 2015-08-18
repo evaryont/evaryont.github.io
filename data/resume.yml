@@ -75,6 +75,7 @@ jobs:
       end: 2015-06
     desc: |
         Configuration, monitoring, and deployment of 1,000+ servers in AWS.
+
         - Transitioned from a monolithic server architechture to a multi-tiered architechture
         - Spearheaded our first international deployments, and later on more
   - title: System Administrator
@@ -84,6 +85,7 @@ jobs:
       end: 2013-04
     desc: |
         Configuration, monitoring, and deployment of servers across the world in a hybrid cloud.
+
         - International deployments
         - Migrating servers to configuration management
         - Developing policies to secure our servers to the NSA's, our client, standards
