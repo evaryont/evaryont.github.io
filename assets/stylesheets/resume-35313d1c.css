@@ -98,4 +98,5 @@ ul.links li:after { content: " \00b7"; }
 ul.links li:last-child:after { content: none; }
 
 p.skillset { line-height: 24px; border-bottom: 1px solid #CCC; font-size: 120%; }
+p.skillset:hover { background-color: rgba(79, 179, 79, 0.2); transition: background-color .25s;  }
 .skill { padding-left: 0.2em; }
