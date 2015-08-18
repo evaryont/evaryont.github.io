@@ -79,17 +79,13 @@ layout: false
                                     <%= data.resume.headers.techs %></h2>
                                 </div>
                                 <div class="yui-u">
-                                    <% data.resume.alphabetsoup.each.with_index do |skill, index| %>
-                                        <% if (index + 1) % 3 == 1 %>
-                                            <ul class="soup">
-                                        <% end %>
-
-                                        <li class="skill" rel="tag"><%= skill %></li>
-
-                                        <% if (index + 1) % 3 == 0 %>
-                                            </ul>
-                                        <% end %>
+                                    <p>Mastery of:
+                                    <% data.resume.alphabetsoup.mastery.each do |skill| %>
+                                        <strong><%= skill %></strong>,
                                     <% end %>
+                                    </p>
+                                    <p>Proficient at: <%= data.resume.alphabetsoup.proficiency.join(',') %></p>
+                                    <p>Knowledge of: <%= data.resume.alphabetsoup.knowledge.join(',') %></p>
                                 </div>
                             </div><!--// .yui-gf-->
 

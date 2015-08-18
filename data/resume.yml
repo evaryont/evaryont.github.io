@@ -33,37 +33,30 @@ info:
         city: Phoenix
         region: AZ
         country: USA
-    desc: |
-        Throughly research ideas and solutions before implementations. Leave room for changes in the future; things will not go as planned.
-
-skills:
-    - name: System Administration
-      desc: Effectively administers core and ancillary systems. Pro-actively identifies and troubleshoots problems.
-    - name: Web Development
-      desc: Build great tools and websites, whether internal or public. Modular architecture for later changes and improvements.
-    - name: Network Security
-      desc: Create policies that withstand and quickly recover from network attacks. Stay abreast of the state of the art in security.
 
 alphabetsoup:
-    - HTML
+  - mastery:
+    - Linux
     - Ruby
+    - Python
+    - Puppet
+    - Chef
     - git
 
-    - Chef
-    - Puppet
+  - proficiency:
     - Ansible
-
-    - Ubuntu
-    - Debian
-    - CentOS
-
-    - Python
+    - Salt
     - Java
+    - HTML
     - XMPP/Jabber
-
-    - KVM
     - AWS
-    - VMware
+
+  - knowledge:
+    - Go
+    - Elixir
+    - VMWare
+    - HTML
+    - JavaScript
 
 links:
     - name: Website
