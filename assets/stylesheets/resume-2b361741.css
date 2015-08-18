@@ -96,3 +96,6 @@ ul.links li { border-bottom: none; font-size: 122%; }
 ul.links li { list-style: none; display: inline; }
 ul.links li:after { content: " \00b7"; }
 ul.links li:last-child:after { content: none; }
+
+p.skillset { line-height: 24px; border-bottom: 1px solid #CCC; font-size: 120%; }
+.skill { padding-left: 0.2em; }
