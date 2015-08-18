@@ -121,7 +121,7 @@ layout: false
                                             <%= display_start_date(job.dates.start) %>
                                             <%= display_end_date(job.dates.end) %>
                                         </h4>
-                                        <p><%= markdown_parser.render(job.desc || "") %></p>
+                                        <%= markdown_parser.render(job.desc || "") %>
                                     </div>
                                     <% end %>
                                 </div><!--// .yui-u -->
@@ -159,7 +159,7 @@ layout: false
                                                 <% end %>
                                             </span>
                                             <% end %>
-                                            <p><%= markdown_parser.render(project.desc) %></p>
+                                            <%= markdown_parser.render(project.desc) %>
                                         </div>
                                     <% end %>
                                     </div>
