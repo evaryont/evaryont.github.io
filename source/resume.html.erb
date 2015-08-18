@@ -79,13 +79,21 @@ layout: false
                                     <%= data.resume.headers.techs %></h2>
                                 </div>
                                 <div class="yui-u">
-                                    <p>Mastery of:
-                                    <% data.resume.alphabetsoup.mastery.each do |skill| %>
-                                        <strong><%= skill %></strong>,
-                                    <% end %>
+                                    <p class='skillset'>Mastery of:
+                                    <%= data.resume.alphabetsoup.mastery.map do |skill|
+                                        "<strong class='mastery skill' rel='tag'>#{ skill }</strong>"
+                                    end.join(',') %>
                                     </p>
-                                    <p>Proficient at: <%= data.resume.alphabetsoup.proficiency.join(',') %></p>
-                                    <p>Knowledge of: <%= data.resume.alphabetsoup.knowledge.join(',') %></p>
+                                    <p class='skillset'>Proficient at:
+                                    <%= data.resume.alphabetsoup.proficiency.map do |skill|
+                                        "<span class='proficiency skill' rel='tag'>#{ skill }</span>"
+                                    end.join(',') %>
+                                    </p>
+                                    <p class='skillset'>Knowledge of:
+                                    <%= data.resume.alphabetsoup.knowledge.map do |skill|
+                                        "<span class='knowledge skill' rel='tag'>#{ skill }</span>"
+                                    end.join(',') %>
+                                    </p>
                                 </div>
                             </div><!--// .yui-gf-->
 
