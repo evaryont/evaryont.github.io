@@ -102,7 +102,7 @@ jobs:
 
         - Answered staff's and student's questions
         - Deployment of new Cisco routers and switches
-        - Managmenet of Fedora machines, integrating with Active Directory, to let non-technical students experience Linux for the first time
+        - Managmenet of Fedora machines, integrated with Active Directory and Exchange, to let non-technical students experience Linux for the first time
         - Upgraded the network security lab, isolating it from the rest of the network to ensure regular client machines wouldn't be affected
   - title: Chairman of the Root The Box Committee 
     company: "[Buffer]Overflow"
