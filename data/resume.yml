@@ -78,7 +78,7 @@ jobs:
 
         - Transitioned from a monolithic server architechture to a multi-tiered architechture
         - Spearheaded the first and subsequent international deployments
-        - Revamped the authentication and structure for the admin panel of the Rails app
+        - Revamped the authentication and structure for the internal admin panel of the Rails codebase
         - Modernized configuration management and deployment using Chef 12
   - title: System Administrator
     company: Cummings Engineering Consultants
@@ -88,7 +88,7 @@ jobs:
     desc: |
         Configuration, monitoring, and deployment of servers across the world in a hybrid cloud running Java applications.
 
-        - Migrated servers to configuration management
+        - Migrated servers from manual setup to configuration management using Puppet
         - Developed policies to secure our servers to our client's (NSA) standards
         - Located and decided on international targets to expand the network to fullfill ultra-low latency demands
   - title: Intern 
