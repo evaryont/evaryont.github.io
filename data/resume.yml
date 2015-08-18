@@ -74,11 +74,11 @@ jobs:
       start: 2013-09
       end: 2015-06
     desc: |
-        Configuration, monitoring, and deployment of 1,000+ Ubuntu and CentOS servers in AWS running Ruby on Rails, Java, Erlang and Go applciations.
+        Configuration, monitoring, and deployment of 1,000+ Ubuntu and CentOS servers in AWS running Ruby on Rails, Java, Erlang and Go applications.
 
-        - Transitioned from a monolithic server architechture to a multi-tiered architechture
+        - Transitioned from a monolithic server architecture to a multi-tiered architecture
         - Spearheaded the first and subsequent international deployments
-        - Revamped the authentication and structure for the internal admin panel of the Rails codebase
+        - Revamped the authentication and structure for the internal admin panel of the Rails code base
         - Modernized configuration management and deployment using Chef 12
   - title: System Administrator
     company: Cummings Engineering Consultants
@@ -90,7 +90,7 @@ jobs:
 
         - Migrated servers from manual setup to configuration management using Puppet
         - Developed policies to secure our servers to our client's (NSA) standards
-        - Located and decided on international targets to expand the network to fullfill ultra-low latency demands
+        - Located and decided on international targets to expand the network to fulfill ultra-low latency demands
   - title: Intern 
     company: University of Advancing Technology
     url: https://www.uat.edu/
@@ -102,7 +102,7 @@ jobs:
 
         - Answered staff's and student's questions
         - Deployment of new Cisco routers and switches
-        - Managmenet of Fedora machines, integrated with Active Directory and Exchange, to let non-technical students experience Linux for the first time
+        - Management of Fedora machines, integrated with Active Directory and Exchange, to let non-technical students experience Linux for the first time
         - Upgraded the network security lab, isolating it from the rest of the network to ensure regular client machines wouldn't be affected
   - title: Chairman of the Root The Box Committee 
     company: "[Buffer]Overflow"
