@@ -106,12 +106,14 @@ jobs:
       end: 2010-08
     desc: |
         Develop new features clients requested as well as help structure and plan out new projects for the company
+    expanded: true
   - title: Computer repair technician
     company: Montgomery County Students Information Technology Foundation
     url: http://itfcareers.org/
     dates:
       start: 2008-09
       end: 2010-05
+    expanded: true
 
 education:
     - name: University of Advancing Technology

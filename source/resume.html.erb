@@ -99,7 +99,9 @@ layout: false
                                 </div><!--// .yui-u -->
 
                                 <div class="yui-u vcalendar">
-                                    <% data.resume.jobs.each do |job| %>
+                                    <% data.resume.jobs.each do |job|
+                                    # skip a job section if it is set to expanded. TODO: JS reveal?
+                                    next if job.expanded? && job.expanded %>
                                     <div class="job no-page-breaker experience vevent">
                                         <% if job.url? %>
                                           <h2 class="location"><a href="<%= job.url%>" target=_blank><%= job.company %></a></h2>
