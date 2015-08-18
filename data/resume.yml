@@ -38,25 +38,25 @@ alphabetsoup:
   mastery:
     - Linux
     - Ruby
+    - Chef
     - Python
     - Puppet
-    - Chef
     - git
 
   proficiency:
-    - Ansible
-    - Salt
     - Java
+    - AWS
     - HTML
     - XMPP/Jabber
-    - AWS
+    - Ansible
+    - Salt
 
   knowledge:
     - Go
-    - Elixir
-    - VMWare
     - HTML
     - JavaScript
+    - Elixir
+    - VMWare
 
 links:
     - name: Website
@@ -77,7 +77,7 @@ jobs:
         Configuration, monitoring, and deployment of 1,000+ Ubuntu and CentOS servers in AWS.
 
         - Transitioned from a monolithic server architechture to a multi-tiered architechture
-        - Spearheaded the first international deployments, and later on more
+        - Spearheaded the first and subsequent international deployments
         - Revamped the internal authentication and structure for the admin panel of the Rails app
         - Modernized configuration management and deployment using Chef 12
   - title: System Administrator
@@ -90,7 +90,7 @@ jobs:
 
         - International deployments
         - Migrated servers to configuration management
-        - Developed policies to secure our servers to the NSA's, our client, standards
+        - Developed policies to secure our servers to our client's (NSA) standards
   - title: Intern 
     company: University of Advancing Technology
     url: https://www.uat.edu/
