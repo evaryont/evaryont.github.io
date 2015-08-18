@@ -35,7 +35,7 @@ info:
         country: USA
 
 alphabetsoup:
-  - mastery:
+  mastery:
     - Linux
     - Ruby
     - Python
@@ -43,7 +43,7 @@ alphabetsoup:
     - Chef
     - git
 
-  - proficiency:
+  proficiency:
     - Ansible
     - Salt
     - Java
@@ -51,7 +51,7 @@ alphabetsoup:
     - XMPP/Jabber
     - AWS
 
-  - knowledge:
+  knowledge:
     - Go
     - Elixir
     - VMWare
