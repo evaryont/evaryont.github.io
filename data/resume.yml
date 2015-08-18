@@ -67,7 +67,7 @@ links:
       url: https://twitter.com/evaryont
 
 jobs:
-  - title: System Administrator 
+  - title: Lead System Administrator 
     company: The Evogi Group 
     url: http://www.evogi.com/
     dates:
@@ -75,7 +75,7 @@ jobs:
       end: 2015-06
     desc: |
         Managing the fleet of 1,000+ servers in AWS while upgrading from legacy Chef 11 and shell scripts to Chef 12. Designing and developing security software to audit users connecting to the network.
-  - title: Linux Geek 
+  - title: System Administrator
     company: Cummings Engineering Consultants
     dates:
       start: 2012-01
