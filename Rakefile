@@ -81,7 +81,7 @@ task :deploy => ["dirty_git", "build", "resume", "deploy:jupiter", "deploy:githu
 namespace :deploy do
   def deploy(env)
     desc "Deploy the website to #{env}"
-    task env do
+    task env => [:dirty_git] do
       cd @project_root
       puts "Deploying to #{env}"
       sh "TARGET=#{env} bundle exec middleman deploy"
