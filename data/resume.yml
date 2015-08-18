@@ -160,23 +160,23 @@ projects:
       end: 2009-08
 
 certifications:
-  - name: Linux+
-    authority: CompTIA
-    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1902705
-    dates:
-      start: 2010-04
-  - name: A+ (IT Technician)
-    authority: CompTIA
-    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1430280
-    dates:
-      start: 2009-06
-  - name: Network+
-    authority: CompTIA
-    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1792532
-    dates:
-      start: 2009-10
   - name: Security+
     authority: CompTIA
     url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1900980
     dates:
       start: 2010-04
+  - name: Linux+
+    authority: CompTIA
+    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1902705
+    dates:
+      start: 2010-04
+  - name: Network+
+    authority: CompTIA
+    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1792532
+    dates:
+      start: 2009-10
+  - name: A+ (IT Technician)
+    authority: CompTIA
+    url: https://www.certmetrics.com/comptia/electronic_certificate.aspx?cert=1430280
+    dates:
+      start: 2009-06
