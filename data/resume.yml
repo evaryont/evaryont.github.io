@@ -74,11 +74,11 @@ jobs:
       start: 2013-09
       end: 2015-06
     desc: |
-        Configuration, monitoring, and deployment of 1,000+ Ubuntu and CentOS servers in AWS.
+        Configuration, monitoring, and deployment of 1,000+ Ubuntu and CentOS servers in AWS running Ruby on Rails, Java, Erlang and Go applciations.
 
         - Transitioned from a monolithic server architechture to a multi-tiered architechture
         - Spearheaded the first and subsequent international deployments
-        - Revamped the internal authentication and structure for the admin panel of the Rails app
+        - Revamped the authentication and structure for the admin panel of the Rails app
         - Modernized configuration management and deployment using Chef 12
   - title: System Administrator
     company: Cummings Engineering Consultants
@@ -86,11 +86,11 @@ jobs:
       start: 2012-01
       end: 2013-04
     desc: |
-        Configuration, monitoring, and deployment of servers across the world in a hybrid cloud.
+        Configuration, monitoring, and deployment of servers across the world in a hybrid cloud running Java applications.
 
-        - International deployments
         - Migrated servers to configuration management
         - Developed policies to secure our servers to our client's (NSA) standards
+        - Located and decided on international targets to expand the network to fullfill ultra-low latency demands
   - title: Intern 
     company: University of Advancing Technology
     url: https://www.uat.edu/
