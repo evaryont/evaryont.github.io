@@ -42,10 +42,10 @@ alphabetsoup:
     - Python
     - Puppet
     - git
+    - AWS
 
   proficiency:
     - Java
-    - AWS
     - HTML
     - XMPP/Jabber
     - Ansible
@@ -76,10 +76,11 @@ jobs:
     desc: |
         Configuration, monitoring, and deployment of 1,000+ Ubuntu and CentOS servers in AWS running Ruby on Rails, Java, Erlang and Go applications.
 
-        - Transitioned from a monolithic server architecture to a multi-tiered architecture
+        - Transitioned from a monolithic server architecture to a multi-tiered architecture using Amazon VPC
         - Spearheaded the first and subsequent international deployments
         - Revamped the authentication and structure for the internal admin panel of the Rails code base
-        - Modernized configuration management and deployment using Chef 12
+        - Modernized configuration management and deployment using Chef 12 and Amazon EC2 Autoscaling
+        - Deployed applications to Heroku, Elastic Beanstalk, and other PaaS services
   - title: System Administrator
     company: Cummings Engineering Consultants
     dates:
@@ -90,7 +91,8 @@ jobs:
 
         - Migrated servers from manual setup to configuration management using Puppet
         - Developed policies to secure our servers to our client's (NSA) standards
-        - Located and decided on international targets to expand the network to fulfill ultra-low latency demands
+        - Located and decided on international targets across all continents to expand the network to fulfill ultra-low latency demands
+        - Managed the internal git, Gerrit code review and Jenkins CI servers
   - title: Intern 
     company: University of Advancing Technology
     url: https://www.uat.edu/
