@@ -43,13 +43,19 @@ alphabetsoup:
     - Puppet
     - git
     - AWS
+    - MySQL
 
   proficiency:
+    - PostgreSQL
     - Java
     - HTML
     - XMPP/Jabber
     - Ansible
-    - Salt
+    - Redis
+    - Heroku
+    - ElasticSearch
+    - Kibana
+    - Logstash
 
   knowledge:
     - Go
