@@ -59,10 +59,10 @@ alphabetsoup:
 
   knowledge:
     - Go
-    - HTML
     - JavaScript
     - Elixir
     - VMWare
+    - TLS/SSL
 
 links:
     - name: Website
