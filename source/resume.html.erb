@@ -81,18 +81,18 @@ layout: false
                                 <div class="yui-u">
                                     <p class='skillset'>Mastery of:<span class='skills'>
                                     <%= data.resume.alphabetsoup.mastery.map do |skill|
-                                        "<strong class='mastery skill' rel='tag'>#{ skill },</strong>"
-                                    end.join(' ') %>
+                                        "<strong class='mastery skill' rel='tag'>#{ skill }</strong>"
+                                    end.join(', ') %>
                                     </span></p>
                                     <p class='skillset'>Proficient at:<span class='skills'>
                                     <%= data.resume.alphabetsoup.proficiency.map do |skill|
-                                        "<span class='proficiency skill' rel='tag'>#{ skill },</span>"
-                                    end.join(' ') %>
+                                        "<span class='proficiency skill' rel='tag'>#{ skill }</span>"
+                                    end.join(', ') %>
                                     </span></p>
                                     <p class='skillset'>Knowledge of:<span class='skills'>
                                     <%= data.resume.alphabetsoup.knowledge.map do |skill|
-                                        "<span class='knowledge skill' rel='tag'>#{ skill },</span>"
-                                    end.join(' ') %>
+                                        "<span class='knowledge skill' rel='tag'>#{ skill }</span>"
+                                    end.join(', ') %>
                                     </span></p>
                                 </div>
                             </div><!--// .yui-gf-->
