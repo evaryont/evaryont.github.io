@@ -114,6 +114,7 @@ server {
       proxy_set_header Connection "upgrade";
       proxy_ssl_trusted_certificate /path/to/copy/of/relay.pem;
       proxy_ssl_verify off;
+      proxy_read_timeout 4h;
   }
 
   location / {
