@@ -1,9 +1,9 @@
 <!doctype html>
-<html>
+<html lang="<%= data.site.lang %>">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
-    <title>Evaryont's Blog<%= ' - ' + current_article.title unless current_article.nil? %></title>
+    <title><%= data.site.title %><%= ' - ' + current_article.title unless current_article.nil? %></title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
     <%= stylesheet_link_tag "all" %>
     <%= stylesheet_link_tag "syntax" %>
@@ -33,11 +33,11 @@
     <!-- sidebar -->
     <div class="sidebar">
       <div class="container sidebar-sticky">
-        <a href="https://evaryont.me">
+        <a href="<%= data.site.url %>">
           <img class='avatar' alt='My avatar' title='My avatar' src="https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256" />
         </a>
         <div class="sidebar-about">
-          <p class="lead">Notes and things that I don't want to forget.</p>
+          <p class="lead"><%= data.site.subtitle %></p>
         </div>
 
         <ul class="sidebar-nav">
