@@ -18,9 +18,9 @@
     <id>https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html</id>
     <published>2015-09-11T05:26:00+00:00</published>
     <updated>2015-09-11T05:56:41+00:00</updated>
-    <category>chat</category>
-    <category>irc</category>
-    <category>howto</category>
+    <category term="chat" scheme="https://evaryont.me/tags/" label="Chat"/>
+    <category term="irc" scheme="https://evaryont.me/tags/" label="Irc"/>
+    <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
     <content type="html">&lt;p&gt;Here&amp;rsquo;s how to set up weechat with it&amp;rsquo;s relay plugin sitting behind nginx. Why
 not expose it directly? Well, and with all respect to the weechat developers, I
 don&amp;rsquo;t trust them enough to expose weechat directly onto the internet. And, I
@@ -153,9 +153,9 @@ as follows:&lt;/p&gt;
     <id>https://evaryont.me/blog/2015/08/announcing-tls-grab.html</id>
     <published>2015-08-29T00:49:00+00:00</published>
     <updated>2015-09-02T00:52:54+00:00</updated>
-    <category>announcement</category>
-    <category>software</category>
-    <category>security</category>
+    <category term="announcement" scheme="https://evaryont.me/tags/" label="Announcement"/>
+    <category term="software" scheme="https://evaryont.me/tags/" label="Software"/>
+    <category term="security" scheme="https://evaryont.me/tags/" label="Security"/>
     <content type="html">&lt;p&gt;It&amp;rsquo;s surprisingly painful to script getting the public certificate a website
 responds with. Or, getting the certificate&amp;rsquo;s fingerprint. This information is
 always mixed together with other human output, which means you&amp;rsquo;d have to resort
@@ -171,8 +171,9 @@ certificate or to generate the certificate&amp;rsquo;s fingerprint.&lt;/p&gt;
     <link rel="alternate" href="https://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html"/>
     <id>https://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html</id>
     <published>2015-08-05T19:44:00+00:00</published>
-    <updated>2015-08-07T04:43:36+00:00</updated>
-    <category>security</category>
+    <updated>2015-09-11T06:42:47+00:00</updated>
+    <category term="security" scheme="https://evaryont.me/tags/" label="Security"/>
+    <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
     <content type="html">&lt;p&gt;To get an SSL certificate, you need to first generate a CSR. However, some
 early settings for the CSR can cripple your deployment before you even choose
 any ciphers. The normal command, &lt;code&gt;openssl req&lt;/code&gt;, will use old and now insecure
@@ -205,8 +206,9 @@ of the certificate, or the domain name to be used for the site:&lt;/p&gt;
     <link rel="alternate" href="https://evaryont.me/blog/2015/07/nginx-may-not-reload-config.html"/>
     <id>https://evaryont.me/blog/2015/07/nginx-may-not-reload-config.html</id>
     <published>2015-07-12T16:03:00+00:00</published>
-    <updated>2015-08-07T04:44:28+00:00</updated>
-    <category>sysadmin</category>
+    <updated>2015-09-11T06:44:20+00:00</updated>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
+    <category term="troubleshooting" scheme="https://evaryont.me/tags/" label="Troubleshooting"/>
     <content type="html">&lt;p&gt;&lt;img alt="Have you tried turning it off and on again?" src="https://www.thinkgeek.com/images/products/additional/large/11C3_ITCROWD_TURNOFFON.jpg" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Per the &lt;a href="http://wiki.nginx.org/CommandLine"&gt;nginx documentation&lt;/a&gt;
@@ -235,8 +237,8 @@ scratching my head.&lt;/p&gt;
     <id>https://evaryont.me/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html</id>
     <published>2015-04-03T20:14:00+00:00</published>
     <updated>2015-08-07T04:43:20+00:00</updated>
-    <category>quote</category>
-    <category>humour</category>
+    <category term="quote" scheme="https://evaryont.me/tags/" label="Quote"/>
+    <category term="humour" scheme="https://evaryont.me/tags/" label="Humour"/>
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;The benefits of “Intui-Shop” go beyond not having to think about anything ever
 again. They include discovering, and buying, exciting new products that you
@@ -260,7 +262,7 @@ But the future of recommendation engines definitely can do down this path.&lt;/p
     <id>https://evaryont.me/blog/2015/03/cox-home-network-facts.html</id>
     <published>2015-03-02T23:29:00+00:00</published>
     <updated>2015-08-07T04:40:55+00:00</updated>
-    <category>networking</category>
+    <category term="networking" scheme="https://evaryont.me/tags/" label="Networking"/>
     <content type="html">&lt;p&gt;Just called Tier 2 tech support for Cox looking to unblock some ports. Namely,
 port 80, for web servers. Turns out that’s not going to happen.&lt;/p&gt;
 
@@ -303,7 +305,7 @@ node.)&lt;/p&gt;
     <id>https://evaryont.me/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html</id>
     <published>2015-02-14T23:13:00+00:00</published>
     <updated>2015-08-07T04:44:40+00:00</updated>
-    <category>sysadmin</category>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
     <content type="html">&lt;p&gt;One thing I’d like point out is that while systemd is coupling many of those
 sort of things together into one cohesive package (but not one program, natch),
 it’s not trying to be the primary thing for all of those. So you can rule out
@@ -348,9 +350,10 @@ all the hacks from the 80’s &amp;amp; 90’s at once.&lt;/p&gt;
     <link rel="alternate" href="https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html"/>
     <id>https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html</id>
     <published>2014-10-16T00:17:00+00:00</published>
-    <updated>2015-07-08T20:28:38+00:00</updated>
-    <category>ruby</category>
-    <category>screenshot</category>
+    <updated>2015-09-11T06:42:56+00:00</updated>
+    <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
+    <category term="screenshot" scheme="https://evaryont.me/tags/" label="Screenshot"/>
+    <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
     <content type="html">&lt;p&gt;As I have spent the last hour and a half figuring out, generating a screenshot
 of a website in Ruby is harder than it seems.&lt;/p&gt;
 
@@ -433,9 +436,9 @@ the entire page, not just what is visible in the viewport.&lt;/p&gt;
     <id>https://evaryont.me/blog/2014/06/reset-erchef-admin-password.html</id>
     <published>2014-06-04T22:08:00+00:00</published>
     <updated>2015-08-07T04:44:35+00:00</updated>
-    <category>ruby</category>
-    <category>chef</category>
-    <category>sysadmin</category>
+    <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
+    <category term="chef" scheme="https://evaryont.me/tags/" label="Chef"/>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
     <content type="html">&lt;p&gt;&lt;img alt="Chef Inc, logo" src="https://www.chef.io/images/logo.svg" /&gt;&lt;/p&gt;
 
 &lt;p&gt;Forgetting the admin password to the self-hosted chef server can be a real pain.
@@ -459,9 +462,9 @@ the user name &amp;lsquo;admin&amp;rsquo; and password &amp;#39;password&amp;rsq
     <id>https://evaryont.me/blog/2014/04/more-about-ec2-and-ntp.html</id>
     <published>2014-04-18T20:43:00+00:00</published>
     <updated>2015-08-07T04:44:17+00:00</updated>
-    <category>networking</category>
-    <category>time</category>
-    <category>sysadmin</category>
+    <category term="networking" scheme="https://evaryont.me/tags/" label="Networking"/>
+    <category term="time" scheme="https://evaryont.me/tags/" label="Time"/>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
     <content type="html">&lt;p&gt;There is a lot of back and forth about using NTP on Amazon&amp;rsquo;s EC2 servers. Here
 are some links:&lt;/p&gt;
 
@@ -490,9 +493,10 @@ hopefully move it do a host Amazon server with the newer kernel.&lt;/p&gt;
     <link rel="alternate" href="https://evaryont.me/blog/2014/04/fixing-fakeweb-coveralls-conflict.html"/>
     <id>https://evaryont.me/blog/2014/04/fixing-fakeweb-coveralls-conflict.html</id>
     <published>2014-04-12T06:55:00+00:00</published>
-    <updated>2015-08-07T04:42:35+00:00</updated>
-    <category>ruby</category>
-    <category>testing</category>
+    <updated>2015-09-11T06:44:40+00:00</updated>
+    <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
+    <category term="testing" scheme="https://evaryont.me/tags/" label="Testing"/>
+    <category term="troubleshooting" scheme="https://evaryont.me/tags/" label="Troubleshooting"/>
     <content type="html">&lt;p&gt;If you&amp;rsquo;ve started using Fakeweb to mock HTTP requests but at the same time you
 have stopped getting coverage reports from Coveralls, you may have inadvertently
 blocked the coveralls client from reporting.&lt;/p&gt;
