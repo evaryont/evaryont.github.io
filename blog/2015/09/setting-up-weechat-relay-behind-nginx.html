@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <title>Evaryont's Blog - Setting up weechat relay behind nginx</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/assets/stylesheets/all-92ca5d05.css" rel="stylesheet" />
+    <link href="/assets/stylesheets/syntax-f604afaa.css" rel="stylesheet" />
+    <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
+
+    <!-- Begin favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57-1885c902.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60-818d3ba2.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72-24ff39d6.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76-2ed3e1aa.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-touch-icon-114x114-a24ec1c9.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120-775a0e3c.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144-961cd25a.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152-2e670d9a.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180-e49b1a25.png">
+    <link rel="icon" type="image/png" href="/icons/favicon-32x32-c49d0fa6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/icons/android-chrome-192x192-caf79604.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/icons/favicon-96x96-f9fc8ec4.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/icons/favicon-16x16-a5398df1.png" sizes="16x16">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <!-- End favicons -->
+
+  </head>
+
+  <body class="evs-green">
+
+    <!-- sidebar -->
+    <div class="sidebar">
+      <div class="container sidebar-sticky">
+        <a href="https://evaryont.me">
+          <img class='avatar' alt='My avatar' title='My avatar' src="https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256" />
+        </a>
+        <div class="sidebar-about">
+          <p class="lead">Notes and things I don't want to forget</p>
+        </div>
+
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-item">
+            <a class='entypo-github' href="https://github.com/evaryont">Github</a>
+          </li>
+          <li class="sidebar-nav-item">
+            <a class='entypo-book' href="/blog.html">Blog</a>
+          </li>
+          <li class="sidebar-nav-item">
+            <a class='entypo-twitter' href="https://twitter.com/evaryont">Twitter</a>
+          </li>
+        </ul>
+
+        <p><a class="entypo-rss" href="/feed.xml">Subscribe via RSS</a><br />
+           &copy; 2015. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+         
+      </div>
+    </div>
+    <!-- /sidebar -->
+    
+    <div role="main" class="content container">
+        <!-- this is a blog post for Setting up weechat relay behind nginx -->
+<div class="post">
+  <h1 class="post-title"><a href="/blog/2015/09/setting-up-weechat-relay-behind-nginx.html">Setting up weechat relay behind nginx</a></h1>
+
+  <span class='post-date'>Sep 10</span>
+
+  <p>Here&rsquo;s how to set up weechat with it&rsquo;s relay plugin sitting behind nginx. Why
+not expose it directly? Well, and with all respect to the weechat developers, I
+don&rsquo;t trust them enough to expose weechat directly onto the internet. And, I
+already have nginx exposed on the firewall for this blog. It&rsquo;s already serving a
+static HTML directory for my own local copy of <a href="http://www.glowing-bear.org/">Glowing
+Bear</a>. So why not have nginx do one more thing and
+proxy incoming WebSockets requests to weechat&rsquo;s relay? Setup was a bit
+non-obvious so hopefully this will help out the next person along.</p>
+
+<p>One feature I wanted to ensure was that the connection was encrypted end-to-end,
+even between nginx and weechat. So the chain looks something like the following,
+and every path between the components is encrypted with TLS:</p>
+<pre class="highlight plaintext"><code>User -&gt; Nginx -&gt; Weechat
+</code></pre>
+
+<p>Even though weechat will be configured with a self-signed certificate, the user
+won&rsquo;t have to add a security exception since nginx will present a valid
+certificate to the user, not weechat&rsquo;s self-signed certificate.</p>
+
+<h2>Configuring weechat</h2>
+
+<p>I&rsquo;m assuming you already have HTTPS set up for nginx. If not, you may want to
+look at my post on <a href="http://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html">how to make a CSR</a> to get started on that. We will need
+another certificate for weechat specifically so let&rsquo;s generate a self-signed
+one:</p>
+<pre class="highlight plaintext"><code>openssl req -x509 -nodes -newkey rsa:4096 -sha256 -keyout relay.key -out relay.pem -days 365 -subj '/CN=weechat relay/'
+</code></pre>
+
+<p>This will generate 2 files, <code>relay.key</code> (the private key) &amp; <code>relay.pem</code> (the
+public certificate). Save a copy of <code>relay.pem</code> elsewhere, it&rsquo;ll be used by
+nginx to verify that it is actually talking to weechat.</p>
+
+<p>Then you&rsquo;ll need to concatenate the two files into one for weechat&rsquo;s use,
+starting the file with the private key followed by the public certificate:</p>
+<pre class="highlight plaintext"><code>cat relay.key relay.pem &gt; weechat.pem
+</code></pre>
+
+<p>Now we can enable the relay plugin and configure it to use the SSL key we have
+just made (assuming you put the combined file into <code>~/.weechat/ssl</code>):</p>
+<pre class="highlight plaintext"><code>/set relay.network.password yourpassword
+/set relay.network.ssl_cert_key "%h/ssl/weechat.pem"
+/relay sslcertkey
+/set relay.network.bind_address "::1"
+/relay add ipv6.ssl.weechat 9001
+</code></pre>
+
+<p><em>NB: I&rsquo;m also configuring weechat to only listen on the IPv6 loopback interface.
+If you don&rsquo;t want that, skip the last 2 lines.</em></p>
+
+<h2>Configuring nginx</h2>
+
+<p>Now that weechat is done, nginx is next! It&rsquo;s nice and simple, a fairly simple
+nginx configuration like you&rsquo;ve seen anywhere else. The important parts are the
+map, upstream and location blocks.</p>
+<pre class="highlight nginx"><code><span class="k">map</span> <span class="nv">$http_upgrade</span> <span class="nv">$connection_upgrade</span> <span class="p">{</span>
+    <span class="kn">default</span> <span class="s">upgrade</span><span class="p">;</span>
+    <span class="kn">''</span> <span class="s">close</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># Make sure this upstream matches your configuration in weechat!
+</span><span class="k">upstream</span> <span class="s">weechat</span> <span class="p">{</span>
+    <span class="kn">server</span> <span class="s">[::1]:9001</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span> <span class="p">{</span>
+  <span class="kn">listen</span> <span class="mi">443</span><span class="p">;</span>
+  <span class="kn">server_name</span> <span class="s">irc.example.com</span><span class="p">;</span>
+
+  <span class="c1"># certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+</span>  <span class="kn">ssl_certificate</span> <span class="n">/path/to/signed_cert_plus_intermediates</span><span class="p">;</span>
+  <span class="kn">ssl_certificate_key</span> <span class="n">/path/to/private_key</span><span class="p">;</span>
+  <span class="kn">ssl_session_timeout</span> <span class="s">1d</span><span class="p">;</span>
+  <span class="kn">ssl_session_cache</span> <span class="s">shared:SSL:50m</span><span class="p">;</span>
+
+  <span class="c1"># Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+</span>  <span class="kn">ssl_dhparam</span> <span class="n">/path/to/dhparam.pem</span><span class="p">;</span>
+
+  <span class="c1"># Mozilla modern TLS configuration. tweak to your needs.
+</span>  <span class="kn">ssl_protocols</span> <span class="s">TLSv1.1</span> <span class="s">TLSv1.2</span><span class="p">;</span>
+  <span class="kn">ssl_ciphers</span> <span class="s">'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK'</span><span class="p">;</span>
+  <span class="kn">ssl_prefer_server_ciphers</span> <span class="no">on</span><span class="p">;</span>
+
+  <span class="c1"># HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+</span>  <span class="kn">add_header</span> <span class="s">Strict-Transport-Security</span> <span class="s">max-age=15768000</span><span class="p">;</span>
+
+  <span class="c1"># OCSP Stapling ---
+</span>  <span class="c1"># fetch OCSP records from URL in ssl_certificate and cache them
+</span>  <span class="kn">ssl_stapling</span> <span class="no">on</span><span class="p">;</span>
+  <span class="kn">ssl_stapling_verify</span> <span class="no">on</span><span class="p">;</span>
+
+  <span class="c1">## verify chain of trust of OCSP response using Root CA and Intermediate certs
+</span>  <span class="kn">ssl_trusted_certificate</span> <span class="n">/path/to/root_CA_cert_plus_intermediates</span><span class="p">;</span>
+
+  <span class="kn">resolver</span> <span class="s">&lt;IP</span> <span class="s">DNS</span> <span class="s">resolver&gt;</span><span class="p">;</span>
+
+  <span class="kn">location</span> <span class="n">/weechat</span> <span class="p">{</span>
+      <span class="kn">proxy_pass</span> <span class="s">https://weechat</span><span class="p">;</span>
+      <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+      <span class="kn">proxy_set_header</span> <span class="s">Upgrade</span> <span class="nv">$http_upgrade</span><span class="p">;</span>
+      <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="s">"upgrade"</span><span class="p">;</span>
+      <span class="kn">proxy_ssl_trusted_certificate</span> <span class="n">/path/to/copy/of/relay.pem</span><span class="p">;</span>
+      <span class="kn">proxy_ssl_verify</span> <span class="no">off</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+    <span class="kn">root</span> <span class="n">/var/www/glowing-bear</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>If download the <a href="https://github.com/glowing-bear/glowing-bear/archive/gh-pages.zip">latest stable version of Glowing Bear</a>, extract it into the
+directory <code>/var/www/glowing-bear</code> to have nginx serve it. This is entirely
+optional, you can always use the public version.</p>
+
+<h2>Finished!</h2>
+
+<p>Your connection settings for Glowing Bear, or any other relay client, would be
+as follows:</p>
+
+<ul>
+<li>Host: <strong>irc.example.com</strong></li>
+<li>Port: <strong>443</strong></li>
+<li>Password: <strong>yourpassword</strong></li>
+</ul>
+
+</div>
+
+  <!-- and missing comments :-( -->
+
+    </div>
+    
+  </body>
+</html>

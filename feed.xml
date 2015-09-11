@@ -5,12 +5,147 @@
   <id>https://evaryont.me</id>
   <link href="https://evaryont.me" type="text/html"/>
   <link href="https://evaryont.me/feed.xml" rel="self" type="application/atom+xml"/>
-  <updated>2015-08-29T00:49:00+00:00</updated>
+  <updated>2015-09-11T05:26:00+00:00</updated>
   <author>
     <name>Evaryont</name>
     <email>hello@evaryont.me</email>
     <uri>https://evaryont.me</uri>
   </author>
+  <entry>
+    <title>Setting up weechat relay behind nginx</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html"/>
+    <id>https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html</id>
+    <published>2015-09-11T05:26:00+00:00</published>
+    <updated>2015-09-11T05:56:41+00:00</updated>
+    <category>chat</category>
+    <category>irc</category>
+    <category>howto</category>
+    <content type="html">&lt;p&gt;Here&amp;rsquo;s how to set up weechat with it&amp;rsquo;s relay plugin sitting behind nginx. Why
+not expose it directly? Well, and with all respect to the weechat developers, I
+don&amp;rsquo;t trust them enough to expose weechat directly onto the internet. And, I
+already have nginx exposed on the firewall for this blog. It&amp;rsquo;s already serving a
+static HTML directory for my own local copy of &lt;a href="http://www.glowing-bear.org/"&gt;Glowing
+Bear&lt;/a&gt;. So why not have nginx do one more thing and
+proxy incoming WebSockets requests to weechat&amp;rsquo;s relay? Setup was a bit
+non-obvious so hopefully this will help out the next person along.&lt;/p&gt;
+
+&lt;p&gt;One feature I wanted to ensure was that the connection was encrypted end-to-end,
+even between nginx and weechat. So the chain looks something like the following,
+and every path between the components is encrypted with TLS:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;User -&amp;gt; Nginx -&amp;gt; Weechat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Even though weechat will be configured with a self-signed certificate, the user
+won&amp;rsquo;t have to add a security exception since nginx will present a valid
+certificate to the user, not weechat&amp;rsquo;s self-signed certificate.&lt;/p&gt;
+
+&lt;h2&gt;Configuring weechat&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;m assuming you already have HTTPS set up for nginx. If not, you may want to
+look at my post on &lt;a href="http://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html"&gt;how to make a CSR&lt;/a&gt; to get started on that. We will need
+another certificate for weechat specifically so let&amp;rsquo;s generate a self-signed
+one:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;openssl req -x509 -nodes -newkey rsa:4096 -sha256 -keyout relay.key -out relay.pem -days 365 -subj '/CN=weechat relay/'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will generate 2 files, &lt;code&gt;relay.key&lt;/code&gt; (the private key) &amp;amp; &lt;code&gt;relay.pem&lt;/code&gt; (the
+public certificate). Save a copy of &lt;code&gt;relay.pem&lt;/code&gt; elsewhere, it&amp;rsquo;ll be used by
+nginx to verify that it is actually talking to weechat.&lt;/p&gt;
+
+&lt;p&gt;Then you&amp;rsquo;ll need to concatenate the two files into one for weechat&amp;rsquo;s use,
+starting the file with the private key followed by the public certificate:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;cat relay.key relay.pem &amp;gt; weechat.pem
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can enable the relay plugin and configure it to use the SSL key we have
+just made (assuming you put the combined file into &lt;code&gt;~/.weechat/ssl&lt;/code&gt;):&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;/set relay.network.password yourpassword
+/set relay.network.ssl_cert_key "%h/ssl/weechat.pem"
+/relay sslcertkey
+/set relay.network.bind_address "::1"
+/relay add ipv6.ssl.weechat 9001
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;NB: I&amp;rsquo;m also configuring weechat to only listen on the IPv6 loopback interface.
+If you don&amp;rsquo;t want that, skip the last 2 lines.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Configuring nginx&lt;/h2&gt;
+
+&lt;p&gt;Now that weechat is done, nginx is next! It&amp;rsquo;s nice and simple, a fairly simple
+nginx configuration like you&amp;rsquo;ve seen anywhere else. The important parts are the
+map, upstream and location blocks.&lt;/p&gt;
+&lt;pre class="highlight nginx"&gt;&lt;code&gt;&lt;span class="k"&gt;map&lt;/span&gt; &lt;span class="nv"&gt;$http_upgrade&lt;/span&gt; &lt;span class="nv"&gt;$connection_upgrade&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kn"&gt;default&lt;/span&gt; &lt;span class="s"&gt;upgrade&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kn"&gt;''&lt;/span&gt; &lt;span class="s"&gt;close&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Make sure this upstream matches your configuration in weechat!
+&lt;/span&gt;&lt;span class="k"&gt;upstream&lt;/span&gt; &lt;span class="s"&gt;weechat&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kn"&gt;server&lt;/span&gt; &lt;span class="s"&gt;[::1]:9001&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;server&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kn"&gt;listen&lt;/span&gt; &lt;span class="mi"&gt;443&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;server_name&lt;/span&gt; &lt;span class="s"&gt;irc.example.com&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_certificate&lt;/span&gt; &lt;span class="n"&gt;/path/to/signed_cert_plus_intermediates&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_certificate_key&lt;/span&gt; &lt;span class="n"&gt;/path/to/private_key&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_session_timeout&lt;/span&gt; &lt;span class="s"&gt;1d&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_session_cache&lt;/span&gt; &lt;span class="s"&gt;shared:SSL:50m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_dhparam&lt;/span&gt; &lt;span class="n"&gt;/path/to/dhparam.pem&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Mozilla modern TLS configuration. tweak to your needs.
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_protocols&lt;/span&gt; &lt;span class="s"&gt;TLSv1.1&lt;/span&gt; &lt;span class="s"&gt;TLSv1.2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_ciphers&lt;/span&gt; &lt;span class="s"&gt;'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span class="no"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+&lt;/span&gt;  &lt;span class="kn"&gt;add_header&lt;/span&gt; &lt;span class="s"&gt;Strict-Transport-Security&lt;/span&gt; &lt;span class="s"&gt;max-age=15768000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# OCSP Stapling ---
+&lt;/span&gt;  &lt;span class="c1"&gt;# fetch OCSP records from URL in ssl_certificate and cache them
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_stapling&lt;/span&gt; &lt;span class="no"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_stapling_verify&lt;/span&gt; &lt;span class="no"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;## verify chain of trust of OCSP response using Root CA and Intermediate certs
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_trusted_certificate&lt;/span&gt; &lt;span class="n"&gt;/path/to/root_CA_cert_plus_intermediates&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="kn"&gt;resolver&lt;/span&gt; &lt;span class="s"&gt;&amp;lt;IP&lt;/span&gt; &lt;span class="s"&gt;DNS&lt;/span&gt; &lt;span class="s"&gt;resolver&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="kn"&gt;location&lt;/span&gt; &lt;span class="n"&gt;/weechat&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_pass&lt;/span&gt; &lt;span class="s"&gt;https://weechat&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_http_version&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="s"&gt;.1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_set_header&lt;/span&gt; &lt;span class="s"&gt;Upgrade&lt;/span&gt; &lt;span class="nv"&gt;$http_upgrade&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_set_header&lt;/span&gt; &lt;span class="s"&gt;Connection&lt;/span&gt; &lt;span class="s"&gt;"upgrade"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_ssl_trusted_certificate&lt;/span&gt; &lt;span class="n"&gt;/path/to/copy/of/relay.pem&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_ssl_verify&lt;/span&gt; &lt;span class="no"&gt;off&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="kn"&gt;location&lt;/span&gt; &lt;span class="n"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kn"&gt;root&lt;/span&gt; &lt;span class="n"&gt;/var/www/glowing-bear&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If download the &lt;a href="https://github.com/glowing-bear/glowing-bear/archive/gh-pages.zip"&gt;latest stable version of Glowing Bear&lt;/a&gt;, extract it into the
+directory &lt;code&gt;/var/www/glowing-bear&lt;/code&gt; to have nginx serve it. This is entirely
+optional, you can always use the public version.&lt;/p&gt;
+
+&lt;h2&gt;Finished!&lt;/h2&gt;
+
+&lt;p&gt;Your connection settings for Glowing Bear, or any other relay client, would be
+as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Host: &lt;strong&gt;irc.example.com&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Port: &lt;strong&gt;443&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Password: &lt;strong&gt;yourpassword&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
   <entry>
     <title>Announcing tls-grab</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/08/announcing-tls-grab.html"/>
@@ -387,33 +522,6 @@ connections:&lt;/p&gt;
 &lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# in your spec_helper.rb&lt;/span&gt;
 &lt;span class="no"&gt;FakeWeb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;allow_net_connect&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sr"&gt;%r[^https?://coveralls.io]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Middleman: Error: Could not locate layout: layout</title>
-    <link rel="alternate" href="https://evaryont.me/blog/2014/03/middleman-error-could-not-locate-layout-layout.html"/>
-    <id>https://evaryont.me/blog/2014/03/middleman-error-could-not-locate-layout-layout.html</id>
-    <published>2014-03-19T01:39:00+00:00</published>
-    <updated>2015-08-07T04:43:48+00:00</updated>
-    <category>ruby</category>
-    <category>middleman</category>
-    <content type="html">&lt;p&gt;If you&amp;rsquo;re getting the above as an error in your middleman site, however it&amp;rsquo;s
-only on articles from the blogging extension for Middleman, you may need to
-update your &lt;code&gt;config.rb&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you specify a new name for the default layout in your config:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="ss"&gt;:layout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'default'&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Middleman will look for the layout called &amp;lsquo;default&amp;rsquo; for each of your pages.
-However, the blogging extension has it&amp;rsquo;s own override in that you&amp;rsquo;ll have to
-specify in the activate block:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;activate&lt;/span&gt; &lt;span class="ss"&gt;:blog&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
-  &lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;layout&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"default"&lt;/span&gt;
-&lt;span class="k"&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;That way the blogging extension doesn&amp;rsquo;t use it&amp;rsquo;s default layout name.&lt;/p&gt;
 </content>
   </entry>
 </feed>
