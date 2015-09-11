@@ -17,7 +17,7 @@
     <link rel="alternate" href="https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html"/>
     <id>https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html</id>
     <published>2015-09-11T05:26:00+00:00</published>
-    <updated>2015-09-11T05:56:41+00:00</updated>
+    <updated>2015-09-11T07:42:15+00:00</updated>
     <category term="chat" scheme="https://evaryont.me/tags/" label="Chat"/>
     <category term="irc" scheme="https://evaryont.me/tags/" label="Irc"/>
     <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
@@ -123,6 +123,7 @@ map, upstream and location blocks.&lt;/p&gt;
       &lt;span class="kn"&gt;proxy_set_header&lt;/span&gt; &lt;span class="s"&gt;Connection&lt;/span&gt; &lt;span class="s"&gt;"upgrade"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
       &lt;span class="kn"&gt;proxy_ssl_trusted_certificate&lt;/span&gt; &lt;span class="n"&gt;/path/to/copy/of/relay.pem&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
       &lt;span class="kn"&gt;proxy_ssl_verify&lt;/span&gt; &lt;span class="no"&gt;off&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_read_timeout&lt;/span&gt; &lt;span class="s"&gt;4h&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 
   &lt;span class="kn"&gt;location&lt;/span&gt; &lt;span class="n"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;

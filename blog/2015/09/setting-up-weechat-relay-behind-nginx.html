@@ -168,6 +168,7 @@ map, upstream and location blocks.</p>
       <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="s">"upgrade"</span><span class="p">;</span>
       <span class="kn">proxy_ssl_trusted_certificate</span> <span class="n">/path/to/copy/of/relay.pem</span><span class="p">;</span>
       <span class="kn">proxy_ssl_verify</span> <span class="no">off</span><span class="p">;</span>
+      <span class="kn">proxy_read_timeout</span> <span class="s">4h</span><span class="p">;</span>
   <span class="p">}</span>
 
   <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
