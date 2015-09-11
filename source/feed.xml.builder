@@ -6,6 +6,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
   xml.title data.site.title
   xml.subtitle data.site.subtitle
   xml.id URI.join(data.site.url, blog.options.prefix.to_s)
+  xml.logo data.site.avatar
 
   xml.link "href" => URI.join(data.site.url, blog.options.prefix.to_s), "type" => "text/html"
   xml.link "href" => URI.join(data.site.url, current_page.path), "rel" => "self", "type" => "application/atom+xml"

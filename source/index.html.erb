@@ -197,7 +197,7 @@ a.inactive:hover {
 <body>
 <div class='block'>
   <p class='centered'>
-    <img class='avatar' alt='My avatar' title='My avatar' src="https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256" />
+    <img class='avatar' alt='My avatar' title='My avatar' src="<%= data.site.avatar %>" />
     <span class='nav'>
     <% data.elsewhere.sites.each do |site| %>
       <a class='<%= site.icon %>' href="<%= site.url %>" rel='me'><%= site.name %></a>
