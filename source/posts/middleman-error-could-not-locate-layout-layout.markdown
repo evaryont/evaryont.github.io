@@ -1,7 +1,7 @@
 ---
 title: "Middleman: Error: Could not locate layout: layout"
 date: 2014-03-18 18:39 MST
-tags: ruby, middleman
+tags: ruby, middleman, troubleshooting
 ---
 
 If you're getting the above as an error in your middleman site, however it's

@@ -1,7 +1,7 @@
 ---
 title: "Generating a webpage screenshot in ruby"
 date: 2014-10-15 17:17 MST
-tags: ruby, screenshot
+tags: ruby, screenshot, howto
 ---
 
 As I have spent the last hour and a half figuring out, generating a screenshot

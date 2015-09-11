@@ -32,7 +32,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom" do
         end
       end
       article.tags.each do |tag|
-        xml.category tag
+        xml.category "term" => tag, "scheme" => URI.join(data.site.url, "tags/"), "label" => tag.capitalize
       end
       xml.content article.body, "type" => "html"
     end

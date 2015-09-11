@@ -87,6 +87,7 @@ activate :blog do |blog|
   blog.year_template = false
   blog.month_template = false
   blog.day_template = false
+  blog.taglink = 'tags/{tag}/index.html'
 end
 
 page "/feed.xml",   layout: false
@@ -143,3 +144,9 @@ when 'github'
     deploy.branch = "master"
   end
 end
+
+#ready do
+#  blog.tags.each do |tag, posts|
+#    proxy "/tags/#{tag}/index.html", "/tags/#{tag}.html"
+#  end
+#end
