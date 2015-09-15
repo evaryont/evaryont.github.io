@@ -56,6 +56,7 @@ alphabetsoup:
     - ElasticSearch
     - Kibana
     - Logstash
+    - MongoDB
 
   knowledge:
     - Go
@@ -87,6 +88,8 @@ jobs:
         - Revamped the authentication and structure for the internal admin panel of the Rails code base
         - Modernized configuration management and deployment using Chef 12 and Amazon EC2 Autoscaling
         - Deployed applications to Heroku, Elastic Beanstalk, and other PaaS services
+        - Set up Nagios, Icinga, Shiken and ELK stacks to monitor components of the network
+        - Helped administrate multiple MySQL databases with terabytes of data
   - title: System Administrator
     company: Cummings Engineering Consultants
     dates:
@@ -98,7 +101,8 @@ jobs:
         - Migrated servers from manual setup to configuration management using Puppet
         - Developed policies to secure our servers to our client's (NSA) standards
         - Located and decided on international targets across all continents to expand the network to fulfill ultra-low latency demands
-        - Managed the internal git, Gerrit code review and Jenkins CI servers
+        - Managed the internal git, Gerrit code review, NAS, and Jenkins CI servers
+        - Managed PostgreSQL, MySQL and MongoDB databases in high security networks
   - title: Intern 
     company: University of Advancing Technology
     url: https://www.uat.edu/
