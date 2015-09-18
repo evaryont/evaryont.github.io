@@ -6,12 +6,105 @@
   <logo>https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256</logo>
   <link href="https://evaryont.me" type="text/html"/>
   <link href="https://evaryont.me/feed.xml" rel="self" type="application/atom+xml"/>
-  <updated>2015-09-11T05:26:00+00:00</updated>
+  <updated>2015-09-18T03:53:00+00:00</updated>
   <author>
     <name>Evaryont</name>
     <email>hello@evaryont.me</email>
     <uri>https://evaryont.me</uri>
   </author>
+  <entry>
+    <title>Modern IT looks really old</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/09/modern-it-looks-really-old.html"/>
+    <id>https://evaryont.me/blog/2015/09/modern-it-looks-really-old.html</id>
+    <published>2015-09-18T03:53:00+00:00</published>
+    <updated>2015-09-18T04:11:37+00:00</updated>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
+    <content type="html">&lt;p&gt;This is my definition of what defines a modern IT stack. It&amp;rsquo;s a lot of new king,
+meet the old king stuff though — IT&amp;rsquo;s duties haven&amp;rsquo;t fundamentally changed,
+just the way we go about doing them has. (Hello, containers!)&lt;/p&gt;
+
+&lt;p&gt;Inspired by &lt;a href="http://www.eightypercent.net/post/layers-in-the-stack.html"&gt;Joe Beda&amp;rsquo;s post, Anatomy of a Modern Production Stack&lt;/a&gt;, I
+thought I would try restating everything he said. I&amp;rsquo;m focusing on slightly
+smaller networks, or those that are very heterogeneous perhaps with a lot of
+one-offs.  That is what I have most experience in: companies private IT not
+global scale behemoths.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Production OS&lt;/strong&gt;: Like Joe said, Linux is pretty much the de-facto choice
+for the underlying host you run on the bare metal. The applications might run
+in a VM on top of it if you need a different OS (like Windows for AD, Exchange,
+etc).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Application deployment source&lt;/strong&gt;: A repository. You might look to the future
+and decide that you want to run a private Docker registry, or fall back on well
+known tech like a distro&amp;rsquo;s package repository. Or use a language&amp;rsquo;s tools for
+shipping your applications.  Rubygems certainly doesn&amp;rsquo;t care if the gem it
+downloads doesn&amp;rsquo;t actually contain any Ruby in it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Network management&lt;/strong&gt;: Assign IPs to your boxes. Starts with static IPs for
+everything, or a personal DHCP server you&amp;rsquo;re running. Gets a lot more complex
+from there.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Configuration managment&lt;/strong&gt;: Once you boot a fresh machine, it needs to be fed in
+information on how to properly join the network, any certificates or keys it
+needs, etc. And of course, a name. Then it needs to be configured to actually
+run the application you meant it to.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Discovery service&lt;/strong&gt;: Having IPs embedded in configuration files sucks and ends up
+in practice as way to brittle. Especially if your machines can come &amp;amp; go with
+radically different network properties (MAC/IP addresses for instance) but you
+expect applications to be able to handle that. DNS is a common service, though
+the caching behaviour of a lot of libraries would need to be tweaked first&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Replicated storage&lt;/strong&gt;: It&amp;rsquo;s almost guaranteed that you&amp;rsquo;re going to want to
+store the applications&amp;rsquo; data somewhere else other than right next to the
+application itself within it&amp;rsquo;s execution context (VM, container, etc). NFS
+mounts, CIFS shares, and plenty of other technology. You might be able to avoid
+this for a long time if every piece of data you write is going to be stored in a
+purpose specific server, like a (No)SQL database.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Machine identity&lt;/strong&gt;: You can&amp;rsquo;t rely on the edge of the network to be secure. A
+perfectly secure firewall would let nothing by — but that would also mean
+nothing can reach your applications! So if there must be a hole in the
+firewall, that can possibly be exploited, how can your applications &amp;amp; machines
+know who they are really talking to? Kerberos is a very common solution in this
+space. There are still quite a bit of issues to deal with (what if the
+application gets pwned and then steals your Kerberos TGT? You&amp;rsquo;re in for a lot
+of pain then.) before this can be called &amp;ldquo;solved&amp;rdquo; but bright minds are working
+on it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Monitoring&lt;/strong&gt;: You want to know when things go haywire, of course. The
+next step beyond that is self healing services though. Most problems that
+plague services are small. It&amp;rsquo;s just not every day you get your entire network
+broken into and exposed for the world. Most situations don&amp;rsquo;t need that kind of
+response and in fact could easily be done with one or two commands. Why not
+make the computers do the boring repetitive stuff? A lot of people are scared
+(and rightly so, a lot of stuff can go wrong with fail-overs) of overzealous
+computers trying to solve imaginary problems, or using the wrong fix.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Centralized Logging&lt;/strong&gt;: I assume you already have competent logs. If you don&amp;rsquo;t
+then you need to fix that. Then you need to collate all of them across your
+entire network. syslog is the old hat in this ring, ELK is a new contender (and
+doing well at it!).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Debugging&lt;/strong&gt;: This is a really hard thing to generalize as the moment anyone
+stops following the exact same steps as the rest of the world, all assumptions
+are wrong. And of course every network is different, so developers could never
+guess what your particular network would look like.  Whole system state capture
+tools, like &lt;a href="http://www.sysdig.org/"&gt;Sysdig&lt;/a&gt;, are one way to look at it.  Another is to start developing
+an expansive library of configurable and highly specific tools, perhaps like
+Mozilla&amp;rsquo;s MIG.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Messaging&lt;/strong&gt;: Your applications certainly don&amp;rsquo;t live in an island, so you&amp;rsquo;ll
+want to provide a way for them to talk to each other. This is as simple as each
+application exposing a basic HTTP API all the way to a distributed, fault
+tolerant message broker that every application connects to for publish &amp;amp;
+subscribe events.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is all the basic foundations for a modern IT stack that awfully looks (at a
+    high level) much like every other IT stack. And that&amp;rsquo;s really the crux of
+it. If you want to start using Docker, you&amp;rsquo;ll run into all of the above all over
+again, but with slightly different parameters. It&amp;rsquo;s even scarier to realize that
+each of these categories has had so much work put in that you could easily make
+a dissertation on just one.&lt;/p&gt;
+
+&lt;p&gt;So containers promise to change all of that by upending what we consider the
+basic atoms of IT. I&amp;rsquo;m certain that I&amp;rsquo;ll look back at this post and laugh;
+things are greatly changing.  Then again, this is all just to keep the servers
+running. &lt;em&gt;Has it really changed?&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
   <entry>
     <title>Setting up weechat relay behind nginx</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html"/>
@@ -351,9 +444,8 @@ all the hacks from the 80’s &amp;amp; 90’s at once.&lt;/p&gt;
     <link rel="alternate" href="https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html"/>
     <id>https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html</id>
     <published>2014-10-16T00:17:00+00:00</published>
-    <updated>2015-09-11T06:42:56+00:00</updated>
+    <updated>2015-09-18T04:11:52+00:00</updated>
     <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
-    <category term="screenshot" scheme="https://evaryont.me/tags/" label="Screenshot"/>
     <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
     <content type="html">&lt;p&gt;As I have spent the last hour and a half figuring out, generating a screenshot
 of a website in Ruby is harder than it seems.&lt;/p&gt;
@@ -487,47 +579,6 @@ There is has been reported cases of NTP failing &amp;amp; erroring out when atte
 to set the time, but that also seems like a case of outdated kernels (either in
 the Xen domU or on the guest). So update your VM and terminate/cycle it to
 hopefully move it do a host Amazon server with the newer kernel.&lt;/p&gt;
-</content>
-  </entry>
-  <entry>
-    <title>Fixing Fakeweb &amp; Coveralls conflict</title>
-    <link rel="alternate" href="https://evaryont.me/blog/2014/04/fixing-fakeweb-coveralls-conflict.html"/>
-    <id>https://evaryont.me/blog/2014/04/fixing-fakeweb-coveralls-conflict.html</id>
-    <published>2014-04-12T06:55:00+00:00</published>
-    <updated>2015-09-11T06:44:40+00:00</updated>
-    <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
-    <category term="testing" scheme="https://evaryont.me/tags/" label="Testing"/>
-    <category term="troubleshooting" scheme="https://evaryont.me/tags/" label="Troubleshooting"/>
-    <content type="html">&lt;p&gt;If you&amp;rsquo;ve started using Fakeweb to mock HTTP requests but at the same time you
-have stopped getting coverage reports from Coveralls, you may have inadvertently
-blocked the coveralls client from reporting.&lt;/p&gt;
-
-&lt;p&gt;If you look at the results from your CI, like Travis, you&amp;rsquo;ll probably see the
-following:&lt;/p&gt;
-&lt;pre class="highlight plaintext"&gt;&lt;code&gt;[Coveralls] Submitting to https://coveralls.io/api/v1
-Coveralls encountered an exception: FakeWeb::NetConnectNotAllowedError
-Real HTTP connections are disabled. Unregistered request: POST https://coveralls.io/api/v1/jobs
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/fakeweb-1.3.0/lib/fake_web/ext/net_http.rb:53:in `request_with_fakeweb'`
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:176:in `block in transmit'
-/home/travis/.rvm/rubies/ruby-2.0.0-p353/lib/ruby/2.0.0/net/http.rb:852:in `start'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:172:in `transmit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:64:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient/request.rb:33:in `execute'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/rest-client-1.6.7/lib/restclient.rb:72:in `post'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/api.rb:18:in `post_json'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/coveralls-0.7.0/lib/coveralls/simplecov.rb:72:in `format'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/result.rb:46:in `format!'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/configuration.rb:139:in `block in at_exit'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `call'
-/home/travis/.rvm/gems/ruby-2.0.0-p353/gems/simplecov-0.8.2/lib/simplecov/defaults.rb:54:in `block in &amp;lt;top (required)&amp;gt;''`
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The fix is really simple. You need to tell Fakeweb to allow requests to
-coveralls.io. Fakeweb supports providing a regex to whitelist outgoing
-connections:&lt;/p&gt;
-&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="c1"&gt;# in your spec_helper.rb&lt;/span&gt;
-&lt;span class="no"&gt;FakeWeb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;allow_net_connect&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sr"&gt;%r[^https?://coveralls.io]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
 </content>
   </entry>
 </feed>
