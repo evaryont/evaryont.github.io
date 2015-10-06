@@ -67,3 +67,14 @@ html {
   content: '#';
   color: #9A9A9A;
 }
+
+// Set the background color of selected text to neon-green, like the highlighter
+::selection {
+  background-color: #31fd2e;
+}
+::-moz-selection {
+  background-color: #31fd2e;
+}
+::-webkit-selection {
+  background-color: #31fd2e;
+}
