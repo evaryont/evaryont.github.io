@@ -2,6 +2,11 @@
 
   <%= partial "sidebar" %>
   
+  <!-- Geopattern header! Fancy! 🎩 -->
+  <div class="fartsy-header" style="background-image: <%= GeoPattern.generate(current_page.path).to_data_uri %>">
+    <div class='air'></div>
+  </div>
+
   <div role="main" class="content container">
     <% if current_article %>
       <%= partial "article", locals: {article: current_article} %>
