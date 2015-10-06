@@ -5,4 +5,12 @@
   <span class='post-date'><%= article.date.strftime('%b %e') %></span>
 
   <%= article.body %>
+
+  <% if article.previous_article %>
+    <%= link_to "<< " + article.previous_article.title, article.previous_article, class: 'next-article' %>
+  <% end %>
+
+  <% if article.next_article %>
+    <%= link_to article.next_article.title + " >>", article.next_article, class: 'next-article' %>
+  <% end %>
 </div>
