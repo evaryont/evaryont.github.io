@@ -2,11 +2,17 @@
 # page & sidebar
 sites:
   - name: Github
-    icon: entypo-github
+    icon: fa-github
     url: https://github.com/evaryont
   - name: Blog
-    icon: entypo-book
+    icon: fa-book
     url: /blog.html
   - name: Twitter
-    icon: entypo-twitter
+    icon: fa-twitter
     url: https://twitter.com/evaryont
+  - name: Tumblr
+    icon: fa-tumblr
+    url: http://evsdoesstuff.tumblr.com/
+  - name: About
+    icon: fa-info-circle
+    url: /about.html

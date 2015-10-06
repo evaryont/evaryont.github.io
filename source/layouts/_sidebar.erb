@@ -11,7 +11,7 @@
     <ul class="sidebar-nav">
       <% data.elsewhere.sites.each do |site| %>
       <li class="sidebar-nav-item">
-        <a class='<%= site.icon %>' href="<%= site.url %>"><%= site.name %></a>
+        <a class='fa fa-fw <%= site.icon %>' href='<%= site.url %>'><%= site.name %></a>
       </li>
       <% end %>
     </ul>
