@@ -129,13 +129,13 @@ a.sidebar-nav-item {
  */
 
 .content {
-  padding-top: 4rem;
+  //padding-top: 4rem;
   padding-bottom: 4rem;
 }
 
 @media (min-width: 48rem) {
   .content {
-    max-width: 38rem;
+    max-width: 48rem;
     margin-left: 20rem;
     margin-right: 2rem;
   }

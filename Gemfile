@@ -16,3 +16,5 @@ gem 'redcarpet'
 
 gem 'pdfkit'
 gem 'middleman-pry'
+
+gem 'geo_pattern'

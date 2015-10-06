@@ -45,4 +45,13 @@ html {
   }
 }
 
+.fartsy-header {
+  height: 4em;
+
+  .air {
+    height: 4em;
+    background: transparent linear-gradient(to right, rgba(255, 255, 255, 0) 50%, #FFF 95%) repeat scroll 0% 0%;
+  }
+}
+
 @import 'landing';
