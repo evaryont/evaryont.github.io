@@ -79,7 +79,7 @@ helpers do
     def geopattern(path)
       base_color_i = Random.new(Digest::SHA1.hexdigest(path).to_i(16)).rand($color_palette.length+1)
 
-      GeoPattern.generate(path, base_color: $color_palette[base_color_i]).to_data_uri
+      GeoPattern.generate(path, color: $color_palette[base_color_i]).to_data_uri
     end
 end
 
