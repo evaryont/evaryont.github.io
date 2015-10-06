@@ -6,8 +6,9 @@ title: "Archive"
 <% page_articles.each do |article| %>
   <article class='archive-article'>
     <header>
-      <h3><%= link_to article.title, article %></h3>
-      <p class='blog-stamp'>
+      <h3 class="post-title"><%= link_to article.title, article %></h3>
+
+      <p class='post-date'>
         <time datetime='<%= article.date %>'><%= article.date.strftime('%b %e, %Y') %></time>
       </p>
     </header>
