@@ -156,9 +156,3 @@ when 'github'
     deploy.branch = "master"
   end
 end
-
-#ready do
-#  blog.tags.each do |tag, posts|
-#    proxy "/tags/#{tag}/index.html", "/tags/#{tag}.html"
-#  end
-#end

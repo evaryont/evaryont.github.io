@@ -5,9 +5,9 @@
   <span class='post-date'><%= article.date.strftime('%b %e, %Y') %>
 
     <span class='taglist'>
-      <% article.tags.each do |tag| %>
-        <%= link_to tag, tag_path(tag), class: 'tag' %>
-      <% end %>
+      <%= article.tags.map do |tag|
+            link_to tag, tag_path(tag), class: 'tag'
+          end.join(',') %>
     </span>
   </span>
 
