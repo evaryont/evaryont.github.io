@@ -308,7 +308,7 @@ tbody tr:nth-child(odd) td, tbody tr:nth-child(odd) th {
 
 /* line 334, /home/colin/code/weblog/source/assets/stylesheets/_poole.scss */
 .page-title, .post-title {
-  margin-top: 0; }
+  margin-top: 0.5em; }
 
 /* Meta data line below post title */
 /* line 340, /home/colin/code/weblog/source/assets/stylesheets/_poole.scss */
@@ -710,3 +710,15 @@ body.index {
     padding-left: 1em;
     padding-right: 1em;
     padding-top: 0.5em; }
+
+/* line 59, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
+.post .relative-posts {
+  text-align: center; }
+
+/* line 63, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
+.post .taglist {
+  float: right; }
+
+/* line 66, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
+.taglist .tag::before {
+  content: '#'; }
