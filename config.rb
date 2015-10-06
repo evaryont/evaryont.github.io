@@ -146,7 +146,7 @@ when 'jupiter'
     deploy.user   = 'colin'
     #deploy.port  = 22
     deploy.path   = "/home/colin/website"
-    deploy.flags  = "-Cav --delete --delete-excluded"
+    deploy.flags  = "-avz --exclude='.git/' --delete --delete-excluded"
     deploy.clean  = true
   end
 when 'github'
