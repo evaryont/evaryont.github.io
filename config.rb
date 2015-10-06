@@ -106,9 +106,6 @@ activate :blog do |blog|
   blog.taglink = 'tags/{tag}/index.html'
 end
 
-#page "/feed.xml",   layout: false
-page "/index.html", layout: false
-
 # Automatic image dimensions on image_tag helper
 activate :automatic_image_sizes
 
