@@ -721,4 +721,5 @@ body.index {
 
 /* line 66, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
 .taglist .tag::before {
-  content: '#'; }
+  content: '#';
+  color: #9A9A9A; }
