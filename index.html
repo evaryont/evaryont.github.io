@@ -1,209 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <title>Evaryont's Blog</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/assets/stylesheets/all-300d0ca9.css" rel="stylesheet" />
+    <link href="/assets/stylesheets/syntax-f604afaa.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
 
-<!-- OpenID delegation, using MyOpenID -->
-<link rel="openid.server" href="https://www.myopenid.com/server" />
-<link rel="openid.delegate" href="https://evaryont.myopenid.com/" />
-<link rel="openid2.local_id" href="https://evaryont.myopenid.com" />
-<link rel="openid2.provider" href="https://www.myopenid.com/server" />
-<meta http-equiv="X-XRDS-Location" content="https://evaryont.myopenid.com/xrds" />
+    <!-- Begin favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57-1885c902.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60-818d3ba2.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72-24ff39d6.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76-2ed3e1aa.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-touch-icon-114x114-a24ec1c9.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120-775a0e3c.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144-961cd25a.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152-2e670d9a.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180-e49b1a25.png">
+    <link rel="icon" type="image/png" href="/icons/favicon-32x32-c49d0fa6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/icons/android-chrome-192x192-caf79604.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/icons/favicon-96x96-f9fc8ec4.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/icons/favicon-16x16-a5398df1.png" sizes="16x16">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <!-- End favicons -->
 
-<!-- RSS/Atom feeds for my blog, better than nothing I guess -->
-<link rel="alternate" type="application/rss+xml" title="Blog feed" href="https://evaryont.wordpress.com/feed/" />
+        <!-- OpenID delegation, using MyOpenID -->
+  <link rel="openid.server" href="https://www.myopenid.com/server" />
+  <link rel="openid.delegate" href="https://evaryont.myopenid.com/" />
+  <link rel="openid2.local_id" href="https://evaryont.myopenid.com" />
+  <link rel="openid2.provider" href="https://www.myopenid.com/server" />
+  <meta http-equiv="X-XRDS-Location" content="https://evaryont.myopenid.com/xrds" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
-<style type="text/css">
 
-html { height: 100%; margin: 0; }
-body {
-  background-color: #4FB34F;
-  background-image: radial-gradient(circle closest-corner at center, #4FB34F 0%, #497049 100%);
-  height: 100%;
-  font-size: 32px;
-  margin: 0;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-/* The .block & .centered copied from
-http://css-tricks.com/centering-in-the-unknown/, thanks Chris! */
+  </head>
 
-/* This parent can be any width and height */
-.block {
-  text-align: center;
-  height: 100%;
-}
+  <body class="index evs-green">
 
-/* The ghost, nudged to maintain perfect centering */
-.block:before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-  //margin-right: -0.25em; /* Adjusts for spacing */
-}
+    
+<img class='avatar' alt='My avatar' title='My avatar' src="https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256" />
+<ul class='nav'>
+  <li><a href="https://github.com/evaryont" rel='me'><i class="fa fa-fw fa-lg fa-github"></i>Github</a></li>
+  <li><a href="/blog.html" rel='me'><i class="fa fa-fw fa-lg fa-book"></i>Blog</a></li>
+  <li><a href="https://twitter.com/evaryont" rel='me'><i class="fa fa-fw fa-lg fa-twitter"></i>Twitter</a></li>
+  <li><a href="http://evsdoesstuff.tumblr.com/"><i class="fa fa-fw fa-lg fa-tumblr"></i>Tumblr</a></li>
+  <li><a href="/about.html"><i class="fa fa-fw fa-lg fa-info-circle"></i>About</a></li>
+</ul>
 
-/* The element to be centered, can
-   also be of any width and height */
-.centered {
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  top: -1em;
-}
+<!--
+      <li class="sidebar-nav-item">
+        <a class='entypo-github' href="https://github.com/evaryont">Github</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class='entypo-book' href="/blog.html">Blog</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class='entypo-twitter' href="https://twitter.com/evaryont">Twitter</a>
+      </li>
+-->
 
-.avatar {
-  display: block;
-  margin: 2em;
-  border-width: 0.2em;
-  border-color: rgba(0, 0, 0, 0.1);
-  border-style: solid;
-  border-radius: 1em;
-  box-shadow: 0px 0px 0.2em 0 #000;
-  position: relative;
-  left: 36px;
-  width: 5.875em;
-  height: 5.875em;
-}
-
-a {
-  padding-left: 0.3em;
-  padding-right: 0.3em;
-}
-
-a:link, a:visited, a:active, a:hover {
-  color: white;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-img {
-  vertical-align: middle;
-}
-
-.inactive {
-  opacity: 0.6;
-}
-a.inactive:hover {
-  text-decoration: none !important;
-}
-
-/* entypo */
-[class*="entypo-"]:before {
-  font-family: 'entypo', sans-serif;
-  font-size: 24px;
-  padding: 8px;
-}
-
-[class*="entypo-"]:hover:before {
-  text-decoration: none;
-}
-
-.entypo-github:hover:before {
-  text-decoration: none;
-}
-
-.nav {
-  display: block;
-  position: relative;
-  left: -36px;
-}
-
-/*
-  Most American smart phones fall within this range, while avoiding desktops &
-  tablets
-*/
-@media screen
-       and ( min-width: 320px )
-       and ( max-width: 640px )
-       and ( orientation: portrait )
-{
-  body {
-    height: 0;
-    max-height: 0;
-  }
-
-  /* Put each navigation link onto it's own line, then nudge it around a bit so
-  that it's better centered. Sizes developed on a Galaxy Nexus. */
-  .nav a {
-    display: block;
-    position: relative;
-    right: -0.8em;
-  }
-
-  .nav a:first-child {
-    padding-bottom: 0.5em;
-    padding-top: 0;
-  }
-
-  .nav a {
-    padding-top: 0.25em;
-    padding-bottom: 0.25em;
-  }
-
-  .nav a:last-child {
-    padding-top: 0.5em;
-    padding-bottom: 0;
-  }
-
-  .avatar {
-    /* Move it a little closer to the top-left */
-    margin-left: -0.1em;
-    margin-top: 1em;
-    /* Reduce the size of the image somewhat */
-    width: 5em;
-    height: 5em;
-  }
-
-}
-
-/*
-  Smart phones in landscape orientation don't need much work, just budge the
-  avatar up a bit and everything is dandy
-*/
-@media screen
-       and ( min-width: 320px )
-       and ( max-width: 640px )
-       and ( orientation: landscape )
-{
-
-  .avatar {
-    /* Move it closer to the top, pulling up the navigation links */
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    /* Reduce the size of the image somewhat */
-    width: 5em;
-    height: 5em;
-    padding: 0;
-  }
-
-  /* Is it just me, or does anyone else hate it when browsers scroll when there
-  is no further content? It's always due to some box or another being a bit
-  taller than it should be. */
-  html {
-    /* This approach to fixing the issue, however, is a bit heavy-handed so I
-    don't really recommend it unless your site is incredibly basic, like
-    mine. */
-    height: 85%;
-  }
-}
-
-</style>
-<title>Evaryont.me</title>
-</head>
-<body>
-<div class='block'>
-  <p class='centered'>
-    <img class='avatar' alt='My avatar' title='My avatar' src="https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256" />
-    <span class='nav'>
-      <a class='entypo-github' href="https://github.com/evaryont" rel='me'>Github</a>
-      <a class='entypo-book' href="/blog.html" rel='me'>Blog</a>
-      <a class='entypo-twitter' href="https://twitter.com/evaryont" rel='me'>Twitter</a>
-    </span>
-  </p>
-</div>
-</body>
+    
+  </body>
 </html>
