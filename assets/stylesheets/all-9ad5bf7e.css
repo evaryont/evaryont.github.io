@@ -652,7 +652,7 @@ html {
   padding: 8px; }
 
 /* line 1, /home/colin/code/weblog/source/assets/stylesheets/_landing.scss */
-body.landing {
+body.index2 {
   background-color: #4FB34F;
   background-image: radial-gradient(circle closest-corner at center, #4fb34f 0%, #497049 100%);
   min-height: 100vh;
@@ -665,7 +665,7 @@ body.landing {
   /* Within the list, switch from a column to a row flex context, wrapping the
      elements within */ }
   /* line 12, /home/colin/code/weblog/source/assets/stylesheets/_landing.scss */
-  body.landing .avatar {
+  body.index2 .avatar {
     margin: 2em;
     /* A nice border to wrap the avatar, along with an avatar */
     border-width: 0.2em;
@@ -680,21 +680,21 @@ body.landing {
     height: 25%;
     object-fit: contain; }
   /* line 30, /home/colin/code/weblog/source/assets/stylesheets/_landing.scss */
-  body.landing a:link, body.landing a:visited, body.landing a:active, body.landing a:hover {
+  body.index2 a:link, body.index2 a:visited, body.index2 a:active, body.index2 a:hover {
     color: white;
     text-decoration: none; }
   /* line 35, /home/colin/code/weblog/source/assets/stylesheets/_landing.scss */
-  body.landing a:hover {
+  body.index2 a:hover {
     text-decoration: underline; }
   /* line 41, /home/colin/code/weblog/source/assets/stylesheets/_landing.scss */
-  body.landing .nav {
+  body.index2 .nav {
     padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center; }
   /* line 49, /home/colin/code/weblog/source/assets/stylesheets/_landing.scss */
-  body.landing .nav li {
+  body.index2 .nav li {
     /* Each item fills in the space available */
     display: inline-block;
     text-align: center;
