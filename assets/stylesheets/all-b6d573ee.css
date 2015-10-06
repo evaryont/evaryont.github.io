@@ -723,3 +723,15 @@ body.index {
 .taglist .tag::before {
   content: '#';
   color: #9A9A9A; }
+
+/* line 72, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
+::selection {
+  background-color: #31fd2e; }
+
+/* line 75, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
+::-moz-selection {
+  background-color: #31fd2e; }
+
+/* line 78, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
+::-webkit-selection {
+  background-color: #31fd2e; }
