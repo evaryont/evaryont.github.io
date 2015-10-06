@@ -7,7 +7,8 @@
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
     <%= stylesheet_link_tag "all" %>
     <%= stylesheet_link_tag "syntax" %>
-    <link rel="stylesheet" href="http://weloveiconfonts.com/api/?family=entypo" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
 
     <!-- Begin favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57.png">
@@ -26,38 +27,17 @@
     <link rel="shortcut icon" href="/icons/favicon.ico">
     <!-- End favicons -->
 
+    <% if content_for?(:head) %>  
+      <%= yield_content :head %>
+    <% end %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
   </head>
 
-  <body class="evs-green">
+  <body class="<%= page_classes %> evs-green">
 
-    <!-- sidebar -->
-    <div class="sidebar">
-      <div class="container sidebar-sticky">
-        <a href="<%= data.site.url %>">
-          <img class='avatar' alt='My avatar' title='My avatar' src="<%= data.site.avatar %>" />
-        </a>
-        <div class="sidebar-about">
-          <p class="lead"><%= data.site.subtitle %></p>
-        </div>
-
-        <ul class="sidebar-nav">
-          <% data.elsewhere.sites.each do |site| %>
-          <li class="sidebar-nav-item">
-            <a class='<%= site.icon %>' href="<%= site.url %>"><%= site.name %></a>
-          </li>
-          <% end %>
-        </ul>
-
-        <p><%= link_to "Subscribe via RSS", "#{blog.options.prefix.to_s}/feed.xml", class: "entypo-rss" %><br />
-           &copy; <%= Date.today.year %>. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
-         
-      </div>
-    </div>
-    <!-- /sidebar -->
-    
-    <div role="main" class="content container">
-      <%= yield %>
-    </div>
+    <%= yield %>
     
   </body>
 </html>

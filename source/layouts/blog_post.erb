@@ -1,4 +1,15 @@
 <% wrap_layout :default do %>
-  <%= partial "article", locals: {article: current_article} %>
+
+  <%= partial "sidebar" %>
+  
+  <% if current_article %>
+  <div role="main" class="content container">
+    <%= partial "article", locals: {article: current_article} %>
+  </div>
+
   <!-- and missing comments :-( -->
+  <% else %>
+    <%= yield %>
+  <% end %>
+
 <% end %>

@@ -24,6 +24,13 @@
   height: 5.875em;
 }
 
+* { margin: 0; }
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 
 /* entypo */
 [class*="entypo-"] {
@@ -37,3 +44,5 @@
 //    }
   }
 }
+
+@import 'landing';

@@ -1,0 +1,24 @@
+<!-- sidebar -->
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <a href="<%= data.site.url %>">
+      <img class='avatar' alt='My avatar' title='My avatar' src="<%= data.site.avatar %>" />
+    </a>
+    <div class="sidebar-about">
+      <p class="lead"><%= data.site.subtitle %></p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <% data.elsewhere.sites.each do |site| %>
+      <li class="sidebar-nav-item">
+        <a class='<%= site.icon %>' href="<%= site.url %>"><%= site.name %></a>
+      </li>
+      <% end %>
+    </ul>
+
+    <p><%= link_to "Subscribe via RSS", "#{blog.options.prefix.to_s}/feed.xml", class: "entypo-rss" %><br />
+       &copy; <%= Date.today.year %>. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+     
+  </div>
+</div>
+<!-- /sidebar -->
