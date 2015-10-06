@@ -710,3 +710,7 @@ body.index {
     padding-left: 1em;
     padding-right: 1em;
     padding-top: 0.5em; }
+
+/* line 59, /home/colin/code/weblog/source/assets/stylesheets/all.scss */
+body.blog {
+  background: transparent url("images/handmadepaper.png") repeat scroll 0% 0%; }
