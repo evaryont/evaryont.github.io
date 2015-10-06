@@ -2,14 +2,14 @@
 
   <%= partial "sidebar" %>
   
-  <% if current_article %>
   <div role="main" class="content container">
-    <%= partial "article", locals: {article: current_article} %>
-  </div>
+    <% if current_article %>
+      <%= partial "article", locals: {article: current_article} %>
 
-  <!-- and missing comments :-( -->
-  <% else %>
-    <%= yield %>
-  <% end %>
+      <!-- and missing comments :-( -->
+    <% else %>
+      <%= yield %>
+    <% end %>
+  </div>
 
 <% end %>
