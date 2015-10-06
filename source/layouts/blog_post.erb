@@ -3,7 +3,7 @@
   <%= partial "sidebar" %>
   
   <!-- Geopattern header! Fancy! 🎩 -->
-  <div class="fartsy-header" style="background-image: <%= GeoPattern.generate(current_page.path).to_data_uri %>">
+  <div class="fartsy-header" style="background-image: <%= geopattern(current_page.path) %>">
     <div class='air'></div>
   </div>
 

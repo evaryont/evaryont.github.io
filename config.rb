@@ -1,6 +1,16 @@
 Time.zone = "America/Phoenix"
 
 require 'pp'
+require 'digest/sha1'
+require 'geo_pattern'
+
+
+$color_palette = [ "#00c853", "#00e676", "#1b5e20", "#2e7d32", "#33691e",
+                   "#388e3c", "#43a047", "#4caf50", "#558b2f", "#64dd17",
+                   "#66bb6a", "#689f38", "#69f0ae", "#76ff03", "#7cb342",
+                   "#81c784", "#8bc34a", "#9ccc65", "#a5d6a7", "#aed581",
+                   "#b2ff59", "#b9f6ca", "#c5e1a5", "#c8e6c9", "#ccff90",
+                   "#dcedc8", "#e8f5e9", "#f1f8e9" ]
 
 # add lib/ to the load path
 File.join(File.expand_path(File.dirname(__FILE__)), 'lib').tap do |pwd|
@@ -65,6 +75,12 @@ helpers do
         raise ArgumentError, "WTF? Unsupported time object '#{date}' to format for datetime title. Make sure it's a Time."
       end
     end
+
+    def geopattern(path)
+      base_color_i = Random.new(Digest::SHA1.hexdigest(path).to_i(16)).rand($color_palette.length+1)
+
+      GeoPattern.generate(path, base_color: $color_palette[base_color_i]).to_data_uri
+    end
 end
 
 activate :blog do |blog|
@@ -79,7 +95,7 @@ activate :blog do |blog|
   blog.paginate = false
 
   blog.layout = "blog_post"
-  
+
   blog.new_article_template = "article.tt"
 
   # Don't generate any date-specific pages, just the blog post pages.
