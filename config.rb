@@ -9,8 +9,7 @@ $color_palette = [ "#00c853", "#00e676", "#1b5e20", "#2e7d32", "#33691e",
                    "#388e3c", "#43a047", "#4caf50", "#558b2f", "#64dd17",
                    "#66bb6a", "#689f38", "#69f0ae", "#76ff03", "#7cb342",
                    "#81c784", "#8bc34a", "#9ccc65", "#a5d6a7", "#aed581",
-                   "#b2ff59", "#b9f6ca", "#c5e1a5", "#c8e6c9", "#ccff90",
-                   "#dcedc8", "#e8f5e9", "#f1f8e9" ]
+                   "#b2ff59", "#b9f6ca", "#c5e1a5", "#c8e6c9", "#dcedc8"] 
 
 # add lib/ to the load path
 File.join(File.expand_path(File.dirname(__FILE__)), 'lib').tap do |pwd|
