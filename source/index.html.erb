@@ -15,7 +15,7 @@ layout: default
 <ul class='nav'>
   <% data.elsewhere.sites.each do |site| %>
     <li>
-      <a class='fa fa-fw fa-lg <%= site.icon %>' href='<%= site.url %>' <%= "rel='me'" unless site.url.start_with? '/' %>><%= site.name %></a>
+      <a href='<%= site.url %>'<%= " rel='me'" unless site.url.start_with? '/' %>><i class='fa fa-fw fa-lg <%= site.icon %>'></i><%= site.name %></a>
     </li>
   <% end %>
 </ul>
