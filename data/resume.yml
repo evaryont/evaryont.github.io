@@ -83,6 +83,7 @@ jobs:
     desc: |
         Configuration, monitoring, and deployment of 1,000+ Ubuntu and CentOS servers in AWS running Ruby on Rails, Java, Erlang and Go applications.
 
+        - Developed custom internal applications, for the operations and development teams, in Ruby, Go, and Java
         - Transitioned from a monolithic server architecture to a multi-tiered architecture using Amazon VPC
         - Spearheaded the first and subsequent international deployments
         - Revamped the authentication and structure for the internal admin panel of the Rails code base
@@ -90,6 +91,7 @@ jobs:
         - Deployed applications to Heroku, Elastic Beanstalk, and other PaaS services
         - Set up Nagios, Icinga, Shiken and ELK stacks to monitor components of the network
         - Helped administrate multiple MySQL databases with terabytes of data
+        - Maintained patches against upstream gems and cookbooks to use internally developed libraries
   - title: System Administrator
     company: Cummings Engineering Consultants
     dates:
@@ -98,6 +100,7 @@ jobs:
     desc: |
         Configuration, monitoring, and deployment of servers across the world in a hybrid cloud running Java applications.
 
+        - Developed and deployed custom internal applications in Java and Ruby
         - Migrated servers from manual setup to configuration management using Puppet
         - Developed policies to secure our servers to our client's (NSA) standards
         - Located and decided on international targets across all continents to expand the network to fulfill ultra-low latency demands
@@ -116,6 +119,7 @@ jobs:
         - Deployment of new Cisco routers and switches
         - Management of Fedora machines, integrated with Active Directory and Exchange, to let non-technical students experience Linux for the first time
         - Upgraded the network security lab, isolating it from the rest of the network to ensure regular client machines wouldn't be affected
+        - Created a library of shell scripts to spin up and manage new VMWare virtual machines in the network security lab
   - title: Chairman of the Root The Box Committee 
     company: "[Buffer]Overflow"
     url: http://root-the-box.com/
