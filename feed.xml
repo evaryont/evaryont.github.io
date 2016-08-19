@@ -6,7 +6,7 @@
   <logo>https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256</logo>
   <link href="https://evaryont.me" type="text/html"/>
   <link href="https://evaryont.me/feed.xml" rel="self" type="application/atom+xml"/>
-  <updated>2015-09-18T03:53:00+00:00</updated>
+  <updated>2015-09-17T20:53:00-07:00</updated>
   <author>
     <name>Evaryont</name>
     <email>hello@evaryont.me</email>
@@ -16,8 +16,8 @@
     <title>Modern IT looks really old</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/09/modern-it-looks-really-old.html"/>
     <id>https://evaryont.me/blog/2015/09/modern-it-looks-really-old.html</id>
-    <published>2015-09-18T03:53:00+00:00</published>
-    <updated>2015-09-18T04:11:37+00:00</updated>
+    <published>2015-09-17T20:53:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
     <content type="html">&lt;p&gt;This is my definition of what defines a modern IT stack. It&amp;rsquo;s a lot of new king,
 meet the old king stuff though — IT&amp;rsquo;s duties haven&amp;rsquo;t fundamentally changed,
@@ -109,8 +109,8 @@ running. &lt;em&gt;Has it really changed?&lt;/em&gt;&lt;/p&gt;
     <title>Setting up weechat relay behind nginx</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html"/>
     <id>https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html</id>
-    <published>2015-09-11T05:26:00+00:00</published>
-    <updated>2015-09-11T07:42:15+00:00</updated>
+    <published>2015-09-10T22:26:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="chat" scheme="https://evaryont.me/tags/" label="Chat"/>
     <category term="irc" scheme="https://evaryont.me/tags/" label="Irc"/>
     <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
@@ -128,7 +128,6 @@ even between nginx and weechat. So the chain looks something like the following,
 and every path between the components is encrypted with TLS:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;User -&amp;gt; Nginx -&amp;gt; Weechat
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Even though weechat will be configured with a self-signed certificate, the user
 won&amp;rsquo;t have to add a security exception since nginx will present a valid
 certificate to the user, not weechat&amp;rsquo;s self-signed certificate.&lt;/p&gt;
@@ -141,7 +140,6 @@ another certificate for weechat specifically so let&amp;rsquo;s generate a self-
 one:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;openssl req -x509 -nodes -newkey rsa:4096 -sha256 -keyout relay.key -out relay.pem -days 365 -subj '/CN=weechat relay/'
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;This will generate 2 files, &lt;code&gt;relay.key&lt;/code&gt; (the private key) &amp;amp; &lt;code&gt;relay.pem&lt;/code&gt; (the
 public certificate). Save a copy of &lt;code&gt;relay.pem&lt;/code&gt; elsewhere, it&amp;rsquo;ll be used by
 nginx to verify that it is actually talking to weechat.&lt;/p&gt;
@@ -150,7 +148,6 @@ nginx to verify that it is actually talking to weechat.&lt;/p&gt;
 starting the file with the private key followed by the public certificate:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;cat relay.key relay.pem &amp;gt; weechat.pem
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Now we can enable the relay plugin and configure it to use the SSL key we have
 just made (assuming you put the combined file into &lt;code&gt;~/.weechat/ssl&lt;/code&gt;):&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;/set relay.network.password yourpassword
@@ -159,7 +156,6 @@ just made (assuming you put the combined file into &lt;code&gt;~/.weechat/ssl&lt
 /set relay.network.bind_address "::1"
 /relay add ipv6.ssl.weechat 9001
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;&lt;em&gt;NB: I&amp;rsquo;m also configuring weechat to only listen on the IPv6 loopback interface.
 If you don&amp;rsquo;t want that, skip the last 2 lines.&lt;/em&gt;&lt;/p&gt;
 
@@ -224,7 +220,6 @@ map, upstream and location blocks.&lt;/p&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;If download the &lt;a href="https://github.com/glowing-bear/glowing-bear/archive/gh-pages.zip"&gt;latest stable version of Glowing Bear&lt;/a&gt;, extract it into the
 directory &lt;code&gt;/var/www/glowing-bear&lt;/code&gt; to have nginx serve it. This is entirely
 optional, you can always use the public version.&lt;/p&gt;
@@ -245,8 +240,8 @@ as follows:&lt;/p&gt;
     <title>Announcing tls-grab</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/08/announcing-tls-grab.html"/>
     <id>https://evaryont.me/blog/2015/08/announcing-tls-grab.html</id>
-    <published>2015-08-29T00:49:00+00:00</published>
-    <updated>2015-09-02T00:52:54+00:00</updated>
+    <published>2015-08-28T17:49:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="announcement" scheme="https://evaryont.me/tags/" label="Announcement"/>
     <category term="software" scheme="https://evaryont.me/tags/" label="Software"/>
     <category term="security" scheme="https://evaryont.me/tags/" label="Security"/>
@@ -264,8 +259,8 @@ certificate or to generate the certificate&amp;rsquo;s fingerprint.&lt;/p&gt;
     <title>Generate a modern CSR with OpenSSL</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html"/>
     <id>https://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html</id>
-    <published>2015-08-05T19:44:00+00:00</published>
-    <updated>2015-09-11T06:42:47+00:00</updated>
+    <published>2015-08-05T12:44:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="security" scheme="https://evaryont.me/tags/" label="Security"/>
     <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
     <content type="html">&lt;p&gt;To get an SSL certificate, you need to first generate a CSR. However, some
@@ -277,7 +272,6 @@ defaults.&lt;/p&gt;
 command to opt into the newer crypto:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;openssl req -nodes -new -newkey rsa:4096 -sha256 -keyout private.key -out cert.csr
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;The particular updates to the command are 2 part:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -292,15 +286,14 @@ rumors about 2048 becoming factorizable&amp;hellip; Better safe than sorry.&lt;/
 avoid it asking questions. All you need for those sites is just the common name
 of the certificate, or the domain name to be used for the site:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;openssl req -subj '/CN=evaryont.me/'
-&lt;/code&gt;&lt;/pre&gt;
-</content>
+&lt;/code&gt;&lt;/pre&gt;</content>
   </entry>
   <entry>
     <title>Nginx may not reload config</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/07/nginx-may-not-reload-config.html"/>
     <id>https://evaryont.me/blog/2015/07/nginx-may-not-reload-config.html</id>
-    <published>2015-07-12T16:03:00+00:00</published>
-    <updated>2015-09-11T06:44:20+00:00</updated>
+    <published>2015-07-12T09:03:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
     <category term="troubleshooting" scheme="https://evaryont.me/tags/" label="Troubleshooting"/>
     <content type="html">&lt;p&gt;&lt;img alt="Have you tried turning it off and on again?" src="https://www.thinkgeek.com/images/products/additional/large/11C3_ITCROWD_TURNOFFON.jpg" /&gt;&lt;/p&gt;
@@ -329,8 +322,8 @@ scratching my head.&lt;/p&gt;
     <title>From Amazon, Intui-Shop and Recommendation Engines</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html"/>
     <id>https://evaryont.me/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html</id>
-    <published>2015-04-03T20:14:00+00:00</published>
-    <updated>2015-08-07T04:43:20+00:00</updated>
+    <published>2015-04-03T13:14:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="quote" scheme="https://evaryont.me/tags/" label="Quote"/>
     <category term="humour" scheme="https://evaryont.me/tags/" label="Humour"/>
     <content type="html">&lt;blockquote&gt;
@@ -354,8 +347,8 @@ But the future of recommendation engines definitely can do down this path.&lt;/p
     <title>Cox home network facts</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/03/cox-home-network-facts.html"/>
     <id>https://evaryont.me/blog/2015/03/cox-home-network-facts.html</id>
-    <published>2015-03-02T23:29:00+00:00</published>
-    <updated>2015-08-07T04:40:55+00:00</updated>
+    <published>2015-03-02T16:29:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="networking" scheme="https://evaryont.me/tags/" label="Networking"/>
     <content type="html">&lt;p&gt;Just called Tier 2 tech support for Cox looking to unblock some ports. Namely,
 port 80, for web servers. Turns out that’s not going to happen.&lt;/p&gt;
@@ -397,8 +390,8 @@ node.)&lt;/p&gt;
     <title>What systemd actually brings to the table: Interfaces</title>
     <link rel="alternate" href="https://evaryont.me/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html"/>
     <id>https://evaryont.me/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html</id>
-    <published>2015-02-14T23:13:00+00:00</published>
-    <updated>2015-08-07T04:44:40+00:00</updated>
+    <published>2015-02-14T16:13:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
     <content type="html">&lt;p&gt;One thing I’d like point out is that while systemd is coupling many of those
 sort of things together into one cohesive package (but not one program, natch),
@@ -443,8 +436,8 @@ all the hacks from the 80’s &amp;amp; 90’s at once.&lt;/p&gt;
     <title>Generating a webpage screenshot in ruby</title>
     <link rel="alternate" href="https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html"/>
     <id>https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html</id>
-    <published>2014-10-16T00:17:00+00:00</published>
-    <updated>2015-09-18T04:11:52+00:00</updated>
+    <published>2014-10-15T17:17:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
     <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
     <content type="html">&lt;p&gt;As I have spent the last hour and a half figuring out, generating a screenshot
@@ -459,13 +452,11 @@ gemfile would look like:&lt;/p&gt;
 &lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;'watir'&lt;/span&gt;
 &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;'watir-webdriver'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Then let&amp;rsquo;s write the code to actually take the screenshot:&lt;/p&gt;
 &lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;goto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://google.com"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt; &lt;span class="s1"&gt;'google.com.png'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;However, if you try to run it, the result isn&amp;rsquo;t what you&amp;rsquo;d expect from Google.
 It has the old black navigation bar at the top. As it turns out, Google does UA
 sniffing, so let&amp;rsquo;s pretend to be Firefox instead:&lt;/p&gt;
@@ -473,7 +464,6 @@ sniffing, so let&amp;rsquo;s pretend to be Firefox instead:&lt;/p&gt;
 
 &lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:desired_capabilities&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;capabilities&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;So that should work for everything and every body now, right? Nope!&lt;/p&gt;
 
 &lt;p&gt;As it also turns out, PhantomJS includes it&amp;rsquo;s own certificate store, and if it
@@ -485,14 +475,12 @@ previous code&amp;hellip;&lt;/p&gt;
 &lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                                                                    &lt;span class="s1"&gt;'phantomjs.cli.args'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'--ignore-ssl-errors=true'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Now personally, I think the default resolution (400x300) of PhantomJS is a
 little small. I personally like the screenshot to be a bit bigger, so let&amp;rsquo;s
 expand it:&lt;/p&gt;
 &lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;dimensions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Dimension&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dimensions&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;There you go! A side note, the dimensions just set the size of the viewport, the
 website can of course scroll beyond that size. Taking a screenshot will capture
 the entire page, not just what is visible in the viewport.&lt;/p&gt;
@@ -513,7 +501,6 @@ the entire page, not just what is visible in the viewport.&lt;/p&gt;
 
 &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt; &lt;span class="s1"&gt;'google.com.png'&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Thanks to these other blogs:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -527,8 +514,8 @@ the entire page, not just what is visible in the viewport.&lt;/p&gt;
     <title>Reset erchef admin password</title>
     <link rel="alternate" href="https://evaryont.me/blog/2014/06/reset-erchef-admin-password.html"/>
     <id>https://evaryont.me/blog/2014/06/reset-erchef-admin-password.html</id>
-    <published>2014-06-04T22:08:00+00:00</published>
-    <updated>2015-08-07T04:44:35+00:00</updated>
+    <published>2014-06-04T15:08:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
     <category term="chef" scheme="https://evaryont.me/tags/" label="Chef"/>
     <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
@@ -540,11 +527,9 @@ chef-server&lt;/a&gt;, you can reset the admin
 password by logging into the server it&amp;rsquo;s running on via SSH and run:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Where &lt;code&gt;/tmp/reset.sql&lt;/code&gt; contains the following:&lt;/p&gt;
 &lt;pre class="highlight plaintext"&gt;&lt;code&gt;update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
 &lt;/code&gt;&lt;/pre&gt;
-
 &lt;p&gt;Now you&amp;rsquo;ve reset the password, and can log in to the chef server admin page with
 the user name &amp;lsquo;admin&amp;rsquo; and password &amp;#39;password&amp;rsquo;.&lt;/p&gt;
 </content>
@@ -553,8 +538,8 @@ the user name &amp;lsquo;admin&amp;rsquo; and password &amp;#39;password&amp;rsq
     <title>More about EC2 and NTP</title>
     <link rel="alternate" href="https://evaryont.me/blog/2014/04/more-about-ec2-and-ntp.html"/>
     <id>https://evaryont.me/blog/2014/04/more-about-ec2-and-ntp.html</id>
-    <published>2014-04-18T20:43:00+00:00</published>
-    <updated>2015-08-07T04:44:17+00:00</updated>
+    <published>2014-04-18T13:43:00-07:00</published>
+    <updated>2016-07-03T23:34:41-07:00</updated>
     <category term="networking" scheme="https://evaryont.me/tags/" label="Networking"/>
     <category term="time" scheme="https://evaryont.me/tags/" label="Time"/>
     <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
