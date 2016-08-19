@@ -105,25 +105,30 @@ desc 'Convert my resume from HTML to PDF'
 task :resume do
   Rake::Task["deploy:jupiter"].reenable
   Rake::Task["deploy:jupiter"].invoke
+  Rake::Task["resume:build"].invoke
+end
 
-  require 'pdfkit'
-  input_file = 'build/resume.html'
-  output_file = 'build/resume.pdf'
+namespace :resume do
+  task :build do
+    require 'pdfkit'
+    input_file = 'build/resume.html'
+    output_file = 'build/resume.pdf'
 
-  begin
-    kit = PDFKit.new(File.new(input_file),
-                     :margin_top => 10,
-                     :margin_bottom => 0,
-                     :margin_left => 0,
-                     :margin_right => 0,
-                     print_media_type: true,
-                     enable_local_file_access: true,
-                     images: true,
-                     enable_javascript: true,
-                     dpi: 96)
-    file = kit.to_file(output_file)
-  rescue Exception => e
-    puts "Error in PDFKit: #{e.message}"
-    raise
+    begin
+      kit = PDFKit.new(File.new(input_file),
+                       :margin_top => 10,
+                       :margin_bottom => 0,
+                       :margin_left => 0,
+                       :margin_right => 0,
+                       print_media_type: true,
+                       enable_local_file_access: true,
+                       images: true,
+                       enable_javascript: true,
+                       dpi: 96)
+      file = kit.to_file(output_file)
+    rescue Exception => e
+      puts "Error in PDFKit: #{e.message}"
+      raise
+    end
   end
 end
