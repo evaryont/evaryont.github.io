@@ -41,9 +41,11 @@ alphabetsoup:
     - Chef
     - Python
     - Puppet
+    - TLS/SSL
     - git
     - AWS
     - MySQL
+    - SaltStack
 
   proficiency:
     - PostgreSQL
@@ -57,13 +59,16 @@ alphabetsoup:
     - Kibana
     - Logstash
     - MongoDB
+    - C#
 
   knowledge:
     - Go
     - JavaScript
     - Elixir
     - VMWare
-    - TLS/SSL
+    - Ansible
+    - .NET
+    - PowerShell
 
 links:
     - name: Website
@@ -74,6 +79,19 @@ links:
       url: https://twitter.com/evaryont
 
 jobs:
+  - title: System Administrator
+    company: Internet Security Research Group
+    url: https://letsencrypt.org
+    dates:
+      start: 2015-12
+      end: 2016-08
+    desc: |
+        The deployment and management of [boulder](https://github.com/letsencrypt/boulder) in a highly secure environment to create the first open source CA.
+
+        - Created policies to use public cloud infrastructure alongside the existing secure datacenters.
+        - Worked with auditors and root trust programs to create and operate a high trust network.
+        - Developed custom saltstack formulas for a variety of standard management tools within the high trust network.
+        - Worked with the developers of boulder and certbot to help automate the creation of over 4 million TLS certificates, creating one of the largest certificate authorities in the world
   - title: Lead System Administrator 
     company: The Evogi Group 
     url: http://www.evogi.com/
