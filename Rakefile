@@ -69,14 +69,14 @@ desc "Build and upload my website to everywhere"
 # So the order here is important:
 # - Ensure the repository is clean & ready
 # - Build the full website
-# - rsync everything to jupiter, the ssh server
+# - rsync everything to my webserver
 # - Then convert the resume to PDF, now that updated assets are on the server
 # - Then run rsync again so the PDF is uploaded
 # - Push generated web pages to github
 # - Push source repo to github
 #
 # Whew!
-task :deploy => ["dirty_git", "build", "resume", "deploy:jupiter", "deploy:github", "deploy:git_push"]
+task :deploy => ["dirty_git", "build", "resume", "deploy:evaryont", "deploy:github", "deploy:git_push"]
 
 namespace :deploy do
   def deploy(env)
@@ -103,8 +103,8 @@ end
 
 desc 'Convert my resume from HTML to PDF'
 task :resume do
-  Rake::Task["deploy:jupiter"].reenable
-  Rake::Task["deploy:jupiter"].invoke
+  Rake::Task["deploy:evaryont"].reenable
+  Rake::Task["deploy:evaryont"].invoke
   Rake::Task["resume:build"].invoke
 end
 
