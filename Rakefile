@@ -89,7 +89,7 @@ namespace :deploy do
     end
   end
 
-  deploy :jupiter
+  deploy :evaryont
   deploy :github
 
   task :git_push => [:dirty_git] do

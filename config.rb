@@ -139,20 +139,19 @@ configure :build do
 end
 
 case ENV['TARGET'].to_s.downcase
-when 'jupiter'
+when 'evaryont'
   activate :deploy do |deploy|
     deploy.method = :rsync
-    deploy.host   = "jupiter.evaryont.me"
+    deploy.host   = "evaryont.me"
     deploy.user   = 'colin'
-    #deploy.port  = 22
-    deploy.path   = "/home/colin/website"
+    deploy.path   = "/home/colin/blog"
     deploy.flags  = "-avz --exclude='.git/' --delete --delete-excluded"
     deploy.clean  = true
   end
 when 'github'
   activate :deploy do |deploy|
     deploy.method = :git
-    deploy.remote = "origin"
-    deploy.branch = "master"
+    deploy.remote = 'github'
+    deploy.branch = 'master'
   end
 end
