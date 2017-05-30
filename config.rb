@@ -144,7 +144,7 @@ when 'evaryont'
     deploy.method = :rsync
     deploy.host   = "evaryont.me"
     deploy.user   = 'colin'
-    deploy.path   = "/home/colin/blog"
+    deploy.path   = "/var/www/evaryont.me"
     deploy.flags  = "-avz --exclude='.git/' --delete --delete-excluded"
     deploy.clean  = true
   end
