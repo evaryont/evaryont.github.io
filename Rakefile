@@ -111,6 +111,6 @@ task :resume do
       WEBrick::HTTPServer.new(:Port => @port_num, :DocumentRoot => Dir.pwd + '/build').start
     end
 
-    `#{WKHTMLTOPDF_PATH} --margin-top 2 --margin-left 2 --margin-right 2 --margin-bottom 2 --print-media-type 'http://localhost:#{@port_num}/resume.html' #{Dir.pwd}/build/resume.pdf`
+    `#{WKHTMLTOPDF_PATH} --margin-top 8 --margin-left 2 --margin-right 2 --margin-bottom 2 --print-media-type --header-font-name 'opensans' --header-font-size 6 --header-left "Colin Shea's Resume" --header-right "Page [page] of [toPage]" 'http://localhost:#{@port_num}/resume.html' #{Dir.pwd}/build/resume.pdf`
     ws.exit
 end
