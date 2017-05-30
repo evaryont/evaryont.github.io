@@ -103,43 +103,14 @@ end
 
 desc 'Convert my resume from HTML to PDF'
 task :resume do
-  Rake::Task["deploy:evaryont"].reenable
-  Rake::Task["deploy:evaryont"].invoke
-  Rake::Task["resume:build"].invoke
-end
-
-namespace :resume do
-  task :build do
-    require 'pdfkit'
-    input_file = 'build/resume.html'
-    output_file = 'build/resume.pdf'
-
-    begin
-      kit = PDFKit.new(File.new(input_file),
-                       :margin_top => 10,
-                       :margin_bottom => 0,
-                       :margin_left => 0,
-                       :margin_right => 0,
-                       print_media_type: true,
-                       enable_local_file_access: true,
-                       images: true,
-                       enable_javascript: true,
-                       dpi: 96)
-      file = kit.to_file(output_file)
-    rescue Exception => e
-      puts "Error in PDFKit: #{e.message}"
-      raise
-    end
-  end
-
-  task :new do
     require 'webrick'
+    require 'wkhtmltopdf-heroku'
+    
     @port_num = rand(8000..9000)
     ws = Thread.new do
       WEBrick::HTTPServer.new(:Port => @port_num, :DocumentRoot => Dir.pwd + '/build').start
     end
 
-    `wkhtmltopdf --margin-top 2 --margin-left 2 --margin-right 2 --margin-bottom 2 --print-media-type 'http://localhost:#{@port_num}/resume.html' #{Dir.pwd}/build/resume.pdf`
+    `#{WKHTMLTOPDF_PATH} --margin-top 2 --margin-left 2 --margin-right 2 --margin-bottom 2 --print-media-type 'http://localhost:#{@port_num}/resume.html' #{Dir.pwd}/build/resume.pdf`
     ws.exit
-  end
 end

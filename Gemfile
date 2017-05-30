@@ -18,3 +18,4 @@ gem 'pdfkit'
 gem 'middleman-pry'
 
 gem 'geo_pattern'
+gem 'wkhtmltopdf-heroku', require: false
