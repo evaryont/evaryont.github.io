@@ -79,6 +79,19 @@ links:
       url: https://twitter.com/evaryont
 
 jobs:
+  - title: Senior System Administrator
+    company: Really Simple, Inc
+    url: http://www.byrsp.com
+    dates:
+      start: 2016-11
+      end: 2017-05
+    desc: |
+        Automation for an AWS based infrastructure with heavy integration of RedHat management technologies, supporting a hybrid Spring Boot, Tomcat and node.js platform.
+
+        - Ansible used to provision, deploy, and configure every server, and every service.
+        - Created, from scratch, new production alike environments for clients and contracters
+        - Managed security policies and handled incoming reports.
+        - Deployed Prometheus for monitoring, Logstash for centralized logging, LYNIS and OpenSCAP for auditing, Spacewalk for patch management, FreeIPA for AAA
   - title: System Administrator
     company: Internet Security Research Group
     url: https://letsencrypt.org
