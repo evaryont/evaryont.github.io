@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <title>Evaryont's Blog - Generating a webpage screenshot in ruby</title>
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/assets/stylesheets/all-a1b84968.css" rel="stylesheet" />
+    <link href="/assets/stylesheets/syntax-f604afaa.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/3.0.2/normalize.css">
+
+    <!-- Begin favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57-1885c902.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60-818d3ba2.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72-24ff39d6.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76-2ed3e1aa.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-touch-icon-114x114-a24ec1c9.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120-775a0e3c.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144-961cd25a.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152-2e670d9a.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180-e49b1a25.png">
+    <link rel="icon" type="image/png" href="/icons/favicon-32x32-c49d0fa6.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/icons/android-chrome-192x192-caf79604.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/icons/favicon-96x96-f9fc8ec4.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/icons/favicon-16x16-a5398df1.png" sizes="16x16">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <!-- End favicons -->
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+
+  <body class="blog blog_2014 blog_2014_10 blog_2014_10_generating-a-screenshot-in-ruby evs-green">
+
+    
+  <!-- sidebar -->
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <a href="https://evaryont.me">
+      <img class='avatar' alt='My avatar' title='My avatar' src="https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256" />
+    </a>
+    <div class="sidebar-about">
+      <p class="lead">Notes and things I don't want to forget</p>
+    </div>
+
+    <ul class="sidebar-nav">
+      <li class="sidebar-nav-item">
+        <a href='https://github.com/evaryont'><i class='fa fa-fw fa-github'></i>Github</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a href='/blog.html'><i class='fa fa-fw fa-book'></i>Blog</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a href='https://twitter.com/evaryont'><i class='fa fa-fw fa-twitter'></i>Twitter</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a href='http://evsdoesstuff.tumblr.com/'><i class='fa fa-fw fa-tumblr'></i>Tumblr</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a href='/about.html'><i class='fa fa-fw fa-info-circle'></i>About</a>
+      </li>
+    </ul>
+
+    <p><a class="entypo-rss" href="/feed.xml">Subscribe via RSS</a><br />
+       &copy; 2017. Licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+     
+  </div>
+</div>
+<!-- /sidebar -->
+
+  
+  <!-- Geopattern header! Fancy! 🎩 -->
+  <div class="fartsy-header" style="background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NSIgaGVpZ2h0PSI3NyI+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0icmdiKDEwNSwgMjQwLCAxNzQpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wMiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTcuNSwgMC4wKSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDIiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM3LjUsIDAuMCkgcm90YXRlKDE4MCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjE1IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAsIDAuMCkgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wODkzMzMzMzMzMzMzMzMzMyIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNy41LCAwLjApIHJvdGF0ZSgxODAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNjMzMzMzMzMzMzMzMzMzNCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUuMCwgMC4wKSByb3RhdGUoMCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA0NiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuNSwgMC4wKSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMTQxMzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLjAsIDAuMCkgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wMjg2NjY2NjY2NjY2NjY2NjciIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03LjUsIDEyLjk5MDM4MTA1Njc2NjU3OCkgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wMjg2NjY2NjY2NjY2NjY2NjciIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM3LjUsIDEyLjk5MDM4MTA1Njc2NjU3OCkgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wNDYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMCwgMTIuOTkwMzgxMDU2NzY2NTc4KSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDYzMzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcuNSwgMTIuOTkwMzgxMDU2NzY2NTc4KSByb3RhdGUoMCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjExNTMzMzMzMzMzMzMzMzM0IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgpIHJvdGF0ZSgxODAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wNzIwMDAwMDAwMDAwMDAwMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuNSwgMTIuOTkwMzgxMDU2NzY2NTc4KSByb3RhdGUoMCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iI2RkZCIgZmlsbC1vcGFjaXR5PSIwLjAyIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzMC4wLCAxMi45OTAzODEwNTY3NjY1NzgpIHJvdGF0ZSgxODAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4xMzI2NjY2NjY2NjY2NjY2NSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTcuNSwgMjUuOTgwNzYyMTEzNTMzMTU3KSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTMyNjY2NjY2NjY2NjY2NjUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM3LjUsIDI1Ljk4MDc2MjExMzUzMzE1Nykgcm90YXRlKDE4MCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iI2RkZCIgZmlsbC1vcGFjaXR5PSIwLjE0MTMzMzMzMzMzMzMzMzM0IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAsIDI1Ljk4MDc2MjExMzUzMzE1Nykgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wOTgiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcuNSwgMjUuOTgwNzYyMTEzNTMzMTU3KSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMTQxMzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1LjAsIDI1Ljk4MDc2MjExMzUzMzE1Nykgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wNzIwMDAwMDAwMDAwMDAwMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuNSwgMjUuOTgwNzYyMTEzNTMzMTU3KSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDYzMzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLjAsIDI1Ljk4MDc2MjExMzUzMzE1Nykgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wODA2NjY2NjY2NjY2NjY2NiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTcuNSwgMzguOTcxMTQzMTcwMjk5NzMpIHJvdGF0ZSgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDgwNjY2NjY2NjY2NjY2NjYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM3LjUsIDM4Ljk3MTE0MzE3MDI5OTczKSByb3RhdGUoMCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjExNTMzMzMzMzMzMzMzMzM0IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAsIDM4Ljk3MTE0MzE3MDI5OTczKSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMTQxMzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcuNSwgMzguOTcxMTQzMTcwMjk5NzMpIHJvdGF0ZSgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDQ2IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNS4wLCAzOC45NzExNDMxNzAyOTk3Mykgcm90YXRlKDE4MCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA0NiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuNSwgMzguOTcxMTQzMTcwMjk5NzMpIHJvdGF0ZSgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDg5MzMzMzMzMzMzMzMzMzMiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLjAsIDM4Ljk3MTE0MzE3MDI5OTczKSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTE1MzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03LjUsIDUxLjk2MTUyNDIyNzA2NjMxKSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTE1MzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDM3LjUsIDUxLjk2MTUyNDIyNzA2NjMxKSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMDYzMzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMCwgNTEuOTYxNTI0MjI3MDY2MzEpIHJvdGF0ZSgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTE1MzMzMzMzMzMzMzMzMzQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDcuNSwgNTEuOTYxNTI0MjI3MDY2MzEpIHJvdGF0ZSgxODAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wMjg2NjY2NjY2NjY2NjY2NjciIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE1LjAsIDUxLjk2MTUyNDIyNzA2NjMxKSByb3RhdGUoMCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iI2RkZCIgZmlsbC1vcGFjaXR5PSIwLjEyNDAwMDAwMDAwMDAwMDAxIiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMi41LCA1MS45NjE1MjQyMjcwNjYzMSkgcm90YXRlKDE4MCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA5OCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAuMCwgNTEuOTYxNTI0MjI3MDY2MzEpIHJvdGF0ZSgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjZGRkIiBmaWxsLW9wYWNpdHk9IjAuMDU0NjY2NjY2NjY2NjY2NjciIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC03LjUsIDY0Ljk1MTkwNTI4MzgzMjg5KSByb3RhdGUoMCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iI2RkZCIgZmlsbC1vcGFjaXR5PSIwLjA1NDY2NjY2NjY2NjY2NjY3IiBzdHJva2U9IiMwMDAiIHN0cm9rZS1vcGFjaXR5PSIwLjAyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNy41LCA2NC45NTE5MDUyODM4MzI4OSkgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4xNDEzMzMzMzMzMzMzMzMzNCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wLCA2NC45NTE5MDUyODM4MzI4OSkgcm90YXRlKDE4MCwgNy41LCA2LjQ5NTE5MDUyODM4MzI4OSkiICAvPjxwb2x5bGluZSBwb2ludHM9IjcuNSwgMCwgMTUuMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCAwLCAxMi45OTAzODEwNTY3NjY1NzgsIDcuNSwgMCIgZmlsbD0iIzIyMiIgZmlsbC1vcGFjaXR5PSIwLjA0NiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNy41LCA2NC45NTE5MDUyODM4MzI4OSkgcm90YXRlKDAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4xMjQwMDAwMDAwMDAwMDAwMSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUuMCwgNjQuOTUxOTA1MjgzODMyODkpIHJvdGF0ZSgxODAsIDcuNSwgNi40OTUxOTA1MjgzODMyODkpIiAgLz48cG9seWxpbmUgcG9pbnRzPSI3LjUsIDAsIDE1LjAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgMCwgMTIuOTkwMzgxMDU2NzY2NTc4LCA3LjUsIDAiIGZpbGw9IiNkZGQiIGZpbGwtb3BhY2l0eT0iMC4wMiIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utb3BhY2l0eT0iMC4wMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjIuNSwgNjQuOTUxOTA1MjgzODMyODkpIHJvdGF0ZSgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PHBvbHlsaW5lIHBvaW50cz0iNy41LCAwLCAxNS4wLCAxMi45OTAzODEwNTY3NjY1NzgsIDAsIDEyLjk5MDM4MTA1Njc2NjU3OCwgNy41LCAwIiBmaWxsPSIjMjIyIiBmaWxsLW9wYWNpdHk9IjAuMTMyNjY2NjY2NjY2NjY2NjUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDIiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMwLjAsIDY0Ljk1MTkwNTI4MzgzMjg5KSByb3RhdGUoMTgwLCA3LjUsIDYuNDk1MTkwNTI4MzgzMjg5KSIgIC8+PC9zdmc+);">
+    <div class='air'></div>
+  </div>
+
+  <div role="main" class="content container">
+      <!-- this is a blog post for Generating a webpage screenshot in ruby -->
+<div class="post">
+  <h1 class="post-title"><a href="/blog/2014/10/generating-a-screenshot-in-ruby.html">Generating a webpage screenshot in ruby</a></h1>
+
+  <span class='post-date'>Oct 15, 2014
+
+    <span class='taglist'>
+      <a class="tag" href="/tags/ruby/">ruby</a>, <a class="tag" href="/tags/howto/">howto</a>
+    </span>
+  </span>
+
+  <p>As I have spent the last hour and a half figuring out, generating a screenshot
+of a website in Ruby is harder than it seems.</p>
+
+<p>So first off, we&rsquo;ll need a browser&rsquo;s rendering engine. Preferably one that is
+headless, so we&rsquo;ll go with PhantomJS. Make sure it&rsquo;s installed.</p>
+
+<p>Then, we need a way to control PhantomJS, and I&rsquo;m a fan of Watir so we&rsquo;ll use
+that. To connect to PhantomJS, you also need the selenium webdriver gem. So your
+gemfile would look like:</p>
+<pre class="highlight ruby"><code><span class="n">gem</span> <span class="s1">'watir'</span>
+<span class="n">gem</span> <span class="s1">'watir-webdriver'</span>
+</code></pre>
+<p>Then let&rsquo;s write the code to actually take the screenshot:</p>
+<pre class="highlight ruby"><code><span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span>
+<span class="n">browser</span><span class="p">.</span><span class="nf">goto</span><span class="p">(</span><span class="s2">"https://google.com"</span><span class="p">)</span>
+<span class="n">browser</span><span class="p">.</span><span class="nf">screenshot</span><span class="p">.</span><span class="nf">save</span> <span class="s1">'google.com.png'</span>
+</code></pre>
+<p>However, if you try to run it, the result isn&rsquo;t what you&rsquo;d expect from Google.
+It has the old black navigation bar at the top. As it turns out, Google does UA
+sniffing, so let&rsquo;s pretend to be Firefox instead:</p>
+<pre class="highlight ruby"><code><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">)</span>
+
+<span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span><span class="p">,</span> <span class="ss">:desired_capabilities</span> <span class="o">=&gt;</span> <span class="n">capabilities</span>
+</code></pre>
+<p>So that should work for everything and every body now, right? Nope!</p>
+
+<p>As it also turns out, PhantomJS includes it&rsquo;s own certificate store, and if it
+doesn&rsquo;t recognize a site&rsquo;s SSL certificate, it&rsquo;ll error out, returning a
+transparent image as the screenshot. (Cause hey, <code>about:blank</code> is actually
+blank!) You can set the command line parameter <code>--ignore-ssl-errors=true</code> to
+fix that. You can pass CLI parameters in via a capability. So modifying the
+previous code&hellip;</p>
+<pre class="highlight ruby"><code><span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">,</span>
+                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="p">])</span>
+</code></pre>
+<p>Now personally, I think the default resolution (400x300) of PhantomJS is a
+little small. I personally like the screenshot to be a bit bigger, so let&rsquo;s
+expand it:</p>
+<pre class="highlight ruby"><code><span class="n">dimensions</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Dimension</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
+<span class="n">browser</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">manage</span><span class="p">.</span><span class="nf">window</span><span class="p">.</span><span class="nf">size</span> <span class="o">=</span> <span class="n">dimensions</span>
+</code></pre>
+<p>There you go! A side note, the dimensions just set the size of the viewport, the
+website can of course scroll beyond that size. Taking a screenshot will capture
+the entire page, not just what is visible in the viewport.</p>
+
+<p>The complete code:</p>
+<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'watir'</span>
+<span class="nb">require</span> <span class="s1">'watir-webdriver'</span>
+
+<span class="n">capabilities</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">Capabilities</span><span class="p">.</span><span class="nf">phantomjs</span><span class="p">(</span><span class="s1">'phantomjs.page.settings.userAgent'</span> <span class="o">=&gt;</span> <span class="s1">'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'</span><span class="p">,</span>
+                                                                   <span class="s1">'phantomjs.cli.args'</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">'--ignore-ssl-errors=true'</span><span class="p">])</span>
+
+<span class="n">browser</span> <span class="o">=</span> <span class="no">Watir</span><span class="o">::</span><span class="no">Browser</span><span class="p">.</span><span class="nf">new</span> <span class="ss">:phantomjs</span><span class="p">,</span> <span class="ss">:desired_capabilities</span> <span class="o">=&gt;</span> <span class="n">capabilities</span>
+
+<span class="n">dimensions</span> <span class="o">=</span> <span class="no">Selenium</span><span class="o">::</span><span class="no">WebDriver</span><span class="o">::</span><span class="no">Dimension</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">768</span><span class="p">)</span>
+<span class="n">browser</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">manage</span><span class="p">.</span><span class="nf">window</span><span class="p">.</span><span class="nf">size</span> <span class="o">=</span> <span class="n">dimensions</span>
+
+<span class="n">browser</span><span class="p">.</span><span class="nf">goto</span><span class="p">(</span><span class="s2">"https://google.com"</span><span class="p">)</span>
+
+<span class="n">browser</span><span class="p">.</span><span class="nf">screenshot</span><span class="p">.</span><span class="nf">save</span> <span class="s1">'google.com.png'</span>
+</code></pre>
+<p>Thanks to these other blogs:</p>
+
+<ul>
+<li>http://blog.vbalazs.me/2014/08/my-adventures-with-tracking-down-a-database-leak.html</li>
+<li>http://stackoverflow.com/a/17687452</li>
+<li>http://yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/#phantomjs</li>
+</ul>
+
+
+  <!-- navigation links to chronologically related posts -->
+  <span class='relative-posts'>
+      <a class="next-article" href="/blog/2014/06/reset-erchef-admin-password.html"><< Reset erchef admin password</a>
+
+     | 
+
+      <a class="next-article" href="/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html">What systemd actually brings to the table: Interfaces >></a>
+  </span>
+</div>
+
+
+      <!-- and missing comments :-( -->
+  </div>
+
+
+    
+  </body>
+</html>

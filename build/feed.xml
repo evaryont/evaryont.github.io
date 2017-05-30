@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Evaryont's Blog</title>
+  <subtitle>Notes and things I don't want to forget</subtitle>
+  <id>https://evaryont.me</id>
+  <logo>https://secure.gravatar.com/avatar/efb9a1ec42adeec9615f062e55bf5c3e?size=256</logo>
+  <link href="https://evaryont.me" type="text/html"/>
+  <link href="https://evaryont.me/feed.xml" rel="self" type="application/atom+xml"/>
+  <updated>2015-09-17T20:53:00-07:00</updated>
+  <author>
+    <name>Evaryont</name>
+    <email>hello@evaryont.me</email>
+    <uri>https://evaryont.me</uri>
+  </author>
+  <entry>
+    <title>Modern IT looks really old</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/09/modern-it-looks-really-old.html"/>
+    <id>https://evaryont.me/blog/2015/09/modern-it-looks-really-old.html</id>
+    <published>2015-09-17T20:53:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
+    <content type="html">&lt;p&gt;This is my definition of what defines a modern IT stack. It&amp;rsquo;s a lot of new king,
+meet the old king stuff though — IT&amp;rsquo;s duties haven&amp;rsquo;t fundamentally changed,
+just the way we go about doing them has. (Hello, containers!)&lt;/p&gt;
+
+&lt;p&gt;Inspired by &lt;a href="http://www.eightypercent.net/post/layers-in-the-stack.html"&gt;Joe Beda&amp;rsquo;s post, Anatomy of a Modern Production Stack&lt;/a&gt;, I
+thought I would try restating everything he said. I&amp;rsquo;m focusing on slightly
+smaller networks, or those that are very heterogeneous perhaps with a lot of
+one-offs.  That is what I have most experience in: companies private IT not
+global scale behemoths.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Production OS&lt;/strong&gt;: Like Joe said, Linux is pretty much the de-facto choice
+for the underlying host you run on the bare metal. The applications might run
+in a VM on top of it if you need a different OS (like Windows for AD, Exchange,
+etc).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Application deployment source&lt;/strong&gt;: A repository. You might look to the future
+and decide that you want to run a private Docker registry, or fall back on well
+known tech like a distro&amp;rsquo;s package repository. Or use a language&amp;rsquo;s tools for
+shipping your applications.  Rubygems certainly doesn&amp;rsquo;t care if the gem it
+downloads doesn&amp;rsquo;t actually contain any Ruby in it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Network management&lt;/strong&gt;: Assign IPs to your boxes. Starts with static IPs for
+everything, or a personal DHCP server you&amp;rsquo;re running. Gets a lot more complex
+from there.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Configuration managment&lt;/strong&gt;: Once you boot a fresh machine, it needs to be fed in
+information on how to properly join the network, any certificates or keys it
+needs, etc. And of course, a name. Then it needs to be configured to actually
+run the application you meant it to.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Discovery service&lt;/strong&gt;: Having IPs embedded in configuration files sucks and ends up
+in practice as way to brittle. Especially if your machines can come &amp;amp; go with
+radically different network properties (MAC/IP addresses for instance) but you
+expect applications to be able to handle that. DNS is a common service, though
+the caching behaviour of a lot of libraries would need to be tweaked first&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Replicated storage&lt;/strong&gt;: It&amp;rsquo;s almost guaranteed that you&amp;rsquo;re going to want to
+store the applications&amp;rsquo; data somewhere else other than right next to the
+application itself within it&amp;rsquo;s execution context (VM, container, etc). NFS
+mounts, CIFS shares, and plenty of other technology. You might be able to avoid
+this for a long time if every piece of data you write is going to be stored in a
+purpose specific server, like a (No)SQL database.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Machine identity&lt;/strong&gt;: You can&amp;rsquo;t rely on the edge of the network to be secure. A
+perfectly secure firewall would let nothing by — but that would also mean
+nothing can reach your applications! So if there must be a hole in the
+firewall, that can possibly be exploited, how can your applications &amp;amp; machines
+know who they are really talking to? Kerberos is a very common solution in this
+space. There are still quite a bit of issues to deal with (what if the
+application gets pwned and then steals your Kerberos TGT? You&amp;rsquo;re in for a lot
+of pain then.) before this can be called &amp;ldquo;solved&amp;rdquo; but bright minds are working
+on it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Monitoring&lt;/strong&gt;: You want to know when things go haywire, of course. The
+next step beyond that is self healing services though. Most problems that
+plague services are small. It&amp;rsquo;s just not every day you get your entire network
+broken into and exposed for the world. Most situations don&amp;rsquo;t need that kind of
+response and in fact could easily be done with one or two commands. Why not
+make the computers do the boring repetitive stuff? A lot of people are scared
+(and rightly so, a lot of stuff can go wrong with fail-overs) of overzealous
+computers trying to solve imaginary problems, or using the wrong fix.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Centralized Logging&lt;/strong&gt;: I assume you already have competent logs. If you don&amp;rsquo;t
+then you need to fix that. Then you need to collate all of them across your
+entire network. syslog is the old hat in this ring, ELK is a new contender (and
+doing well at it!).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Debugging&lt;/strong&gt;: This is a really hard thing to generalize as the moment anyone
+stops following the exact same steps as the rest of the world, all assumptions
+are wrong. And of course every network is different, so developers could never
+guess what your particular network would look like.  Whole system state capture
+tools, like &lt;a href="http://www.sysdig.org/"&gt;Sysdig&lt;/a&gt;, are one way to look at it.  Another is to start developing
+an expansive library of configurable and highly specific tools, perhaps like
+Mozilla&amp;rsquo;s MIG.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Messaging&lt;/strong&gt;: Your applications certainly don&amp;rsquo;t live in an island, so you&amp;rsquo;ll
+want to provide a way for them to talk to each other. This is as simple as each
+application exposing a basic HTTP API all the way to a distributed, fault
+tolerant message broker that every application connects to for publish &amp;amp;
+subscribe events.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is all the basic foundations for a modern IT stack that awfully looks (at a
+    high level) much like every other IT stack. And that&amp;rsquo;s really the crux of
+it. If you want to start using Docker, you&amp;rsquo;ll run into all of the above all over
+again, but with slightly different parameters. It&amp;rsquo;s even scarier to realize that
+each of these categories has had so much work put in that you could easily make
+a dissertation on just one.&lt;/p&gt;
+
+&lt;p&gt;So containers promise to change all of that by upending what we consider the
+basic atoms of IT. I&amp;rsquo;m certain that I&amp;rsquo;ll look back at this post and laugh;
+things are greatly changing.  Then again, this is all just to keep the servers
+running. &lt;em&gt;Has it really changed?&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Setting up weechat relay behind nginx</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html"/>
+    <id>https://evaryont.me/blog/2015/09/setting-up-weechat-relay-behind-nginx.html</id>
+    <published>2015-09-10T22:26:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="chat" scheme="https://evaryont.me/tags/" label="Chat"/>
+    <category term="irc" scheme="https://evaryont.me/tags/" label="Irc"/>
+    <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
+    <content type="html">&lt;p&gt;Here&amp;rsquo;s how to set up weechat with it&amp;rsquo;s relay plugin sitting behind nginx. Why
+not expose it directly? Well, and with all respect to the weechat developers, I
+don&amp;rsquo;t trust them enough to expose weechat directly onto the internet. And, I
+already have nginx exposed on the firewall for this blog. It&amp;rsquo;s already serving a
+static HTML directory for my own local copy of &lt;a href="http://www.glowing-bear.org/"&gt;Glowing
+Bear&lt;/a&gt;. So why not have nginx do one more thing and
+proxy incoming WebSockets requests to weechat&amp;rsquo;s relay? Setup was a bit
+non-obvious so hopefully this will help out the next person along.&lt;/p&gt;
+
+&lt;p&gt;One feature I wanted to ensure was that the connection was encrypted end-to-end,
+even between nginx and weechat. So the chain looks something like the following,
+and every path between the components is encrypted with TLS:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;User -&amp;gt; Nginx -&amp;gt; Weechat
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Even though weechat will be configured with a self-signed certificate, the user
+won&amp;rsquo;t have to add a security exception since nginx will present a valid
+certificate to the user, not weechat&amp;rsquo;s self-signed certificate.&lt;/p&gt;
+
+&lt;h2&gt;Configuring weechat&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;m assuming you already have HTTPS set up for nginx. If not, you may want to
+look at my post on &lt;a href="http://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html"&gt;how to make a CSR&lt;/a&gt; to get started on that. We will need
+another certificate for weechat specifically so let&amp;rsquo;s generate a self-signed
+one:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;openssl req -x509 -nodes -newkey rsa:4096 -sha256 -keyout relay.key -out relay.pem -days 365 -subj '/CN=weechat relay/'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This will generate 2 files, &lt;code&gt;relay.key&lt;/code&gt; (the private key) &amp;amp; &lt;code&gt;relay.pem&lt;/code&gt; (the
+public certificate). Save a copy of &lt;code&gt;relay.pem&lt;/code&gt; elsewhere, it&amp;rsquo;ll be used by
+nginx to verify that it is actually talking to weechat.&lt;/p&gt;
+
+&lt;p&gt;Then you&amp;rsquo;ll need to concatenate the two files into one for weechat&amp;rsquo;s use,
+starting the file with the private key followed by the public certificate:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;cat relay.key relay.pem &amp;gt; weechat.pem
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now we can enable the relay plugin and configure it to use the SSL key we have
+just made (assuming you put the combined file into &lt;code&gt;~/.weechat/ssl&lt;/code&gt;):&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;/set relay.network.password yourpassword
+/set relay.network.ssl_cert_key "%h/ssl/weechat.pem"
+/relay sslcertkey
+/set relay.network.bind_address "::1"
+/relay add ipv6.ssl.weechat 9001
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;em&gt;NB: I&amp;rsquo;m also configuring weechat to only listen on the IPv6 loopback interface.
+If you don&amp;rsquo;t want that, skip the last 2 lines.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2&gt;Configuring nginx&lt;/h2&gt;
+
+&lt;p&gt;Now that weechat is done, nginx is next! It&amp;rsquo;s nice and simple, a fairly simple
+nginx configuration like you&amp;rsquo;ve seen anywhere else. The important parts are the
+map, upstream and location blocks.&lt;/p&gt;
+&lt;pre class="highlight nginx"&gt;&lt;code&gt;&lt;span class="k"&gt;map&lt;/span&gt; &lt;span class="nv"&gt;$http_upgrade&lt;/span&gt; &lt;span class="nv"&gt;$connection_upgrade&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kn"&gt;default&lt;/span&gt; &lt;span class="s"&gt;upgrade&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="kn"&gt;''&lt;/span&gt; &lt;span class="s"&gt;close&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Make sure this upstream matches your configuration in weechat!
+&lt;/span&gt;&lt;span class="k"&gt;upstream&lt;/span&gt; &lt;span class="s"&gt;weechat&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kn"&gt;server&lt;/span&gt; &lt;span class="s"&gt;[::1]:9001&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;server&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kn"&gt;listen&lt;/span&gt; &lt;span class="mi"&gt;443&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;server_name&lt;/span&gt; &lt;span class="s"&gt;irc.example.com&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# certs sent to the client in SERVER HELLO are concatenated in ssl_certificate
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_certificate&lt;/span&gt; &lt;span class="n"&gt;/path/to/signed_cert_plus_intermediates&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_certificate_key&lt;/span&gt; &lt;span class="n"&gt;/path/to/private_key&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_session_timeout&lt;/span&gt; &lt;span class="s"&gt;1d&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_session_cache&lt;/span&gt; &lt;span class="s"&gt;shared:SSL:50m&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_dhparam&lt;/span&gt; &lt;span class="n"&gt;/path/to/dhparam.pem&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# Mozilla modern TLS configuration. tweak to your needs.
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_protocols&lt;/span&gt; &lt;span class="s"&gt;TLSv1.1&lt;/span&gt; &lt;span class="s"&gt;TLSv1.2&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_ciphers&lt;/span&gt; &lt;span class="s"&gt;'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_prefer_server_ciphers&lt;/span&gt; &lt;span class="no"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# HSTS (ngx_http_headers_module is required) (15768000 seconds = 6 months)
+&lt;/span&gt;  &lt;span class="kn"&gt;add_header&lt;/span&gt; &lt;span class="s"&gt;Strict-Transport-Security&lt;/span&gt; &lt;span class="s"&gt;max-age=15768000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;# OCSP Stapling ---
+&lt;/span&gt;  &lt;span class="c1"&gt;# fetch OCSP records from URL in ssl_certificate and cache them
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_stapling&lt;/span&gt; &lt;span class="no"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="kn"&gt;ssl_stapling_verify&lt;/span&gt; &lt;span class="no"&gt;on&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="c1"&gt;## verify chain of trust of OCSP response using Root CA and Intermediate certs
+&lt;/span&gt;  &lt;span class="kn"&gt;ssl_trusted_certificate&lt;/span&gt; &lt;span class="n"&gt;/path/to/root_CA_cert_plus_intermediates&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="kn"&gt;resolver&lt;/span&gt; &lt;span class="s"&gt;&amp;lt;IP&lt;/span&gt; &lt;span class="s"&gt;DNS&lt;/span&gt; &lt;span class="s"&gt;resolver&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+  &lt;span class="kn"&gt;location&lt;/span&gt; &lt;span class="n"&gt;/weechat&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_pass&lt;/span&gt; &lt;span class="s"&gt;https://weechat&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_http_version&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="s"&gt;.1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_set_header&lt;/span&gt; &lt;span class="s"&gt;Upgrade&lt;/span&gt; &lt;span class="nv"&gt;$http_upgrade&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_set_header&lt;/span&gt; &lt;span class="s"&gt;Connection&lt;/span&gt; &lt;span class="s"&gt;"upgrade"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_ssl_trusted_certificate&lt;/span&gt; &lt;span class="n"&gt;/path/to/copy/of/relay.pem&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_ssl_verify&lt;/span&gt; &lt;span class="no"&gt;off&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+      &lt;span class="kn"&gt;proxy_read_timeout&lt;/span&gt; &lt;span class="s"&gt;4h&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+
+  &lt;span class="kn"&gt;location&lt;/span&gt; &lt;span class="n"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kn"&gt;root&lt;/span&gt; &lt;span class="n"&gt;/var/www/glowing-bear&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If download the &lt;a href="https://github.com/glowing-bear/glowing-bear/archive/gh-pages.zip"&gt;latest stable version of Glowing Bear&lt;/a&gt;, extract it into the
+directory &lt;code&gt;/var/www/glowing-bear&lt;/code&gt; to have nginx serve it. This is entirely
+optional, you can always use the public version.&lt;/p&gt;
+
+&lt;h2&gt;Finished!&lt;/h2&gt;
+
+&lt;p&gt;Your connection settings for Glowing Bear, or any other relay client, would be
+as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Host: &lt;strong&gt;irc.example.com&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Port: &lt;strong&gt;443&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Password: &lt;strong&gt;yourpassword&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Announcing tls-grab</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/08/announcing-tls-grab.html"/>
+    <id>https://evaryont.me/blog/2015/08/announcing-tls-grab.html</id>
+    <published>2015-08-28T17:49:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="announcement" scheme="https://evaryont.me/tags/" label="Announcement"/>
+    <category term="software" scheme="https://evaryont.me/tags/" label="Software"/>
+    <category term="security" scheme="https://evaryont.me/tags/" label="Security"/>
+    <content type="html">&lt;p&gt;It&amp;rsquo;s surprisingly painful to script getting the public certificate a website
+responds with. Or, getting the certificate&amp;rsquo;s fingerprint. This information is
+always mixed together with other human output, which means you&amp;rsquo;d have to resort
+to mixing sed or grep and because the output is meant for humans not machines,
+the regexes you&amp;rsquo;d make end up fragile.&lt;/p&gt;
+
+&lt;p&gt;So, I made &lt;a href="https://github.com/evaryont/tls-grab"&gt;tls-grab&lt;/a&gt; to do the TLS handshake and get the server&amp;rsquo;s public
+certificate or to generate the certificate&amp;rsquo;s fingerprint.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Generate a modern CSR with OpenSSL</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html"/>
+    <id>https://evaryont.me/blog/2015/08/generate-a-modern-csr-with-openssl.html</id>
+    <published>2015-08-05T12:44:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="security" scheme="https://evaryont.me/tags/" label="Security"/>
+    <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
+    <content type="html">&lt;p&gt;To get an SSL certificate, you need to first generate a CSR. However, some
+early settings for the CSR can cripple your deployment before you even choose
+any ciphers. The normal command, &lt;code&gt;openssl req&lt;/code&gt;, will use old and now insecure
+defaults.&lt;/p&gt;
+
+&lt;p&gt;Not that it&amp;rsquo;s particularly hard, you just need to pass in some parameters to the
+command to opt into the newer crypto:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;openssl req -nodes -new -newkey rsa:4096 -sha256 -keyout private.key -out cert.csr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The particular updates to the command are 2 part:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The new certificate request will generate a 4096 bit RSA key. This is
+currently more than the base 2048 that&amp;rsquo;s considered secure, but I have heard
+rumors about 2048 becoming factorizable&amp;hellip; Better safe than sorry.&lt;/li&gt;
+&lt;li&gt;Use SHA256 for the hash in the CSR.
+&lt;a href="https://shaaaaaaaaaaaaa.com/"&gt;Shaaaaaaaaaaaaa&lt;/a&gt; has a good summary&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For personal sites, not EVs, you can also pass another parameter to openssl to
+avoid it asking questions. All you need for those sites is just the common name
+of the certificate, or the domain name to be used for the site:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;openssl req -subj '/CN=evaryont.me/'
+&lt;/code&gt;&lt;/pre&gt;</content>
+  </entry>
+  <entry>
+    <title>Nginx may not reload config</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/07/nginx-may-not-reload-config.html"/>
+    <id>https://evaryont.me/blog/2015/07/nginx-may-not-reload-config.html</id>
+    <published>2015-07-12T09:03:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
+    <category term="troubleshooting" scheme="https://evaryont.me/tags/" label="Troubleshooting"/>
+    <content type="html">&lt;p&gt;&lt;img alt="Have you tried turning it off and on again?" src="https://www.thinkgeek.com/images/products/additional/large/11C3_ITCROWD_TURNOFFON.jpg" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Per the &lt;a href="http://wiki.nginx.org/CommandLine"&gt;nginx documentation&lt;/a&gt;
+(emphasis mine):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;What happens is that when nginx receives the HUP signal, it tries to parse the
+configuration file (the specified one, if present, otherwise the default), and
+if successful, tries to apply a new configuration (i.e. re-open the log files
+and listen sockets). If successful, nginx runs new worker processes and
+signals graceful shutdown to old workers. Notified workers close listen
+sockets but continue to serve current clients. After serving all clients old
+workers shutdown. &lt;strong&gt;If nginx couldn&amp;rsquo;t successfully apply the new configuration,
+it continues to work with an old configuration.&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Thus, if you have a properly set up nginx configuration and yet you are still
+getting the default &amp;ldquo;Welcome to nginx!&amp;rdquo; page over and over, try restarting nginx
+itself. I wished I&amp;rsquo;d have realized this aspect of nginx before spending hours
+scratching my head.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>From Amazon, Intui-Shop and Recommendation Engines</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html"/>
+    <id>https://evaryont.me/blog/2015/04/from-amazon-intui-shop-and-recommendation-engines.html</id>
+    <published>2015-04-03T13:14:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="quote" scheme="https://evaryont.me/tags/" label="Quote"/>
+    <category term="humour" scheme="https://evaryont.me/tags/" label="Humour"/>
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;The benefits of “Intui-Shop” go beyond not having to think about anything ever
+again. They include discovering, and buying, exciting new products that you
+haven&amp;rsquo;t even heard of yet, and catching up on old Amazon Wish List items that
+you haven&amp;rsquo;t thought about in years.&lt;/p&gt;
+
+&lt;p&gt;Let’s put it this way: You know how, when you order something on Amazon, you
+lose track of when it’s supposed to arrive? So that, when you find it at your
+door, it feels like your birthday? Now every day can—and will—be like that.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href="http://www.newyorker.com/humor/daily-shouts/an-important-notice-from-amazon"&gt;A humour piece from the New Yorker&lt;/a&gt;.
+I doubt we’ll actually see this – there are too many risqué and truly crap
+products on Amazon to full automate it entirely, and real AI is too damn hard.
+But the future of recommendation engines definitely can do down this path.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Cox home network facts</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/03/cox-home-network-facts.html"/>
+    <id>https://evaryont.me/blog/2015/03/cox-home-network-facts.html</id>
+    <published>2015-03-02T16:29:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="networking" scheme="https://evaryont.me/tags/" label="Networking"/>
+    <content type="html">&lt;p&gt;Just called Tier 2 tech support for Cox looking to unblock some ports. Namely,
+port 80, for web servers. Turns out that’s not going to happen.&lt;/p&gt;
+
+&lt;p&gt;The following ports are blocked for inbound traffic:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;80&lt;/li&gt;
+&lt;li&gt;25&lt;/li&gt;
+&lt;li&gt;135-139&lt;/li&gt;
+&lt;li&gt;143&lt;/li&gt;
+&lt;li&gt;445&lt;/li&gt;
+&lt;li&gt;1433-1434&lt;/li&gt;
+&lt;li&gt;1900&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(For a total of 13 ports that will never respond.)&lt;/p&gt;
+
+&lt;p&gt;The tech support on call seemed to imply that outbound traffic on port 25 is
+blocked as well.&lt;/p&gt;
+
+&lt;p&gt;Also, static IPs for residental networks are never, ever going to happen.&lt;/p&gt;
+
+&lt;p&gt;Unblocking those ports? Nope, never. No if, ands, or buts about it. This is
+entirely due to malware using those ports to either open an outgoing RAT/C&amp;amp;C
+connection, or breach the network via exploits on software commonly run on
+those ports (looking at you, intrepid Microsoft Server user who doesn’t know
+how to secure it).&lt;/p&gt;
+
+&lt;p&gt;But notably, the default port for HTTPS (443) isn’t blocked, and I specifically
+asked about it. Totally go for it, it’s fine. Of course, if you start hosting
+malware and generally causing trouble for the neighboorhood, that’s no bueno
+and is grounds for account termination. “No internet for you!” (The whole
+neighboorhood can be affected because your bandwidth is shared up to the cable
+node.)&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>What systemd actually brings to the table: Interfaces</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html"/>
+    <id>https://evaryont.me/blog/2015/02/what-systemd-actually-brings-to-the-table-interfaces.html</id>
+    <published>2015-02-14T16:13:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
+    <content type="html">&lt;p&gt;One thing I’d like point out is that while systemd is coupling many of those
+sort of things together into one cohesive package (but not one program, natch),
+it’s not trying to be the primary thing for all of those. So you can rule out
+hostname, httpd, dbus, LUKS, date, and iptables from that list. (It won’t be
+the primary webserver, it just has one. It isn’t hosting the DBus daemon as
+part of it, it just uses it extensively, etc.)&lt;/p&gt;
+
+&lt;p&gt;The other aspect of some of the extraneous projects that systemd is introducing
+(datetimed, hostnamed, etc) are just APIs and an implementation for something
+that has badly needed one but nothing had arisen yet. Convention over
+configuration is a powerful default, one that Linux has sorely lacked.&lt;/p&gt;
+
+&lt;p&gt;And there is a lot of configuration the system needs to do during boot-up to
+get a basic functioning system, regardless of purpose. You want your hard
+drives mounted, in the correct locations. You want your network stack
+initialized, at least basically. You want your firewall rules applied. You want
+all of this done in the correct order, but parallelized when possible. Which
+means you’d need a defined interface to interrogate the state of each of those.
+And perhaps a defined interface for each of those to notify the init process.
+(An alternative architecture can be developed, I’m sure.)&lt;/p&gt;
+
+&lt;p&gt;All that being said, I think systemd would’ve been easier to swallow if
+hostnamed, datetimed, etc were introduced earlier and used before pushing
+systemd itself. However, I don’t think a lot of people would have used them
+individually if they were. It’d be like looking at trying to replace a cron
+implementation. A dedicated camp or two would use it, but the rest of the
+community would ignore it. (Pick any example, I’m certain I could find examples
+of alternatives coming but never reaching critical mind share. Even if they
+would’ve improved the status quo in some way.)&lt;/p&gt;
+
+&lt;p&gt;I see systemd as pushing many different changes that needed to happen at some
+point all at once. Risky, noisy, and quite painful. Ripping the bandages off
+all the hacks from the 80’s &amp;amp; 90’s at once.&lt;/p&gt;
+
+&lt;p&gt;It could’ve been done better.&lt;/p&gt;
+
+&lt;p&gt;(In response to &lt;a href="https://lobste.rs/s/ewi8gu/fed_up_with_systemd_and_linux_why_not_try_pc-bsd/comments/7x7p9b#c_7x7p9b"&gt;this comment on Lobste.rs&lt;/a&gt;)&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Generating a webpage screenshot in ruby</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html"/>
+    <id>https://evaryont.me/blog/2014/10/generating-a-screenshot-in-ruby.html</id>
+    <published>2014-10-15T17:17:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
+    <category term="howto" scheme="https://evaryont.me/tags/" label="Howto"/>
+    <content type="html">&lt;p&gt;As I have spent the last hour and a half figuring out, generating a screenshot
+of a website in Ruby is harder than it seems.&lt;/p&gt;
+
+&lt;p&gt;So first off, we&amp;rsquo;ll need a browser&amp;rsquo;s rendering engine. Preferably one that is
+headless, so we&amp;rsquo;ll go with PhantomJS. Make sure it&amp;rsquo;s installed.&lt;/p&gt;
+
+&lt;p&gt;Then, we need a way to control PhantomJS, and I&amp;rsquo;m a fan of Watir so we&amp;rsquo;ll use
+that. To connect to PhantomJS, you also need the selenium webdriver gem. So your
+gemfile would look like:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;'watir'&lt;/span&gt;
+&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="s1"&gt;'watir-webdriver'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then let&amp;rsquo;s write the code to actually take the screenshot:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;
+&lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;goto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://google.com"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt; &lt;span class="s1"&gt;'google.com.png'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, if you try to run it, the result isn&amp;rsquo;t what you&amp;rsquo;d expect from Google.
+It has the old black navigation bar at the top. As it turns out, Google does UA
+sniffing, so let&amp;rsquo;s pretend to be Firefox instead:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:desired_capabilities&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;capabilities&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So that should work for everything and every body now, right? Nope!&lt;/p&gt;
+
+&lt;p&gt;As it also turns out, PhantomJS includes it&amp;rsquo;s own certificate store, and if it
+doesn&amp;rsquo;t recognize a site&amp;rsquo;s SSL certificate, it&amp;rsquo;ll error out, returning a
+transparent image as the screenshot. (Cause hey, &lt;code&gt;about:blank&lt;/code&gt; is actually
+blank!) You can set the command line parameter &lt;code&gt;--ignore-ssl-errors=true&lt;/code&gt; to
+fix that. You can pass CLI parameters in via a capability. So modifying the
+previous code&amp;hellip;&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                                                   &lt;span class="s1"&gt;'phantomjs.cli.args'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'--ignore-ssl-errors=true'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now personally, I think the default resolution (400x300) of PhantomJS is a
+little small. I personally like the screenshot to be a bit bigger, so let&amp;rsquo;s
+expand it:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="n"&gt;dimensions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Dimension&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dimensions&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There you go! A side note, the dimensions just set the size of the viewport, the
+website can of course scroll beyond that size. Taking a screenshot will capture
+the entire page, not just what is visible in the viewport.&lt;/p&gt;
+
+&lt;p&gt;The complete code:&lt;/p&gt;
+&lt;pre class="highlight ruby"&gt;&lt;code&gt;&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'watir'&lt;/span&gt;
+&lt;span class="nb"&gt;require&lt;/span&gt; &lt;span class="s1"&gt;'watir-webdriver'&lt;/span&gt;
+
+&lt;span class="n"&gt;capabilities&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Remote&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Capabilities&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;phantomjs&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/33.0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                                                   &lt;span class="s1"&gt;'phantomjs.cli.args'&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'--ignore-ssl-errors=true'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+
+&lt;span class="n"&gt;browser&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Watir&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt; &lt;span class="ss"&gt;:phantomjs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="ss"&gt;:desired_capabilities&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;capabilities&lt;/span&gt;
+
+&lt;span class="n"&gt;dimensions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="no"&gt;Selenium&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;WebDriver&lt;/span&gt;&lt;span class="o"&gt;::&lt;/span&gt;&lt;span class="no"&gt;Dimension&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1024&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;768&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;manage&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;size&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;dimensions&lt;/span&gt;
+
+&lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;goto&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://google.com"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nf"&gt;save&lt;/span&gt; &lt;span class="s1"&gt;'google.com.png'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Thanks to these other blogs:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;http://blog.vbalazs.me/2014/08/my-adventures-with-tracking-down-a-database-leak.html&lt;/li&gt;
+&lt;li&gt;http://stackoverflow.com/a/17687452&lt;/li&gt;
+&lt;li&gt;http://yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/#phantomjs&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Reset erchef admin password</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2014/06/reset-erchef-admin-password.html"/>
+    <id>https://evaryont.me/blog/2014/06/reset-erchef-admin-password.html</id>
+    <published>2014-06-04T15:08:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="ruby" scheme="https://evaryont.me/tags/" label="Ruby"/>
+    <category term="chef" scheme="https://evaryont.me/tags/" label="Chef"/>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
+    <content type="html">&lt;p&gt;&lt;img alt="Chef Inc, logo" src="https://www.chef.io/images/logo.svg" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Forgetting the admin password to the self-hosted chef server can be a real pain.
+Assuming you are using the &lt;a href="https://downloads.chef.io/chef-server/"&gt;omnibus install of
+chef-server&lt;/a&gt;, you can reset the admin
+password by logging into the server it&amp;rsquo;s running on via SSH and run:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;sudo -u opscode-pgsql /opt/chef-server/embedded/bin/psql opscode_chef -f /tmp/reset.sql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Where &lt;code&gt;/tmp/reset.sql&lt;/code&gt; contains the following:&lt;/p&gt;
+&lt;pre class="highlight plaintext"&gt;&lt;code&gt;update osc_users set hashed_password='$2a$12$y31Wno2MKiGXS3FSgVg5UunKG48gJz0pRV//RMy1osDxVbrb0On4W', salt='$2a$12$y31Wno2MKiGXS3FSgVg5Uu' where username='admin';
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now you&amp;rsquo;ve reset the password, and can log in to the chef server admin page with
+the user name &amp;lsquo;admin&amp;rsquo; and password &amp;lsquo;password&amp;rsquo;.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>More about EC2 and NTP</title>
+    <link rel="alternate" href="https://evaryont.me/blog/2014/04/more-about-ec2-and-ntp.html"/>
+    <id>https://evaryont.me/blog/2014/04/more-about-ec2-and-ntp.html</id>
+    <published>2014-04-18T13:43:00-07:00</published>
+    <updated>2016-09-14T10:47:23-07:00</updated>
+    <category term="networking" scheme="https://evaryont.me/tags/" label="Networking"/>
+    <category term="time" scheme="https://evaryont.me/tags/" label="Time"/>
+    <category term="sysadmin" scheme="https://evaryont.me/tags/" label="Sysadmin"/>
+    <content type="html">&lt;p&gt;There is a lot of back and forth about using NTP on Amazon&amp;rsquo;s EC2 servers. Here
+are some links:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://serverfault.com/questions/100978/do-i-need-to-run-ntpd-in-my-ec2-instance"&gt;http://serverfault.com/questions/100978/do-i-need-to-run-ntpd-in-my-ec2-instance&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.metamul.com/blog/ntp-isnt-required-under-ec2-or-is-it/"&gt;http://www.metamul.com/blog/ntp-isnt-required-under-ec2-or-is-it/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://stackoverflow.com/questions/14623650/how-to-deal-with-the-amazon-ec2s-clock-drift"&gt;http://stackoverflow.com/questions/14623650/how-to-deal-with-the-amazon-ec2s-clock-drift&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://james.lab6.com/2011/03/19/clock-drift-on-amazon-ec2/"&gt;http://james.lab6.com/2011/03/19/clock-drift-on-amazon-ec2/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.basho.com/riak/latest/ops/tuning/aws/#Operating-System"&gt;http://docs.basho.com/riak/latest/ops/tuning/aws/#Operating-System&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://forums.aws.amazon.com/thread.jspa?messageID=364758"&gt;https://forums.aws.amazon.com/thread.jspa?messageID=364758&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html"&gt;http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A summary then:&lt;/p&gt;
+
+&lt;p&gt;Yeah, run NTP. It&amp;rsquo;ll work 80% of the time. It won&amp;rsquo;t work on some other EC2
+servers (based on the instance type) but won&amp;rsquo;t error out, a harmless no-op.
+There is has been reported cases of NTP failing &amp;amp; erroring out when attempting
+to set the time, but that also seems like a case of outdated kernels (either in
+the Xen domU or on the guest). So update your VM and terminate/cycle it to
+hopefully move it do a host Amazon server with the newer kernel.&lt;/p&gt;
+</content>
+  </entry>
+</feed>
