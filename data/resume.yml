@@ -38,13 +38,14 @@ alphabetsoup:
   mastery:
     - Linux
     - Ruby
-    - Chef
+    - Ansible
     - Python
     - Puppet
     - TLS/SSL
     - git
     - AWS
     - MySQL
+    - Chef
     - SaltStack
 
   proficiency:

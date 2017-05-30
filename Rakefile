@@ -131,4 +131,15 @@ namespace :resume do
       raise
     end
   end
+
+  task :new do
+    require 'webrick'
+    @port_num = rand(8000..9000)
+    ws = Thread.new do
+      WEBrick::HTTPServer.new(:Port => @port_num, :DocumentRoot => Dir.pwd + '/build').start
+    end
+
+    `wkhtmltopdf --margin-top 2 --margin-left 2 --margin-right 2 --margin-bottom 2 --print-media-type 'http://localhost:#{@port_num}/resume.html' #{Dir.pwd}/build/resume.pdf`
+    ws.exit
+  end
 end
