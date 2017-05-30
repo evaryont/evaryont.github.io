@@ -26,3 +26,5 @@ div.no-page-breaker {
 ul.links li { border-bottom: 1px solid #ccc; font-size: 115%; }
 ul.links li { list-style: square outside; display: list-item; }
 ul.links li:after { content: none; }
+
+#doc2 { width: 100%; }
