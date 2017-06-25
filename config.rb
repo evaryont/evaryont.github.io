@@ -1,5 +1,3 @@
-Time.zone = "America/Phoenix"
-
 require 'pp'
 require 'digest/sha1'
 require 'geo_pattern'
