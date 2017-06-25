@@ -76,24 +76,15 @@ desc "Build and upload my website to everywhere"
 # - Push source repo to github
 #
 # Whew!
-task :deploy => ["dirty_git", "build", "resume", "deploy:evaryont", "deploy:github", "deploy:git_push"]
+task :deploy => ["dirty_git", "build", "resume", "deploy:rsync", "deploy:git_push"]
 
 namespace :deploy do
-  def deploy(env)
-    desc "Deploy the website to #{env}"
-    task env => [:dirty_git] do
-      cd @project_root
-      puts "Deploying to #{env}"
-      sh "TARGET=#{env} bundle exec middleman deploy"
-      Rake::Task["deploy:#{env}"].reenable
-    end
-  end
-
-  deploy :evaryont
-  deploy :github
-
   task :git_push => [:dirty_git] do
     sh "git push"
+  end
+
+  task :rsync do
+    sh "rsync -avz --exclude='.git/' --delete --delete-excluded build/ colin@evaryont.me:/var/www/evaryont.me"
   end
 end
 

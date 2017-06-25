@@ -15,14 +15,14 @@
 
   <!-- navigation links to chronologically related posts -->
   <span class='relative-posts'>
-    <% if article.previous_article %>
-      <%= link_to "<< " + article.previous_article.title, article.previous_article, class: 'next-article' %>
+    <% if article.article_previous %>
+      <%= link_to "<< " + article.article_previous.title, article.article_previous, class: 'next-article' %>
     <% end %>
 
-    <% if article.previous_article && article.next_article %> | <% end %>
+    <% if article.article_previous && article.article_next %> | <% end %>
 
-    <% if article.next_article %>
-      <%= link_to article.next_article.title + " >>", article.next_article, class: 'next-article' %>
+    <% if article.article_next %>
+      <%= link_to article.article_next.title + " >>", article.article_next, class: 'next-article' %>
     <% end %>
   </span>
 </div>

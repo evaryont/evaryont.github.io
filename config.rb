@@ -14,6 +14,12 @@ File.join(File.expand_path(File.dirname(__FILE__)), 'lib').tap do |pwd|
   $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
 end
 
+# Dumb hacks are dumb. Since the blog posts don't include '.html.' in the file
+# name (nor do I want them to), Middleman defaults to showing them as plain
+# text. Instead, send all pseudo-extensionless files as HTML. This might break
+# something down the line.
+::Rack::Mime::MIME_TYPES[''] = 'text/html'
+
 helpers do
     def display_date(date)
       if date.is_a?(Time)
@@ -81,26 +87,23 @@ helpers do
 end
 
 activate :blog do |blog|
-  blog.tag_template = "tag.html"
-  blog.calendar_template = "calendar.html"
-
-  blog.sources = "posts/:title"
-
-  blog.permalink = "blog/{year}/{month}/{title}"
+  blog.sources = 'posts/{title}'
+  blog.permalink = 'blog/{year}/{month}/{title}.html'
+  blog.taglink = 'tags/{tag}/index.html'
 
   # Enable pagination
   blog.paginate = false
 
-  blog.layout = "blog_post"
-
-  blog.new_article_template = "article.tt"
+  blog.layout = 'blog_post'
+  blog.tag_template = 'tag.html'
+  blog.calendar_template = 'calendar.html'
+  blog.new_article_template = 'article.tt'
 
   # Don't generate any date-specific pages, just the blog post pages.
   blog.calendar_template = false
   blog.year_template = false
   blog.month_template = false
   blog.day_template = false
-  blog.taglink = 'tags/{tag}/index.html'
 end
 
 # Automatic image dimensions on image_tag helper
@@ -112,14 +115,13 @@ activate :livereload
 set :css_dir,      'assets/stylesheets'
 set :js_dir,       'assets/javascripts'
 set :images_dir,   'assets/images'
-set :layouts_dir,  'layouts/'
-set :partials_dir, 'layouts/'
 
 # Enable cache buster
 activate :asset_hash
 
 set :layout, 'default'
-#page "/blog/*", layout: 'post'
+page "/blog/*", layout: 'post'
+page "/resume.html", :layout => false
 
 activate :syntax#, :line_numbers => true
 
@@ -133,23 +135,5 @@ configure :build do
   if ENV['TARGET'] # Building when we are deploying...
     activate :minify_css
     activate :minify_javascript
-  end
-end
-
-case ENV['TARGET'].to_s.downcase
-when 'evaryont'
-  activate :deploy do |deploy|
-    deploy.method = :rsync
-    deploy.host   = "evaryont.me"
-    deploy.user   = 'colin'
-    deploy.path   = "/var/www/evaryont.me"
-    deploy.flags  = "-avz --exclude='.git/' --delete --delete-excluded"
-    deploy.clean  = true
-  end
-when 'github'
-  activate :deploy do |deploy|
-    deploy.method = :git
-    deploy.remote = 'github'
-    deploy.branch = 'master'
   end
 end

@@ -1,6 +1,6 @@
 <% wrap_layout :default do %>
 
-  <%= partial "sidebar" %>
+  <%= partial "layouts/sidebar" %>
   
   <!-- Geopattern header! Fancy! 🎩 -->
   <div class="fartsy-header" style="background-image: <%= geopattern(current_page.path) %>">
@@ -9,7 +9,7 @@
 
   <div role="main" class="content container">
     <% if current_article %>
-      <%= partial "article", locals: {article: current_article} %>
+      <%= partial "layouts/article", locals: {article: current_article} %>
 
       <!-- and missing comments :-( -->
     <% else %>
